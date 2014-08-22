@@ -1,0 +1,48 @@
+<template name="booksList">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 id="buttons">Lista de libros</h1>
+    </div>
+  </div>
+<!--   
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="bs-component">
+        <table class="table table-striped table-hover ">
+          <thead>
+            <tr>
+              <th>Título</th>
+              <th>Autor</th>
+              <th>Tipo de medio</th>
+              <th>Clasificación</th>
+              <th>Editar</th>
+              <th>Eliminar</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each books}}
+              <tr>
+                <td>{{title}}</td>
+                <td>{{author}}</td>
+                <td>{{mediaType}}</td>
+                <td>{{classification}}</td>
+                <td><a href="/book/{{this._id}}"><i class="fa fa-edit"></i></a></td>
+                <td>
+                  <a href="#"><i id="deleteBook" name="{{_id}}" class="fa fa-times-circle {{toEnableDelete _id}}" style="color:#C8423E;"></i></a>
+                  <a href="#" id="cancelDelete" name ="{{_id}}" class="btn btn-primary btn-sm {{toConfirmDelete _id}}">Cancelar</a>
+                  <a href="#" id="confirmDelete" name="{{_id}}" class="btn btn-danger btn-sm {{toConfirmDelete _id}}">Confirmar Eliminación</a>                   
+                </td>
+              </tr>
+               
+            {{/each}}
+          </tbody>
+        </table> 
+      </div>
+    </div>
+  </div>
+   -->
+  <div class="row">
+    {{> reactiveTable collection=booksTable settings=tableSettings}}
+  </div>
+  
+</template>

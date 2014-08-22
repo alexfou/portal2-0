@@ -1,0 +1,41 @@
+<template name="navBarTop">
+  <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="../" class="navbar-brand">Central de Información</a>
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+          <ul class="nav navbar-nav">
+            <li class={{pathWithUser "/bookInsert"}}>
+              <a href="{{pathFor 'bookInsert'}}">Agregar</a>
+            </li> 
+            <li class="dropdown {{pathWithUser "/booksList"}}">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Listados <span class="caret"></span></a>
+              <ul class="dropdown-menu" aria-labelledby="themes">
+                <li><a href="/booksList">Listado 1</a></li>
+                <li><a href="../default/">Listado 2</a></li>
+              </ul>
+            </li>
+            <li>
+              {{#if notCurrentUser}}<a href="../help/">Ayuda</a>{{/if}}
+            </li> 
+          </ul>
+          
+          <ul class="nav navbar-nav navbar-right">
+             <li>
+              {{#if notCurrentUser}}<a href="/sign-in">Ingresar <i class="fa fa-sign-in"></i></a>{{else}}<a href="/sign-out">{{userEmail}} <i class="fa fa-sign-out"></i></a> {{/if}}
+            </li>
+          </ul>
+          
+        </div>
+      </div>
+    </div>
+  <div class="container">
+    {{> yield}}
+  </div>
+</template>

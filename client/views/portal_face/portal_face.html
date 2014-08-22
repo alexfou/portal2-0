@@ -1,0 +1,10 @@
+<template name="portalFace">
+  <br><br><br>
+  <div class="bs-component">
+    <div class="jumbotron">
+      <h1>Portal de la Central de Información</h1>
+        <p>Bienvenidos a este sitio! Nuestra misión fundamental es facilitarle la administración de sus indicadores institucionales. </p>
+      <div class="loginDiv"> {{#if currentUser}}<a href="/sign-out">{{userEmail}} <i class="fa fa-sign-out"></i></a> {{else}}<a href="/sign-in" class="btn btn-success"><i class="fa fa-sign-in"></i> Ingresar</a>{{/if}}</div>
+   </div>
+  </div>
+</template>

@@ -1,0 +1,10 @@
+<template name="bookPage">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 id="buttons">Detalles del libro</h1>
+    </div>
+  </div>
+  
+  {{> quickForm collection="Books" doc=editingDoc id="updateBookForm" type="update" buttonContent="Guardar"}}
+  
+</template>
