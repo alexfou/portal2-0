@@ -16,6 +16,21 @@
       </div>
   </div>
   </div>
+  
+  {{#if showWarningDeletedBook}}
+  <div class="row">
+    <div class="col-lg-12">
+
+      <div class="bs-component">
+              <div class="alert alert-dismissable alert-warning">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <h4>¡Atención! Usted eliminó un registro. Si fue un error <a href="#" id="undoDeletedBook" class="alert-link">deshacer última eliminación</a>.</h4>
+              </div>
+            </div>
+    </div>
+  </div>
+  {{/if}}
+  
   <div class="row">
     {{> reactiveTable collection=booksTable settings=tableSettings}}
   </div>

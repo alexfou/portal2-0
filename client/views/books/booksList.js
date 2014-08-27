@@ -8,6 +8,15 @@ Template.booksList.helpers({
     return Books.find().fetch();  
   },
   
+  showWarningDeletedBook: function(){
+    ldb = Session.get('lastDeletedBook');
+    if(ldb === undefined || ldb === false || ldb === null){
+      return false; 
+    }else{
+      return true;
+    }
+  },
+  
   toConfirmDelete: function(bookId){
     if(Session.get('toConfirmDelete') !== undefined && Session.get('toConfirmDelete') && Session.get('edit_bookId') == bookId){
       return "";   
@@ -64,6 +73,20 @@ Template.booksList.events({
     }
   },
   
+  'click .reactive-table tr': function (event) {
+    // set the blog post we'll display details and news for
+    Session.set("formType","disabled");
+    var bookId = this;
+    Router.go("/book/"+bookId._id);
+  },
+  
+  'click #undoDeletedBook': function (event) {
+    console.log('inside undo');
+    ldb = Session.get('lastDeletedBook');
+    Books.insert(_.omit(ldb, '_id'));
+    Session.set("lastDeletedBook",null);
+  }
+  
 });
 
 
@@ -81,21 +104,24 @@ Template.booksList.helpers({
           { key: 'author', label: 'Autor' },
           { key: 'mediaType', label: 'Tipo de medio' }];
         var finalArray = _.filter(fs , function(fsObj){return _.contains(sel,fsObj.key);});
-        finalArray.push({ key: '_id', label: 'Editar', fn: function (value) {
-                 return new Spacebars.SafeString('<a href="/book/'+value+'"><i class="fa fa-edit"></i></a>');
-               }});
-       finalArray.push({ key: '_id', label: 'Eliminar', fn: function (value) {
-                var str="";
-                if(Session.get('toConfirmDelete') !== undefined && 
-                   Session.get('toConfirmDelete') && 
-                   Session.get('edit_bookId') == value){
-                     str = '<a href="#" id="cancelDelete" name ="'+value+'" class="btn btn-primary btn-sm {{toConfirmDelete _id}}">Cancelar</a>' + 
-                       '<a href="#" id="confirmDelete" name="'+value+'" class="btn btn-danger btn-sm {{toConfirmDelete _id}}">Confirmar Eliminación</a>  ';                     
-                }else{
-                  str= '<a href="#"><i id="deleteBook" name="'+value+'" class="fa fa-times-circle {{toEnableDelete _id}}" style="color:#C8423E;"></i></a>';   
-                }
-                return new Spacebars.SafeString(str);
-              }});
+//         finalArray.push({ key: 'title', label: ' ', fn: function (value) {
+//           return new Spacebars.SafeString('ver detalles');
+//         }});
+//         finalArray.push({ key: '_id', label: 'Editar', fn: function (value) {
+//                  return new Spacebars.SafeString('<a href="/book/'+value+'"><i class="fa fa-edit"></i></a>');
+//                }});
+//        finalArray.push({ key: '_id', label: 'Eliminar', fn: function (value) {
+//                 var str="";
+//                 if(Session.get('toConfirmDelete') !== undefined && 
+//                    Session.get('toConfirmDelete') && 
+//                    Session.get('edit_bookId') == value){
+//                      str = '<a href="#" id="cancelDelete" name ="'+value+'" class="btn btn-primary btn-sm {{toConfirmDelete _id}}">Cancelar</a>' + 
+//                        '<a href="#" id="confirmDelete" name="'+value+'" class="btn btn-danger btn-sm {{toConfirmDelete _id}}">Confirmar Eliminación</a>  ';                     
+//                 }else{
+//                   str= '<a href="#"><i id="deleteBook" name="'+value+'" class="fa fa-times-circle {{toEnableDelete _id}}" style="color:#C8423E;"></i></a>';   
+//                 }
+//                 return new Spacebars.SafeString(str);
+//               }});
     
         return {
             rowsPerPage: 5,
