@@ -1,16 +1,16 @@
-Template.booksList.rendered = function(){
-  s = Session.get('colSelectedBooks');
+Template.authorsList.rendered = function(){
+  s = Session.get('colSelectedAuthors');
   if( s === undefined || s === false || _.isEmpty(s)){
-    Session.set('colSelectedBooks',['title', 'author.name', 'mediaType']);
+    Session.set('colSelectedAuthors',['name', 'birthCountry']);
   }
 }
-Template.booksList.helpers({
+Template.authorsList.helpers({
   books: function () {
-    return Books.find().fetch();  
+    return Authors.find().fetch();  
   },
   
-  showWarningDeletedBook: function(){
-    ldb = Session.get('lastDeletedBook');
+  showWarningDeletedAuthor: function(){
+    ldb = Session.get('lastDeletedAuthor');
     if(ldb === undefined || ldb === false || ldb === null){
       return false; 
     }else{
@@ -18,15 +18,15 @@ Template.booksList.helpers({
     }
   },
   
-  toConfirmDelete: function(bookId){
-    if(Session.get('toConfirmDelete') !== undefined && Session.get('toConfirmDelete') && Session.get('edit_bookId') == bookId){
+  toConfirmDelete: function(authorId){
+    if(Session.get('toConfirmDelete') !== undefined && Session.get('toConfirmDelete') && Session.get('edit_authorId') == authorId){
       return "";   
     }else{
       return "hidden";
     }
   },
   
-  toEnableDelete: function(bookId){
+  toEnableDelete: function(authorId){
     if(Session.get('toConfirmDelete') === undefined || !Session.get('toConfirmDelete')){
       return "";   
     }else{
@@ -36,40 +36,40 @@ Template.booksList.helpers({
 });
 
 
-Template.booksList.events({
+Template.authorsList.events({
   "click .fa-times-circle" : function(event){    
     bId = $(event.target).attr("name");
-    Session.set('edit_bookId', bId);
+    Session.set('edit_authorId', bId);
     Session.set('toConfirmDelete', true);
   },
   
   "click #cancelDelete" : function(event){
-    Session.set('edit_bookId', null);
+    Session.set('edit_authorId', null);
     Session.set('toConfirmDelete', false);
   },
   
   "click #confirmDelete" : function(event){  
     Books.remove({_id:bId});
-    Session.set('edit_bookId', null);
+    Session.set('edit_authorId', null);
     Session.set('toConfirmDelete', false);
   },
   
   "click .colSelect" : function(event){  
     
-    s = Session.get('colSelectedBooks');
+    s = Session.get('colSelectedAuthors');
     colClicked = $(event.target).attr("name");
     
     console.log("clicked: " + colClicked);
     
     if( s === undefined || s === false || _.isEmpty(s)){
-      Session.set('colSelectedBooks',['title']); 
+      Session.set('colSelectedAuthors',['title']); 
     }else{
       if(_.contains(s,colClicked)){
         if(s.length > 1){
-          Session.set('colSelectedBooks',_.without(s,colClicked));
+          Session.set('colSelectedAuthors',_.without(s,colClicked));
         }
       }else{
-        Session.set('colSelectedBooks',_.union(s,colClicked));
+        Session.set('colSelectedAuthors',_.union(s,colClicked));
       }
     }
   },
@@ -77,38 +77,37 @@ Template.booksList.events({
   'click .reactive-table tr': function (event) {
     // set the blog post we'll display details and news for
     Session.set("formType","disabled");
-    var bookId = this;
-    Router.go("/book/"+bookId._id);
+    var authorId = this;
+    Router.go("/author/"+ authorId._id);
   },
   
-  'click #undoDeletedBook': function (event) {
+  'click #undoDeletedAuthor': function (event) {
     console.log('inside undo');
-    ldb = Session.get('lastDeletedBook');
-    Books.insert(_.omit(ldb, '_id'));
-    Session.set("lastDeletedBook",null);
+    lda = Session.get('lastDeletedAuthor');
+    Author.insert(_.omit(lda, '_id'));
+    Session.set("lastDeletedAuthor",null);
   },
   
   'click .close': function (event) {
-    Session.set('lastDeletedBook', null);
+    Session.set('lastDeletedAuthor', null);
   }
   
 });
 
 
-Template.booksList.helpers({
+Template.authorsList.helpers({
   
-  booksTable: function () {
-    return Books;  
+  authorsTable: function () {
+    return Authors;  
   },
   
   tableSettings: function () {
     
-        var sel = Session.get('colSelectedBooks');
+        var sel = Session.get('colSelectedAuthors');
         
         var fs =[
-          { key: 'title', label: 'Título' },
-          { key: 'author.name', label: 'Autor' },
-          { key: 'mediaType', label: 'Tipo de medio' }];
+          { key: 'name', label: 'Nombre completo' },
+          { key: 'birthCountry', label: 'País de nacimiento' }];
       
         var finalArray = _.filter(fs , function(fsObj){return _.contains(sel,fsObj.key);});
 //         finalArray.push({ key: 'title', label: ' ', fn: function (value) {
@@ -139,12 +138,12 @@ Template.booksList.helpers({
         };
     },
   
-  colSelected: function(){
-    return [{ key: 'title', label: 'Título' }, { key: 'author', label: 'Autor' }];
-  },
+//   colSelected: function(){
+//     return [{ key: 'name', label: 'Título' }, { key: 'author', label: 'Autor' }];
+//   },
   
   buttonClass: function(field){
-    s = Session.get('colSelectedBooks');
+    s = Session.get('colSelectedAuthors');
     if( s === undefined || s === false){
       return 'btn btn-primary btn-xs';
     }else{

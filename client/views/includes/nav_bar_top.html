@@ -11,14 +11,14 @@
         </div>
         <div class="navbar-collapse collapse" id="navbar-main">
           <ul class="nav navbar-nav">
-            <li class={{pathWithUser "/bookInsert"}}>
-              <a href="{{pathFor 'bookInsert'}}">Agregar</a>
+            <li class={{pathWithUser "/home"}}>
+              <a href="{{pathFor 'home'}}">Inicio</a>
             </li> 
             <li class="dropdown {{pathWithUser "/booksList"}}">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Listados <span class="caret"></span></a>
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Administración de Librería <span class="caret"></span></a>
               <ul class="dropdown-menu" aria-labelledby="themes">
-                <li><a href="/booksList">Listado 1</a></li>
-                <li><a href="../default/">Listado 2</a></li>
+                <li><a href="/booksList">Libros</a></li>
+                <li><a href="../authorsList">Autores</a></li>
               </ul>
             </li>
             <li>

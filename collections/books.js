@@ -1,14 +1,39 @@
+Schemas = {};
+
+
+Authors = new Meteor.Collection("authors");
+Schemas.Author = new SimpleSchema({
+  name: {
+    type: String,
+    label: "Nombre completo",
+    max: 200
+  },
+  birthCountry: {
+    type: String,
+    label: "Pais de nacimiento",
+    allowedValues:["México", "Colombia"]  
+  },
+});
+Authors.attachSchema(Schemas.Author);
+
 Books = new Meteor.Collection("books");
-Books.attachSchema(new SimpleSchema({
+Schemas.Book = new SimpleSchema({
   title: {
     type: String,
     label: "Título",
     max: 200
   },
-  author: {
+  authorID: {
     type: String,
     label: "Autor"
   },
+  
+  author:{
+    type: Schemas.Author,
+    label: "Autor",
+    optional:true
+  },
+  
   copies: {
     type: Number,
     label: "Número de copias",
@@ -36,7 +61,58 @@ Books.attachSchema(new SimpleSchema({
     label: "Clasificación",
     allowedValues:["Ficción", "No ficción", "Drama", "Thriller"]    
   }
-}));
+});
+                                
+Books.attachSchema(Schemas.Book);
+                               
+// Books.attachSchema(new SimpleSchema({
+//   title: {
+//     type: String,
+//     label: "Título",
+//     max: 200
+//   },
+//   author: {
+//     type: Authors,
+//     label: "Autor"
+//   },
+  
+//   copies: {
+//     type: Number,
+//     label: "Número de copias",
+//     min: 0
+//   },
+//   lastCheckedOut: {
+//     type: Date,
+//     label: "Última fecha de checkout",
+//     optional: true
+//   },
+//   summary: {
+//     type: String,
+//     label: "Resumen",
+//     optional: true,
+//     max: 1000
+//   },
+//   mediaType: {
+//     type: String,
+//     label: "Tipo de medio",
+//     allowedValues:["Papel", "Electrónico"]    
+//   },
+  
+//   classification: {
+//     type: [String],
+//     label: "Clasificación",
+//     allowedValues:["Ficción", "No ficción", "Drama", "Thriller"]    
+//   }
+// }));
+
+
+
+
+
+
+
+
+
 
 SimpleSchema.messages({
   required: "[label] es un campo requerido",

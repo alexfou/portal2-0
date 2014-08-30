@@ -1,6 +1,6 @@
-Template.bookPage.helpers({
+Template.authorPage.helpers({
   editingDoc: function () {
-    return Books.findOne({_id: this._id});
+    return Authors.findOne({_id: this._id});
   },
   
   authorOptions: function () {
@@ -26,7 +26,7 @@ Template.bookPage.helpers({
   }
 });
 
-Template.bookPage.events({
+Template.authorPage.events({
   "click #editButton" : function(event){   
     Session.set('formType', "update");
   },
@@ -36,16 +36,16 @@ Template.bookPage.events({
   },
   
   "click #deleteButton" : function(event){
-    Session.set('lastDeletedBook', this);
-    Books.remove({'_id': this._id});
-    Router.go("/booksList")
+    Session.set('lastDeletedAuthor', this);
+    Authors.remove({'_id': this._id});
+    Router.go("/authorsList")
   },
 });
 
-Template.booksList.rendered = function(){
+Template.authorsList.rendered = function(){
     Session.set("formType","disabled");
 }
 
-Template.booksList.destroyed = function(){
+Template.authorsList.destroyed = function(){
     Session.set("formType","disabled");
 }

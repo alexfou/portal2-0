@@ -9,26 +9,26 @@
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2">
       <div class="well bs-component">
-           {{> quickForm collection="Books" id="insertBookForm" type="insert" validation="keyup" buttonContent="Guardar"}}
-<!--             {{#autoForm collection="Books" id="insertBookForm" type="insert" validation="keyup" }}
-              <div class="row">
-                <div class="col-lg-6">
-                  {{> afQuickField name='title' template="bootstrap3-horizontal" label-class="col-sm-3" input-col-class="col-sm-9" }}
-                  {{> afQuickField name='author' template="bootstrap3-horizontal" label-class="col-sm-3" input-col-class="col-sm-9" }}
-                  {{> afQuickField name='summary' rows=6 template="bootstrap3-horizontal" label-class="col-sm-3" input-col-class="col-sm-9" }}
-                </div>
-                <div class="col-lg-6">
-                  {{> afQuickField name='copies' template="bootstrap3-horizontal" label-class="col-sm-3" input-col-class="col-sm-9" }}
-                  {{> afQuickField name='lastCheckedOut' template="bootstrap3-horizontal" label-class="col-sm-3" input-col-class="col-sm-9" }}
-                  {{> afQuickField name='mediaType' options="allowed" noselect="true" template="bootstrap3-horizontal" label-class="col-sm-3" input-col-class="col-sm-9" }}
-                  {{> afQuickField name='classification' options="allowed" template="bootstrap3-horizontal" label-class="col-sm-3" input-col-class="col-sm-9" }}  
-                </div>
+<!--            {{> quickForm collection="Books" schema="Schemas.Book" id="insertBookForm" type="insert" validation="keyup" buttonContent="Guardar"}} -->
+            {{#autoForm collection="Books" id="insertBookForm" type="insert" doc=tempInsertBook validation="keyup" }}
+              
+                
+                  {{> afQuickField name='title'  }}
+                  {{> afQuickField name='authorID' options=authorOptions firstOption="Seleccionar un autor"}}
+                  <a href="#" id="addAuthorBook" class="btn btn-link" style="padding:0px 0px 10px 0px">Agregar autor</a>
+                  {{> afQuickField name='summary' rows=6  }}
+                
+                
+                  {{> afQuickField name='copies'  }}
+                  {{> afQuickField name='lastCheckedOut'  }}
+                  {{> afQuickField name='mediaType' options="allowed" noselect="true"  }}
+                  {{> afQuickField name='classification' options="allowed"  }} 
+                
+                <button type="submit" class="btn btn-primary">Guardar</button>
                
-              </div>
-        <div class="row" style="text-align:center;">
-           <button type="submit" class="btn btn-primary">Guardar</button>
-        </div>
-            {{/autoForm}}   -->
+               
+             
+            {{/autoForm}}  
       </div>
     </div>
   </div>

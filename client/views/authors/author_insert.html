@@ -1,0 +1,15 @@
+<template name="authorInsert">
+<div class="row">
+    <div class="col-lg-8 col-lg-offset-2">
+      <h2 id="buttons">Agregar un autor</h2>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2">
+      <div class="well bs-component">
+           {{> quickForm collection="Authors" id="insertAuthorForm" type="insert" validation="keyup" buttonContent="Guardar"}}
+    </div>
+  </div>
+  </div>
+</template>

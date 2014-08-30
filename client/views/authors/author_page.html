@@ -1,10 +1,10 @@
-<template name="bookPage">
+<template name="authorPage">
   <div class="row" >
     <div class="col-lg-8 col-lg-offset-2">
     <table class="table" style="margin-bottom:0px">
       <thead>
         <tr>
-          <th><h2 style="margin-top:0px; margin-bottom:0px; width:60%">Detalles del libro</h2></th>
+          <th><h2 style="margin-top:0px; margin-bottom:0px; width:60%">Detalles del autor</h2></th>
           <th style="vertical-align:middle; text-align:right; width:20%">{{#if formType "disabled"}}<button type="button" id="editButton" class="btn btn-primary btn-xs">Editar</button>{{/if}}</th>
           <th style="vertical-align:middle; text-align:right; width:20%">{{#if formType "disabled"}}<button type="button" id="deleteButton" class="btn btn-danger btn-xs">Eliminar</button>{{/if}}</th>
         </tr>
@@ -20,14 +20,9 @@
         
         {{#if formType "disabled"}}
 <!--          {{> quickForm collection="Books" doc=editingDoc id="updateBookForm" type="disabled" buttonContent="Guardar"}} -->
-         {{#autoForm collection="Books" id="updateBookForm" doc=editingDoc  type="disabled" validation="keyup" buttonContent="Guardar" }}                
-                  {{> afQuickField name='title'  }}
-                  {{> afQuickField name='authorID' options=authorOptions firstOption="Seleccionar un autor"}}
-                  {{> afQuickField name='summary' rows=6  }}              
-                  {{> afQuickField name='copies'  }}
-                  {{> afQuickField name='lastCheckedOut'  }}
-                  {{> afQuickField name='mediaType' options="allowed" noselect="true"  }}
-                  {{> afQuickField name='classification' options="allowed"  }}        
+         {{#autoForm collection="Authors" id="updateAuthorForm" doc=editingDoc  type="disabled" validation="keyup" buttonContent="Guardar" }}                
+                  {{> afQuickField name='name'}}         
+                  {{> afQuickField name='birthCountry'}}      
             {{/autoForm}}  
          <table class="table" style="margin-bottom:0px">
       <thead>
@@ -41,14 +36,9 @@
     </table>
         {{/if}}
         {{#if formType "update"}}
-          {{#autoForm collection="Books" id="updateBookForm" doc=editingDoc  validation="keyup" buttonContent="Guardar" }}                
-                  {{> afQuickField name='title'  }}
-                  {{> afQuickField name='authorID' options=authorOptions firstOption="Seleccionar un autor"}}
-                  {{> afQuickField name='summary' rows=6  }}              
-                  {{> afQuickField name='copies'  }}
-                  {{> afQuickField name='lastCheckedOut'  }}
-                  {{> afQuickField name='mediaType' options="allowed" noselect="true"  }}
-                  {{> afQuickField name='classification' options="allowed"  }} 
+          {{#autoForm collection="Authors" id="updateAuthorForm" doc=editingDoc type="update"  validation="keyup" buttonContent="Guardar" }}                
+                  {{> afQuickField name='name'  }}           
+                  {{> afQuickField name='birthCountry' options="allowed" }}
          <button type="submit" class="btn btn-primary">Guardar</button>
             {{/autoForm}}   
         <br>
