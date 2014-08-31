@@ -1,0 +1,56 @@
+<template name="storePage">
+  <div class="row" >
+    <div class="col-lg-8 col-lg-offset-2">
+    <table class="table" style="margin-bottom:0px">
+      <thead>
+        <tr>
+          <th><h2 style="margin-top:0px; margin-bottom:0px; width:60%">Detalles de la tienda</h2></th>
+          <th style="vertical-align:middle; text-align:right; width:20%">{{#if formType "disabled"}}<button type="button" id="editButton" class="btn btn-primary btn-xs">Editar</button>{{/if}}</th>
+          <th style="vertical-align:middle; text-align:right; width:20%">{{#if formType "disabled"}}<button type="button" id="deleteButton" class="btn btn-danger btn-xs">Eliminar</button>{{/if}}</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+      </div>
+  </div>
+  
+    <div class="row">
+    <div class="col-lg-8 col-lg-offset-2">
+      <div class="well bs-component">
+        
+        {{#if formType "disabled"}}
+<!--          {{> quickForm collection="Books" doc=editingDoc id="updateBookForm" type="disabled" buttonContent="Guardar"}} -->
+         {{#autoForm collection="Stores" id="updateStoresForm" doc=editingDoc  type="disabled" validation="keyup" buttonContent="Guardar" }}                
+                  {{> afQuickField name='name'}}         
+                  {{> afQuickField name='type'}}
+                 {{> afQuickField name='address'}}   
+            {{/autoForm}}  
+         <table class="table" style="margin-bottom:0px">
+      <thead>
+        <tr>
+          <th><h2 style="margin-top:0px; margin-bottom:0px; width:60%"> </h2></th>
+          <th style="vertical-align:middle; text-align:right; width:20%"><button type="button" id="editButton" class="btn btn-primary btn-xs">Editar</button></th>
+          <th style="vertical-align:middle; text-align:right; width:20%"><button type="button" id="deleteButton" class="btn btn-danger btn-xs">Eliminar</button></th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+        {{/if}}
+        {{#if formType "update"}}
+          {{#autoForm collection="Stores" id="updateStoreForm" doc=editingDoc type="update"  validation="keyup" buttonContent="Guardar" }}                
+                  {{> afQuickField name='name'}}         
+                  {{> afQuickField name='type' options="allowed"}}
+                  {{> afQuickField name='address'}} 
+         <button type="submit" class="btn btn-primary">Guardar</button>
+            {{/autoForm}}   
+        <br>
+       
+          <button type="button" id="cancelButton" class="btn btn-warning">Cancelar</button>
+        {{/if}}
+        
+       
+      </div>
+      </div>
+  </div>
+
+</template>

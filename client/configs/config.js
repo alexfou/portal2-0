@@ -74,6 +74,23 @@ AutoForm.hooks({
       if(s == 'bookInsert')
        Router.go('/bookInsert');     
     }, 
+  },
+  
+  updateStoreForm: {
+    onSuccess: function(operation, result, template) {
+       Router.go('/storesList');     
+    }, 
+  },
+  
+   insertStoreForm: {
+    onSuccess: function(operation, result, template) {
+      s = Session.get('originRoute');
+      if(s === undefined || s === false || s === null){
+        Router.go('/storesList');   
+      }
+      if(s == 'bookInsert')
+       Router.go('/bookInsert');     
+    }, 
   }
                
 //     onSuccess: function(operation, result, template) {
