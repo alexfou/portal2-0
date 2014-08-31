@@ -10,3 +10,7 @@ body{
     display: table-cell;
     vertical-align: middle;
 }
+
+.dashboardEntity{
+  border-right: 2px solid #ecf0f1;
+}

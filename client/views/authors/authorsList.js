@@ -84,7 +84,7 @@ Template.authorsList.events({
   'click #undoDeletedAuthor': function (event) {
     console.log('inside undo');
     lda = Session.get('lastDeletedAuthor');
-    Author.insert(_.omit(lda, '_id'));
+    Authors.insert(_.omit(lda, '_id'));
     Session.set("lastDeletedAuthor",null);
   },
   

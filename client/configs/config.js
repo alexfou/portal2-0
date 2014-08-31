@@ -8,7 +8,7 @@ AutoForm.hooks({
         if(doc.authorID !== undefined){
            a = Authors.findOne({'_id':doc.authorID});
           console.log("Author find: " + a + " and its keys: " + Object.keys(a));
-          doc.author = a; 
+          doc.author = a;  
         }
        
          //Books.insert(doc);    
