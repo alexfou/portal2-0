@@ -3,6 +3,7 @@
     "accounts-entry": {},
     "autoform": {},
     "fontawesome4": {},
-    "reactive-table": {}
+    "reactive-table": {},
+    "roles": {}
   }
 }

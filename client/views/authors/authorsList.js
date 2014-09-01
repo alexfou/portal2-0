@@ -5,7 +5,7 @@ Template.authorsList.rendered = function(){
   }
 }
 Template.authorsList.helpers({
-  books: function () {
+  authors: function () {
     return Authors.find().fetch();  
   },
   
@@ -49,7 +49,7 @@ Template.authorsList.events({
   },
   
   "click #confirmDelete" : function(event){  
-    Books.remove({_id:bId});
+    Authors.remove({_id:bId});
     Session.set('edit_authorId', null);
     Session.set('toConfirmDelete', false);
   },

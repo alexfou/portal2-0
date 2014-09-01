@@ -1,6 +1,4 @@
 Schemas = {};
-
-
 Authors = new Meteor.Collection("authors");
 Schemas.Author = new SimpleSchema({
   name: {
@@ -23,7 +21,7 @@ Schemas.Book = new SimpleSchema({
     label: "Título",
     max: 200
   },
-  authorID: {
+  authorId: {
     type: String,
     label: "Autor"
   },
@@ -86,6 +84,50 @@ Schemas.Store = new SimpleSchema({
 });
   
 Stores.attachSchema(Schemas.Store);
+
+//this allow ande deny are on the client side
+//so...NOTE: Meteor.call(...) on client side igonres this rules, call is trusted on server
+Books.allow({
+insert: function(userId, doc) {
+// only allow posting if you are logged in
+//return !! userId;
+  return true;
+},
+  update: function(userId, doc) {
+  return true;
+},
+  remove: function(userId, doc) {
+    return true;
+}
+});
+
+Authors.allow({
+insert: function(userId, doc) {
+// only allow posting if you are logged in
+//return !! userId;
+  return true;
+},
+  update: function(userId, doc) {
+  return true;
+},
+  remove: function(userId, doc) {
+    return true;
+}
+});
+
+Stores.allow({
+insert: function(userId, doc) {
+// only allow posting if you are logged in
+//return !! userId;
+  return true;
+},
+  update: function(userId, doc) {
+  return true;
+},
+  remove: function(userId, doc) {
+    return true; 
+}
+});
                                
 // Books.attachSchema(new SimpleSchema({
 //   title: {

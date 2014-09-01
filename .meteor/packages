@@ -4,8 +4,6 @@
 # but you can also edit it by hand.
 
 standard-app-packages
-autopublish
-insecure
 accounts-entry
 accounts-password
 iron-router
@@ -16,3 +14,4 @@ fontawesome4
 reactive-table
 just-i18n
 d3
+roles

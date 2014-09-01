@@ -5,7 +5,8 @@
       "accounts-entry": {},
       "autoform": {},
       "fontawesome4": {},
-      "reactive-table": {}
+      "reactive-table": {},
+      "roles": {}
     },
     "packages": {
       "accounts-entry": {
@@ -27,6 +28,11 @@
         "git": "https://github.com/ecohealthalliance/reactive-table.git",
         "tag": "v0.3.21",
         "commit": "7068f1011b46b6312bd8c21c2d3b91d4e3cbcd59"
+      },
+      "roles": {
+        "git": "https://github.com/alanning/meteor-roles.git",
+        "tag": "v1.2.11",
+        "commit": "2d7dc91848ec874d3a0852c77f462d0fae749de5"
       },
       "iron-router": {
         "git": "https://github.com/EventedMind/iron-router.git",

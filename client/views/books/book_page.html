@@ -22,7 +22,7 @@
 <!--          {{> quickForm collection="Books" doc=editingDoc id="updateBookForm" type="disabled" buttonContent="Guardar"}} -->
          {{#autoForm collection="Books" id="updateBookForm" doc=editingDoc  type="disabled" validation="keyup" buttonContent="Guardar" }}                
                   {{> afQuickField name='title'  }}
-                  {{> afQuickField name='authorID' options=authorOptions firstOption="Seleccionar un autor"}}
+                  {{> afQuickField name='authorId' options=authorOptions}}
                   {{> afQuickField name='summary' rows=6  }}              
                   {{> afQuickField name='copies'  }}
                   {{> afQuickField name='lastCheckedOut'  }}
@@ -43,7 +43,7 @@
         {{#if formType "update"}}
           {{#autoForm collection="Books" id="updateBookForm" doc=editingDoc  validation="keyup" buttonContent="Guardar" }}                
                   {{> afQuickField name='title'  }}
-                  {{> afQuickField name='authorID' options=authorOptions firstOption="Seleccionar un autor"}}
+                  {{> afQuickField name='authorId' options=authorOptions firstOption="Seleccionar un autor"}}
                   {{> afQuickField name='summary' rows=6  }}              
                   {{> afQuickField name='copies'  }}
                   {{> afQuickField name='lastCheckedOut'  }}

@@ -10,6 +10,7 @@
       </div>
     </div>
       <div class="panel-body">
+           {{#if isInRole 'admin'}}
         <div class="col-lg-4 dashboardEntity text-center">
           <h3>Libros</h3>
           <div class="map">
@@ -20,8 +21,9 @@
           <a href="/booksList"><i class="fa fa-list"></i> Ver detalles</a><br>
           <a href="/bookInsert"><i class="fa fa-plus"></i> Agregar libro</a>
         </div>
+      {{/if}}
         
-        
+   {{#if isInRole 'admin'}}
         <div class="col-lg-4 dashboardEntity text-center">
           <h3>Autores</h3>
           <div class="map">
@@ -35,7 +37,7 @@
           <a href="/authorsList"><i class="fa fa-list"></i> Ver detalles</a><br>
           <a href="/authorInsert"><i class="fa fa-plus"></i> Agregar autor</a>
         </div> 
-        
+        {{/if}}
         
          <div class="col-lg-4 dashboardEntity text-center">
           <h3>Tiendas</h3>
