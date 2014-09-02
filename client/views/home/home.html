@@ -10,8 +10,8 @@
       </div>
     </div>
       <div class="panel-body">
-           {{#if isInRole 'admin'}}
-        <div class="col-lg-4 dashboardEntity text-center">
+<!--            {{#if checkGUIAccess template="home" guiElement="homeBooksMeter"}} -->
+        <div class="col-lg-4 dashboardEntity text-center booksMeter">
           <h3>Libros</h3>
           <div class="map">
             <svg id="booksGraph" class="kpiSvg" width="200" height="200">
@@ -21,7 +21,7 @@
           <a href="/booksList"><i class="fa fa-list"></i> Ver detalles</a><br>
           <a href="/bookInsert"><i class="fa fa-plus"></i> Agregar libro</a>
         </div>
-      {{/if}}
+<!--       {{/if}} -->
         
    {{#if isInRole 'admin'}}
         <div class="col-lg-4 dashboardEntity text-center">

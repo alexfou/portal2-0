@@ -165,4 +165,23 @@ var path = svgb.selectAll("path")
    
   }
 }
+
+Template.home.helpers({
+  checkGUIAccess: function(r){
+    console.log("ROUTER URL: " + Router.current().path);
+    console.log('TEMPLATE NAME: ' + r.hash.template);
+    console.log('GUI ELEMENT: ' + r.hash.guiElement);
+    
+    var temp = {homeBooksMeter: ["admin", "view-stores"]};
+    var grants = _.values(_.pick(temp,r.hash.guiElement));
+    var userRoles = Meteor.user().roles;
+    var intersection = _.intersection(grants[0], userRoles);
+    console.log("check var: " + _.isArray(grants) + "and roles: " + _.isArray(userRoles) + " intersection: " + intersection);
+    if(_.contains(userRoles,grants)){
+       return true;
+    }else{
+      return false;
+    }
+  }
+});
                                

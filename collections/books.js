@@ -1,18 +1,5 @@
-Schemas = {};
-Authors = new Meteor.Collection("authors");
-Schemas.Author = new SimpleSchema({
-  name: {
-    type: String,
-    label: "Nombre completo",
-    max: 200
-  },
-  birthCountry: {
-    type: String,
-    label: "Pais de nacimiento",
-    allowedValues:["México", "Colombia", "Argentina"]  
-  },
-});
-Authors.attachSchema(Schemas.Author);
+
+
 
 Books = new Meteor.Collection("books");
 Schemas.Book = new SimpleSchema({
@@ -64,26 +51,6 @@ Schemas.Book = new SimpleSchema({
 Books.attachSchema(Schemas.Book);
 
 
-Stores = new Meteor.Collection("stores");
-Schemas.Store = new SimpleSchema({
-  name: {
-    type: String,
-    label: "Nombre",
-    max: 200
-  },
-  type: {
-    type: String,
-    label: "Tipo de tienda",
-    allowedValues:["Física", "Virtual"]    
-  },
-  address: {
-    type: String,
-    label: "Dirección",
-    max: 200
-  },
-});
-  
-Stores.attachSchema(Schemas.Store);
 
 //this allow ande deny are on the client side
 //so...NOTE: Meteor.call(...) on client side igonres this rules, call is trusted on server
@@ -101,112 +68,3 @@ insert: function(userId, doc) {
 }
 });
 
-Authors.allow({
-insert: function(userId, doc) {
-// only allow posting if you are logged in
-//return !! userId;
-  return true;
-},
-  update: function(userId, doc) {
-  return true;
-},
-  remove: function(userId, doc) {
-    return true;
-}
-});
-
-Stores.allow({
-insert: function(userId, doc) {
-// only allow posting if you are logged in
-//return !! userId;
-  return true;
-},
-  update: function(userId, doc) {
-  return true;
-},
-  remove: function(userId, doc) {
-    return true; 
-}
-});
-                               
-// Books.attachSchema(new SimpleSchema({
-//   title: {
-//     type: String,
-//     label: "Título",
-//     max: 200
-//   },
-//   author: {
-//     type: Authors,
-//     label: "Autor"
-//   },
-  
-//   copies: {
-//     type: Number,
-//     label: "Número de copias",
-//     min: 0
-//   },
-//   lastCheckedOut: {
-//     type: Date,
-//     label: "Última fecha de checkout",
-//     optional: true
-//   },
-//   summary: {
-//     type: String,
-//     label: "Resumen",
-//     optional: true,
-//     max: 1000
-//   },
-//   mediaType: {
-//     type: String,
-//     label: "Tipo de medio",
-//     allowedValues:["Papel", "Electrónico"]    
-//   },
-  
-//   classification: {
-//     type: [String],
-//     label: "Clasificación",
-//     allowedValues:["Ficción", "No ficción", "Drama", "Thriller"]    
-//   }
-// }));
-
-
-
-
-
-
-
-
-
-
-SimpleSchema.messages({
-  required: "[label] es un campo requerido",
-  minString: "[label] debe tener al menos [min] caracteres",
-  maxString: "[label] no puede exceder [max] caracteres",
-  minNumber: "[label] debe ser al menos [min]",
-  maxNumber: "[label] no puede ser mayor a [max]",
-  minDate: "[label] debe ser antes on en esta fecha [min]",
-  maxDate: "[label] no puede ser después de [max]",
-  minCount: "Se deben especificar al menos [minCount] valores",
-  maxCount: "No se pueden especificar más de [maxCount] valores",
-  noDecimal: "[label] debe ser valor entero",
-  notAllowed: "[value] no es un valor permitido",
-  expectedString: "[label] debe ser de sólo caracteres",
-  expectedNumber: "[label] debe ser un número",
-  expectedBoolean: "[label] de ser un valor boolean",
-  expectedArray: "[label] debe ser un arreglo",
-  expectedObject: "[label] debe ser un objeto",
-  expectedConstructor: "[label] debe ser del tipo [type]",
-  regEx: [
-    {msg: "[label] falla en la validación de la expresión"},
-    {exp: SimpleSchema.RegEx.Email, msg: "[label] debe ser una dirección email válida"},
-    {exp: SimpleSchema.RegEx.WeakEmail, msg: "[label] debe ser una dirección email válida"},
-    {exp: SimpleSchema.RegEx.Domain, msg: "[label] debe ser un dominio válido"},
-    {exp: SimpleSchema.RegEx.WeakDomain, msg: "[label] debe ser un dominio válido"},
-    {exp: SimpleSchema.RegEx.IP, msg: "[label] debe ser una dirección válida de IPv4 o IPv6"},
-    {exp: SimpleSchema.RegEx.IPv4, msg: "[label] debe ser una dirección válida de IPv4"},
-    {exp: SimpleSchema.RegEx.IPv6, msg: "[label] debe ser una dirección válida de IPv6"},
-    {exp: SimpleSchema.RegEx.Url, msg: "[label] debe ser una dirección válida de URL"},
-    {exp: SimpleSchema.RegEx.Id, msg: "[label] debe ser un ID alfanumérico"}
-  ],
-  keyNotInSchema: "[label] no esta permitido por el esquema"
-});
