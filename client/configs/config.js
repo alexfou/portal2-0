@@ -76,6 +76,23 @@ AutoForm.hooks({
     }, 
   },
   
+  insertRolePermissionForm: {
+    onSuccess: function(operation, result, template) {
+      s = Session.get('originRoute');
+      if(s === undefined || s === false || s === null){
+        Router.go('/rolePermissionsList');   
+      }
+      if(s == 'bookInsert')
+       Router.go('/bookInsert');     
+    }, 
+  },
+  
+  updateRolePermissionForm: {
+    onSuccess: function(operation, result, template) {
+       Router.go('/rolePermissionsList');     
+    }, 
+  },
+  
   updateStoreForm: {
     onSuccess: function(operation, result, template) {
        Router.go('/storesList');     

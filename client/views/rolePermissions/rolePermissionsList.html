@@ -1,0 +1,37 @@
+<template name="rolePermissionsList">
+  
+    <div class="row">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+      <div class="row">
+        <div class="col-lg-6">
+          <h3>Permisos en los roles</h3>
+        </div>
+        <div class="col-lg-6 text-right">
+          <a href="/rolePermissionInsert" class="btn btn-primary btn-sm">Agregar permiso en rol</a>
+        </div>
+      </div>
+    </div>
+      <div class="panel-body">
+         {{#if showWarningDeletedRolePermission}}
+  <div class="row">
+    <div class="col-lg-12">
+
+      <div class="bs-component">
+              <div class="alert alert-dismissable alert-warning">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <h4>¡Atención! Usted eliminó un registro. Si fue un error haga click <a href="#" id="undoDeletedRolePermission" class="alert-link">aquí para deshacer la última eliminación</a>.</h4>
+              </div>
+            </div>
+    </div>
+  </div>
+  {{/if}}
+        <div class="row" style="border-style: solid; border-width: 1px; border-color:#ecf0f1 ;padding:20px 20px 20px 20px; margin:20px 20px 20px 20px;">
+          {{> reactiveTable collection=rolePermissionsTable settings=tableSettings}}
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+</template>

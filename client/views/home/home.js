@@ -172,15 +172,25 @@ Template.home.helpers({
     console.log('TEMPLATE NAME: ' + r.hash.template);
     console.log('GUI ELEMENT: ' + r.hash.guiElement);
     
-    var temp = {homeBooksMeter: ["admin", "view-stores"]};
-    var grants = _.values(_.pick(temp,r.hash.guiElement));
+//     var temp = [{routeURL: "/home", template:"home", guiElement: "homeBooksMeter", permittedRoles: ["admin","crud-books"]},
+//                {routeURL: "/home", template:"home", guiElement: "homeAuthorsMeter", permittedRoles: ["admin","crud-authors"]},
+//                {routeURL: "/home", template:"home", guiElement: "homeStoresMeter", permittedRoles: ["admin","crud-stores"]}];
+    
+    temp = RolePermissions.find().fetch();
+    console.log('Lenght of Permissions: ' +temp.length);
+    
+    var roles = _.findWhere(temp, {routeUrl:Router.current().path, template:r.hash.template, guiElement:r.hash.guiElement});
+    
+    console.log('Permitted roles' + roles.permittedRoles);
+    
+    //var grants = _.values(_.pick(temp,r.hash.guiElement));
     var userRoles = Meteor.user().roles;
-    var intersection = _.intersection(grants[0], userRoles);
-    console.log("check var: " + _.isArray(grants) + "and roles: " + _.isArray(userRoles) + " intersection: " + intersection);
-    if(_.contains(userRoles,grants)){
-       return true;
+    var intersection = _.intersection(roles.permittedRoles, userRoles);
+   // console.log("check var: " + _.isArray(grants) + "and roles: " + _.isArray(userRoles) + " intersection: " + intersection);
+    if(_.isEmpty(intersection)){
+       return false;
     }else{
-      return false;
+      return true;
     }
   }
 });

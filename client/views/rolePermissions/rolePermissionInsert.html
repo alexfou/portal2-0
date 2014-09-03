@@ -1,0 +1,15 @@
+<template name="rolePermissionInsert">
+<div class="row">
+    <div class="col-lg-8 col-lg-offset-2">
+      <h2 id="buttons">Agregar un permiso en rol</h2>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2">
+      <div class="well bs-component">
+           {{> quickForm collection="RolePermissions" id="insertRolePermissionForm" type="insert" validation="keyup" buttonContent="Guardar"}}
+    </div>
+  </div>
+  </div>
+</template>

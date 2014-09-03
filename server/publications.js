@@ -24,3 +24,26 @@ Meteor.publish('currentUserLogged', function (){
     return null;
   }
 });
+
+Meteor.publish('rolePermissions', function() {
+return RolePermissions.find({});
+});
+
+Meteor.publish("usersList", function() {
+
+    var user = Meteor.users.findOne({
+        _id: this.userId
+    });
+
+
+    if (Roles.userIsInRole(user, ["admin"])) {
+        return Meteor.users.find({}, {
+            fields: {
+                emails: 1,
+                roles: 1,
+            }
+        });
+    }
+    this.stop();
+    return;
+});

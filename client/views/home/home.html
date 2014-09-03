@@ -10,7 +10,7 @@
       </div>
     </div>
       <div class="panel-body">
-<!--            {{#if checkGUIAccess template="home" guiElement="homeBooksMeter"}} -->
+           {{#if checkGUIAccess template="home" guiElement="homeBooksMeter"}}
         <div class="col-lg-4 dashboardEntity text-center booksMeter">
           <h3>Libros</h3>
           <div class="map">
@@ -21,9 +21,9 @@
           <a href="/booksList"><i class="fa fa-list"></i> Ver detalles</a><br>
           <a href="/bookInsert"><i class="fa fa-plus"></i> Agregar libro</a>
         </div>
-<!--       {{/if}} -->
+      {{/if}}
         
-   {{#if isInRole 'admin'}}
+        {{#if checkGUIAccess template="home" guiElement="homeAuthorsMeter"}}
         <div class="col-lg-4 dashboardEntity text-center">
           <h3>Autores</h3>
           <div class="map">
@@ -38,7 +38,8 @@
           <a href="/authorInsert"><i class="fa fa-plus"></i> Agregar autor</a>
         </div> 
         {{/if}}
-        
+
+        {{#if checkGUIAccess template="home" guiElement="homeStoresMeter"}}
          <div class="col-lg-4 dashboardEntity text-center">
           <h3>Tiendas</h3>
           <div class="map">
@@ -51,7 +52,8 @@
           <br>
           <a href="/storesList"><i class="fa fa-list"></i> Ver detalles</a><br>
           <a href="/storeInsert"><i class="fa fa-plus"></i> Agregar tienda</a>
-        </div>   
+        </div>  
+        {{/if}}
       </div>
     </div>
   </div>

@@ -16,10 +16,11 @@ Meteor.startup(function () {
 
   if (Meteor.users.find().fetch().length === 0) {
 
-    Meteor.myFunctions.createUsers();
-    Meteor.myFunctions.createAuthors();
-    Meteor.myFunctions.createBooks();
-    Meteor.myFunctions.createStores();
+    Meteor.myFixtures.createUsers();
+    Meteor.myFixtures.createAuthors();
+    Meteor.myFixtures.createBooks();
+    Meteor.myFixtures.createStores();
+    Meteor.myFixtures.createRolePermissions();
   }
 
 

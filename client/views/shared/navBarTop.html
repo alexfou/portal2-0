@@ -22,6 +22,13 @@
                 <li><a href="/storesList">Tiendas</a></li>
               </ul>
             </li>
+            <li class="dropdown {{pathWithUser "/booksList"}}">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Administración de Usuarios <span class="caret"></span></a>
+              <ul class="dropdown-menu" aria-labelledby="themes">
+                <li><a href="/usersList">Usuarios</a></li>
+                <li><a href="/rolePermissionsList">Permisos</a></li>
+              </ul>
+            </li>
             <li>
               {{#if notCurrentUser}}<a href="../help/">Ayuda</a>{{/if}}
             </li> 
