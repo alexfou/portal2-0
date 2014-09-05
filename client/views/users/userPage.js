@@ -25,24 +25,17 @@ Template.userPage.events({
         return alert(error.reason);
       Router.go('/usersList');
     });
-    
-   // Roles.setUserRoles(this._id, newRoles);
-    //Router.go("/usersList"); 
-    
-  },
-  "click #editButton" : function(event){   
-    Session.set('formType', "update");
   },
   
-  "click #cancelButton" : function(event){   
-    Session.set('formType', "disabled");
-  },
-  
-  "click #deleteButton" : function(event){
-    Session.set('lastDeletedUser', this);
-    Users.remove({'_id': this._id});
-    Router.go("/usersList")
-  },
+  'click #resetPassword': function(){
+    Meteor.call('resetPasswordDefault', this._id, function(error, id) {
+      if (error)
+        return alert(error.reason);
+      Router.go('/usersList');
+    }); 
+  }
+    
+ 
 });
 
 Template.usersList.rendered = function(){

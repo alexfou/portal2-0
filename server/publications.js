@@ -41,6 +41,7 @@ Meteor.publish("usersList", function() {
             fields: {
                 emails: 1,
                 roles: 1,
+              profile: 1
             }
         });
     }

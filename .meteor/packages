@@ -15,3 +15,6 @@ reactive-table
 just-i18n
 d3
 roles
+email
+email-ses
+accounts-ui

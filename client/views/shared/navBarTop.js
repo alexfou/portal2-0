@@ -27,4 +27,12 @@ Template.navBarTop.helpers({
                            
 });
 
+Template.navBarTop.events({
+  'click #signOut': function(){
+    Meteor.logout(function(e){
+        if(e){}else{Router.go('portalFace');}
+      });
+  }
+});
+
   

@@ -4,6 +4,7 @@
     "autoform": {},
     "fontawesome4": {},
     "reactive-table": {},
-    "roles": {}
+    "roles": {},
+    "email-ses": {}
   }
 }

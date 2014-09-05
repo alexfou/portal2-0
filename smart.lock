@@ -6,7 +6,8 @@
       "autoform": {},
       "fontawesome4": {},
       "reactive-table": {},
-      "roles": {}
+      "roles": {},
+      "email-ses": {}
     },
     "packages": {
       "accounts-entry": {
@@ -16,8 +17,8 @@
       },
       "autoform": {
         "git": "https://github.com/aldeed/meteor-autoform.git",
-        "tag": "v0.17.1",
-        "commit": "a4688e7d77019a68ef43c2a303e905748beeb860"
+        "tag": "v1.0.0",
+        "commit": "5a5977dd9b66d8109d766b41fb5dc1a0ac3e83be"
       },
       "fontawesome4": {
         "git": "https://github.com/chrismbeckett/meteor-fontawesome4.git",
@@ -33,6 +34,11 @@
         "git": "https://github.com/alanning/meteor-roles.git",
         "tag": "v1.2.11",
         "commit": "2d7dc91848ec874d3a0852c77f462d0fae749de5"
+      },
+      "email-ses": {
+        "git": "https://github.com/ServiceLocale/Meteor-SES",
+        "tag": "v0.5.1",
+        "commit": "66cabd7f0473db5b2df9a5fa157c57e5fbe5b1f3"
       },
       "iron-router": {
         "git": "https://github.com/EventedMind/iron-router.git",
@@ -51,8 +57,8 @@
       },
       "simple-schema": {
         "git": "https://github.com/aldeed/meteor-simple-schema.git",
-        "tag": "v0.7.0",
-        "commit": "77d267aec4ba8a70f677e5d9ef9fb91fb0e3f0f6"
+        "tag": "v1.0.2",
+        "commit": "21a4ce06ae29bff2fb1203c44ea24e61f1c3edba"
       },
       "collection2": {
         "git": "https://github.com/aldeed/meteor-collection2.git",
@@ -68,6 +74,11 @@
         "git": "https://github.com/subhog/meteor-just-i18n.git",
         "tag": "v0.3.0",
         "commit": "a60e7f4350fb9648d6f6b4a01acbbc114c4f4343"
+      },
+      "meteor-nodemailer": {
+        "git": "https://github.com/Termina1/meteor-nodemailer.git",
+        "tag": "v0.2.0",
+        "commit": "1aa3c08acac0602ff9b705bec4dc1bdf92e680c7"
       },
       "iron-layout": {
         "git": "https://github.com/EventedMind/iron-layout.git",

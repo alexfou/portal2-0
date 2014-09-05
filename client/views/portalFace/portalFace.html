@@ -4,7 +4,7 @@
     <div class="jumbotron">
       <h1>Portal del aplicativo</h1>
         <p>¡Bienvenidos a este aplicativo! Nuestra misión fundamental es facilitarle la administración de sus procesos. </p>
-      <div class="loginDiv"> {{#if currentUser}}<a href="/sign-out">{{userEmail}} <i class="fa fa-sign-out"></i></a> {{else}}<a href="/sign-in" class="btn btn-success"><i class="fa fa-sign-in"></i> Ingresar</a>{{/if}}</div>
+      <div class="loginDiv"> {{#if currentUser}}<a id="signOut" href="#">{{userEmail}} <i class="fa fa-sign-out"></i></a> {{else}}<a href="/signIn" class="btn btn-success"><i class="fa fa-sign-in"></i> Ingresar</a>{{/if}}</div>
    </div>
   </div>
 </template>

@@ -1,4 +1,13 @@
 Meteor.startup(function () {
+  
+  Accounts.config({
+  //sendVerificationEmail: true,
+  forbidClientAccountCreation: true,
+});
+
+  //process.env.MAIL_URL="smtp://alejandro.foullon%40gmail.com:SOR7nEo2@smtp.gmail.com:465/";
+//   process.env.MAIL_URL="smtp://AKIAIOIJJ4AGJ4CR7TEQ:AjObpPIv5EOudagTmecq16%2BjYL5uV1lRTePLt765D42T@SES_SMTP_URL:465";
+  
 
   ////////////////////////////////////////////////////////////////////
   // Create Test Secrets
@@ -29,14 +38,14 @@ Meteor.startup(function () {
   // Prevent non-authorized users from creating new users
   //
 
-  Accounts.validateNewUser(function (user) {
-    var loggedInUser = Meteor.user();
+//   Accounts.validateNewUser(function (user) {
+//     var loggedInUser = Meteor.user();
 
-    if (Roles.userIsInRole(loggedInUser, ['admin','manage-users'])) {
-      return true;
-    }
+//     if (Roles.userIsInRole(loggedInUser, ['admin','manage-users'])) {
+//       return true;
+//     }
 
-    throw new Meteor.Error(403, "Not authorized to create new users");
-  });
+//     throw new Meteor.Error(403, "Not authorized to create new users");
+//   });
 
 });
