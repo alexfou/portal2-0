@@ -74,7 +74,7 @@ Template.rolePermissionsList.events({
     }
   },
   
-  'click .reactive-table tr': function (event) {
+  'click .rowTable': function (event) {
     // set the blog post we'll display details and news for
     Session.set("formType","disabled");
     var rolePermissionId = this;
@@ -136,7 +136,10 @@ Template.rolePermissionsList.helpers({
             showFilter: true,
             //fields: ['title', 'rolePermission'],
             useFontAwesome: true,
-          fields: finalArray
+          fields: finalArray,
+          rowClass: function(item) {
+            return "rowTable";
+          }
         };
     },
   

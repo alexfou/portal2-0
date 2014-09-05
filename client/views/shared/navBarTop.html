@@ -11,27 +11,43 @@
         </div>
         <div class="navbar-collapse collapse" id="navbar-main">
           <ul class="nav navbar-nav">
-            <li class={{pathWithUser "/home"}}>
+            
+            {{#if permittedNav 'dashboardNav'}}
+            <li class={{pathWithUser "dashboardNav"}}>
               <a href="{{pathFor 'home'}}">Inicio</a>
             </li> 
-            <li class="dropdown {{pathWithUser "/booksList"}}">
+            {{/if}}
+            
+            {{#if permittedNav 'adminResourcesNav'}}
+            <li class="dropdown {{pathWithUser "adminResourcesNav"}}">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Administración de Librería <span class="caret"></span></a>
               <ul class="dropdown-menu" aria-labelledby="themes">
-                <li><a href="/booksList">Libros</a></li>
-                <li><a href="/authorsList">Autores</a></li>
-                <li><a href="/storesList">Tiendas</a></li>
+                {{#if permittedNav 'adminBooksNav'}}
+                  <li class={{pathWithUser "adminBooksNav"}}><a href="/booksList">Libros</a></li>
+                {{/if}}
+                {{#if permittedNav 'adminAuthorsNav'}}
+                <li class={{pathWithUser "adminAuthorsNav"}}><a href="/authorsList">Autores</a></li>
+                {{/if}}
+                {{#if permittedNav 'adminStoresNav'}}
+                <li class={{pathWithUser "adminStoresNav"}}><a href="/storesList">Tiendas</a></li>
+                {{/if}}
               </ul>
             </li>
-            <li class="dropdown {{pathWithUser "/booksList"}}">
+            {{/if}}
+            
+            {{#if isInRole 'admin'}}
+            <li class="dropdown {{pathWithUser "usersNav"}}">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Administración de Usuarios <span class="caret"></span></a>
               <ul class="dropdown-menu" aria-labelledby="themes">
-                <li><a href="/usersList">Usuarios</a></li>
-                <li><a href="/rolePermissionsList">Permisos</a></li>
+                <li class={{pathWithUser "adminUsersNav"}}><a href="/usersList">Usuarios</a></li>
+                <li class={{pathWithUser "adminRolePermissionsNav"}}><a href="/rolePermissionsList">Permisos</a></li>
               </ul>
             </li>
-            <li>
+            {{/if}}
+            
+<!--             <li>
               {{#if notCurrentUser}}<a href="../help/">Ayuda</a>{{/if}}
-            </li> 
+            </li>  -->
           </ul>
           
           <ul class="nav navbar-nav navbar-right">

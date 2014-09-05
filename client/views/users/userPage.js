@@ -33,6 +33,10 @@ Template.userPage.events({
         return alert(error.reason);
       Router.go('/usersList');
     }); 
+  },
+  
+  'click #cancelButton': function(){
+    Router.go('usersList');
   }
     
  

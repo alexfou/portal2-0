@@ -1,6 +1,30 @@
 <template name="userPage">
-  <h3>Roles de {{getEmails this}}</h3><br>
-  <input id="rolesInput" type="text" class="form-control" value="{{getRoles this}}"><br>
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2">
+      <table class="table" style="margin-bottom:0px">
+      <thead>
+        <tr>
+          <th><h2 style="margin-top:0px; margin-bottom:0px; width:60%">Roles de {{getEmails this}}</h2></th>
+          <th style="vertical-align:middle; text-align:right; width:40%"><a href="/usersList"><button type="button" id="returnButton" class="btn btn-success btn-xs">Regresar</button></a>
+          </th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2">
+      <div class="well bs-component">
+            <h4 id="buttons">NOTA: para asignar varios roles usar coma y no usar espacio en blanco.</h4>
+            <input id="rolesInput" type="text" class="form-control" value="{{getRoles this}}"><br>
+            <a id="resetPassword" href="#" class="btn btn-link" style="padding:0px 0px 15px 0px">Reasignar contraseña a 'abc123'</a><br>
   <a href="#" id="saveRoles" class="btn btn-primary">Guardar</a><br><br>
-  <a href="#" id="resetPassword" class="btn btn-warning">Asignar contraseña 'abc123'</a>
+<!--   <a href="#" id="resetPassword" class="btn btn-success">Asignar contraseña 'abc123'</a><br><br> -->
+   <button type="button" id="cancelButton" class="btn btn-warning">Cancelar</button>
+    </div>
+  </div>
+  </div>
+  
 </template>

@@ -1,7 +1,30 @@
 <template name="userInsert">
-  <h3>Agregar usuario</h3><br>
-    Nombre de usuario: <input id="profileName" type="text" class="form-control" ><br>
+  
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2">
+      <table class="table" style="margin-bottom:0px">
+      <thead>
+        <tr>
+          <th><h2 style="margin-top:0px; margin-bottom:0px; width:60%">Agregar un usuario</h2></th>
+          <th style="vertical-align:middle; text-align:right; width:40%"><a href="/usersList"><button type="button" id="returnButton" class="btn btn-success btn-xs">Regresar</button></a>
+          </th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2">
+      <div class="well bs-component">
+            Nombre de usuario: <input id="profileName" type="text" class="form-control" ><br>
     Email: <input id="userEmail" type="text" class="form-control" ><br>
-    Nota: al crear un usuario nuevo la contraseña por defecto será 'abc123'<br>
-   <a href="#" id="saveUser" class="btn btn-primary">Crear usuario</a><br><br>
+    Nota: al crear un usuario nuevo la contraseña por defecto será 'abc123' y no tendrá algún rol.<br><br>
+   <a href="#" id="saveUser" class="btn btn-primary">Guardar</a><br><br>
+    <button type="button" id="cancelButton" class="btn btn-warning">Cancelar</button>
+    </div>
+  </div>
+  </div>
+   
 </template>

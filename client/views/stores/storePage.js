@@ -35,6 +35,10 @@ Template.storePage.events({
     Session.set('formType', "disabled");
   },
   
+  "click #returnButton": function(){
+    Router.go('storesList');
+  },
+  
   "click #deleteButton" : function(event){
     Session.set('lastDeletedStore', this);
     Stores.remove({'_id': this._id});

@@ -31,14 +31,17 @@ Template.usersList.helpers({
             showFilter: true,
             //fields: ['title', 'author'],
             useFontAwesome: true,
-            fields: fs
+            fields: fs,
+          rowClass: function(item) {
+            return "rowTable";
+          }
         };
     },
   
 });
 
 Template.usersList.events({
-  'click .reactive-table tr': function (event) {
+  'click .rowTable': function (event) {
     // set the blog post we'll display details and news for
     Session.set("formType","disabled");
     var user = this;

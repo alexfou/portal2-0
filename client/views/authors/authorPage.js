@@ -35,6 +35,10 @@ Template.authorPage.events({
     Session.set('formType', "disabled");
   },
   
+  "click #returnButton": function(){
+    Router.go('authorsList');
+  },
+  
   "click #deleteButton" : function(event){
     Session.set('lastDeletedAuthor', this);
     Authors.remove({'_id': this._id});

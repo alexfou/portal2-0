@@ -28,7 +28,10 @@ Template.bookInsert.events({
     Session.set('tempInsertBook',tempInsertBook.insertDoc);
     Session.set('originRoute', 'bookInsert');
     Router.go('/authorInsert');
-    
+  },
+  
+  'click #cancelButton': function(){
+    Router.go('booksList');    
   }
 });
 

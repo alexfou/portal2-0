@@ -35,6 +35,11 @@ Template.bookPage.events({
     Session.set('formType', "disabled");
   },
   
+   "click #returnButton" : function(event){   
+    Session.set('formType', "disabled");
+    Router.go('booksList');
+  },
+  
   "click #deleteButton" : function(event){
     Session.set('lastDeletedBook', this);
     Books.remove({'_id': this._id});
