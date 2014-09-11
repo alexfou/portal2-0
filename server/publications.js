@@ -1,3 +1,11 @@
+Meteor.publish('kpis', function() {
+return Kpis.find();
+});
+
+Meteor.publish('processes', function() {
+return Processes.find();
+});
+
 Meteor.publish('books', function() {
 return Books.find();
 });

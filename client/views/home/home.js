@@ -1,3 +1,4 @@
+
 Template.home.rendered = function(){
   
   var self = this;
@@ -161,6 +162,8 @@ var path = svgb.selectAll("path")
       
       
     });
+    
+    $(".panel").velocity({translateY: [0, 25]}, 500);
     
    
   }

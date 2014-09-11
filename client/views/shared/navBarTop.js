@@ -11,6 +11,7 @@ Template.navBarTop.helpers({
                 {liElement:"usersNav", activeUrls:['/usersList', '/rolePermissionsList', '/userInsert', '/rolePermissionInsert', '/user', '/rolePermission']},
                 {liElement:"adminUsersNav", activeUrls:['/usersList','/userInsert', '/user']},
                 {liElement:"adminRolePermissionsNav", activeUrls:['/rolePermissionsList','/rolePermissionInsert', '/rolePermission']},
+                {liElement:"adminKpisNav", activeUrls:['/kpisList']},
                ];
     
     urls = _.findWhere(temp, {liElement: navElement});
@@ -55,6 +56,7 @@ Template.navBarTop.helpers({
       {name:"adminBooksNav", permittedRoles:['admin','crud-books']},
       {name:"adminAuthorsNav", permittedRoles:['admin','crud-authors']},
       {name:"adminStoresNav", permittedRoles:['admin','crud-stores']},
+      {name:"adminKpisNav", permittedRoles:['admin']},
     ];
       
       var rolesAllowed = _.findWhere(temp, {name:guiElement});

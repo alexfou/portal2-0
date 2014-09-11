@@ -31,6 +31,9 @@
                 {{#if permittedNav 'adminStoresNav'}}
                 <li class={{pathWithUser "adminStoresNav"}}><a href="/storesList">Tiendas</a></li>
                 {{/if}}
+                {{#if permittedNav 'adminKpisNav'}}
+                <li class={{pathWithUser "adminKpisNav"}}><a href="/kpis/kpisList">Indicadores</a></li>
+                {{/if}}
               </ul>
             </li>
             {{/if}}
