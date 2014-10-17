@@ -3,7 +3,7 @@ Template.navBarTop.helpers({
     console.log('-----------------------' + navElement + '-------------------------')
     var temp = [{liElement:"dashboardNav", activeUrls:['/home']},
                 
-                {liElement:"adminResourcesNav", activeUrls:['/booksList', '/authorsList', '/storesList', '/bookInsert', '/authorInsert', '/storeInsert', '/book' , '/author' , '/store']},
+                {liElement:"adminResourcesNav", activeUrls:['/booksList', '/authorsList', '/storesList', '/bookInsert', '/authorInsert', '/storeInsert', '/book' , '/author' , '/store', '/kpis/kpisList', '/kpis/kpiInsert']},
                 {liElement:"adminBooksNav", activeUrls:['/booksList','/bookInsert', '/book']},
                 {liElement:"adminAuthorsNav", activeUrls:['/authorsList','/authorInsert', '/author']},
                 {liElement:"adminStoresNav", activeUrls:['/storesList','/storeInsert', '/store']},
@@ -11,7 +11,7 @@ Template.navBarTop.helpers({
                 {liElement:"usersNav", activeUrls:['/usersList', '/rolePermissionsList', '/userInsert', '/rolePermissionInsert', '/user', '/rolePermission']},
                 {liElement:"adminUsersNav", activeUrls:['/usersList','/userInsert', '/user']},
                 {liElement:"adminRolePermissionsNav", activeUrls:['/rolePermissionsList','/rolePermissionInsert', '/rolePermission']},
-                {liElement:"adminKpisNav", activeUrls:['/kpisList']},
+                {liElement:"adminKpisNav", activeUrls:['/kpis/kpisList', '/kpis/kpiInsert']},
                ];
     
     urls = _.findWhere(temp, {liElement: navElement});

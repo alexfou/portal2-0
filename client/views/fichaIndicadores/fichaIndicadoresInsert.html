@@ -1,0 +1,42 @@
+<template name="fichaIndicadorInsert">
+  
+<div class="row">
+    <div class="col-lg-8 col-lg-offset-2">
+      <table class="table" style="margin-bottom:0px">
+      <thead>
+        <tr>
+          <th><h2 style="margin-top:0px; margin-bottom:0px; width:60%">Agregar una Ficha de Indicador</h2></th>
+          <th style="vertical-align:middle; text-align:right; width:40%"><a href="/fichaIndicadoresList"><button type="button" id="returnButton" class="btn btn-success btn-xs">Regresar</button></a>
+          </th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2">
+      <div class="well bs-component">
+<!--            {{> quickForm collection="FichaIndicadores" schema="Schemas.FichaIndicador" id="insertFichaIndicadorForm" type="insert" validation="keyup" buttonContent="Guardar"}} -->
+            {{#autoForm collection="FichaIndicadores" id="insertFichaIndicadorForm" type="insert" doc=tempInsertFichaIndicador validation="keyup" }}
+              
+                
+                  {{> afQuickField name='nombre'  }}
+                  
+                  {{> afQuickField name='objetivo' rows=6  }}
+        {{> afQuickField name='procesoId' options=procesoOptions firstOption="Seleccionar un proceso"}}
+                  <a href="/procesoInsert" id="addProcesoFichaIndicador" class="btn btn-link" style="padding:0px 0px 10px 0px">Agregar Proceso</a>
+        {{> afQuickField name='fuenteId' options=fuenteOptions firstOption="Seleccionar una fuente"}}
+                  <a href="/fuenteInsert" id="addFuenteFichaIndicador" class="btn btn-link" style="padding:0px 0px 10px 0px">Agregar Fuente</a>
+                
+                <button type="submit" class="btn btn-primary">Guardar</button><br><br>
+                <button type="button" id="cancelButton" class="btn btn-warning">Cancelar</button>
+               
+               
+             
+            {{/autoForm}}  
+      </div>
+    </div>
+  </div>
+</template>

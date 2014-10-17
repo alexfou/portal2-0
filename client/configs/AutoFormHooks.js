@@ -108,15 +108,104 @@ AutoForm.hooks({
       if(s == 'bookInsert')
        Router.go('/bookInsert');     
     }, 
-  }
-               
-//     onSuccess: function(operation, result, template) {
-//       Router.go('/booksList');
-//     }
+  },
+  
+   insertKpiForm: {
+    before: {
+      insert: function(doc, template) {
+//         console.log('before insert: ' + Object.keys(doc) + " " +Object.keys(template));
+//         console.log('Doc: ' + doc._id + "-" + doc.authorId + "-" + doc.author);
+//         console.log('Type of doc: ' + typeof(doc));
+        if(doc.processId !== undefined){
+           a = Processes.findOne({'_id':doc.processId});
+          console.log("Process find: " + a + " and its keys: " + Object.keys(a));
+          doc.process = a;  
+        }
+       
+         //Books.insert(doc);    
+         //Session.set('tempInsertBook', undefined);
+         //Router.go('/booksList');
+        return doc;
     
-//   updateBookForm: {
-//     onSuccess: function(operation, result, template) {
-//       Router.go('/booksList');
-//     }
-//   }
+      },
+    },
+     
+     onSuccess: function(operation, result, template) {
+      Session.set('tempInsertKpi', undefined);
+      Router.go('/kpis/kpisList');
+      
+    },
+   },
+  
+  insertProcesoForm: {
+    onSuccess: function(operation, result, template) {
+      s = Session.get('originRoute');
+      if(s === undefined || s === false || s === null){
+        Router.go('/procesosList');   
+      }
+      if(s == 'fichaIndicadorInsert')
+       Router.go('/fichaIndicadorInsert');     
+    }, 
+  },
+  
+   updateProcesoForm: {
+    onSuccess: function(operation, result, template) {
+       Router.go('/procesosList');     
+    }, 
+  },
+  
+    
+////////// FICHA INDICADOR //////////////////////////
+  insertFichaIndicadorForm: {
+    before: {
+      insert: function(doc, template) {
+        console.log('before insert: ' + Object.keys(doc) + " " +Object.keys(template));
+        console.log('Doc: ' + doc._id + "-" + doc.procesoId + "-" + doc.proceso);
+        console.log('Type of doc: ' + typeof(doc));
+        if(doc.procesoId !== undefined){
+           a = Procesos.findOne({'_id':doc.procesoId});
+          console.log("Proceso find: " + a + " and its keys: " + Object.keys(a));
+          doc.proceso = a;  
+        }
+        if(doc.fuenteId !== undefined){
+           a = Fuentes.findOne({'_id':doc.fuenteId});
+          console.log("Fuente find: " + a + " and its keys: " + Object.keys(a));
+          doc.fuente = a;  
+        }
+       
+         //Books.insert(doc);    
+         //Session.set('tempInsertBook', undefined);
+         //Router.go('/booksList');
+        return doc;
+    
+      },
+    },
+    
+    onSuccess: function(operation, result, template) {
+      Session.set('tempInsertFichaIndicador', undefined);
+      Router.go('/fichaIndicadoresList');
+      
+    },
+  },
+
+//////////// FUENTES /////////////////////////////////////////////////////
+insertFuenteForm: {
+    onSuccess: function(operation, result, template) {
+      s = Session.get('originRoute');
+      if(s === undefined || s === false || s === null){
+        Router.go('/fuentesList');   
+      }
+      if(s == 'fuenteInsert')
+       Router.go('/fuenteInsert');     
+    }, 
+  },
+  
+  updateFuenteForm: {
+    onSuccess: function(operation, result, template) {
+       Router.go('/fuentesList');     
+    }, 
+  },
+  
+
+               
 });

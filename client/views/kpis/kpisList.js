@@ -1,7 +1,7 @@
 Template.kpisList.rendered = function(){
   s = Session.get('colSelectedKpis');
   if( s === undefined || s === false || _.isEmpty(s)){
-    Session.set('colSelectedKpis',['name', 'processKpi.name']);
+    Session.set('colSelectedKpis',['name', 'process.name']);
   }
 }
 Template.kpisList.helpers({
@@ -107,7 +107,7 @@ Template.kpisList.helpers({
         
         var fs =[
           { key: 'name', label: 'Nombre' },
-          { key: 'processKpi.name', label: 'Proceso' }];
+          { key: 'process.name', label: 'Proceso' }];
       
         var finalArray = _.filter(fs , function(fsObj){return _.contains(sel,fsObj.key);});
 //         finalArray.push({ key: 'title', label: ' ', fn: function (value) {

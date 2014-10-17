@@ -30,8 +30,10 @@ Meteor.startup(function () {
     Meteor.myFixtures.createBooks();
     Meteor.myFixtures.createStores();
     Meteor.myFixtures.createRolePermissions();
-    Meteor.myFixtures.createProcesses();
-    Meteor.myFixtures.createKpis();
+    Meteor.myFixtures.createProcesos();
+    Meteor.myFixtures.createFuentes();
+    Meteor.myFixtures.createFichaIndicadores();
+    
   }
 
 

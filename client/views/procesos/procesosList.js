@@ -1,16 +1,16 @@
-Template.authorsList.rendered = function(){
-  s = Session.get('colSelectedAuthors');
+Template.procesosList.rendered = function(){
+  s = Session.get('colSelectedProcesos');
   if( s === undefined || s === false || _.isEmpty(s)){
-    Session.set('colSelectedAuthors',['name', 'birthCountry']);
+    Session.set('colSelectedProcesos',['nombre', 'macroProceso_1', 'macroProceso_2']);
   }
 }
-Template.authorsList.helpers({
-  authors: function () {
-    return Authors.find().fetch();  
+Template.procesosList.helpers({
+  procesos: function () {
+    return Procesos.find().fetch();  
   },
   
-  showWarningDeletedAuthor: function(){
-    ldb = Session.get('lastDeletedAuthor');
+  showWarningDeletedProceso: function(){
+    ldb = Session.get('lastDeletedProceso');
     if(ldb === undefined || ldb === false || ldb === null){
       return false; 
     }else{
@@ -18,15 +18,15 @@ Template.authorsList.helpers({
     }
   },
   
-  toConfirmDelete: function(authorId){
-    if(Session.get('toConfirmDelete') !== undefined && Session.get('toConfirmDelete') && Session.get('edit_authorId') == authorId){
+  toConfirmDelete: function(procesoId){
+    if(Session.get('toConfirmDelete') !== undefined && Session.get('toConfirmDelete') && Session.get('edit_procesoId') == procesoId){
       return "";   
     }else{
       return "hidden";
     }
   },
   
-  toEnableDelete: function(authorId){
+  toEnableDelete: function(procesoId){
     if(Session.get('toConfirmDelete') === undefined || !Session.get('toConfirmDelete')){
       return "";   
     }else{
@@ -36,40 +36,40 @@ Template.authorsList.helpers({
 });
 
 
-Template.authorsList.events({
+Template.procesosList.events({
   "click .fa-times-circle" : function(event){    
     bId = $(event.target).attr("name");
-    Session.set('edit_authorId', bId);
+    Session.set('edit_procesoId', bId);
     Session.set('toConfirmDelete', true);
   },
   
   "click #cancelDelete" : function(event){
-    Session.set('edit_authorId', null);
+    Session.set('edit_procesoId', null);
     Session.set('toConfirmDelete', false);
   },
   
   "click #confirmDelete" : function(event){  
-    Authors.remove({_id:bId});
-    Session.set('edit_authorId', null);
+    Procesos.remove({_id:bId});
+    Session.set('edit_procesoId', null);
     Session.set('toConfirmDelete', false);
   },
   
   "click .colSelect" : function(event){  
     
-    s = Session.get('colSelectedAuthors');
+    s = Session.get('colSelectedProcesos');
     colClicked = $(event.target).attr("name");
     
     console.log("clicked: " + colClicked);
     
     if( s === undefined || s === false || _.isEmpty(s)){
-      Session.set('colSelectedAuthors',['title']); 
+      Session.set('colSelectedProcesos',['title']); 
     }else{
       if(_.contains(s,colClicked)){
         if(s.length > 1){
-          Session.set('colSelectedAuthors',_.without(s,colClicked));
+          Session.set('colSelectedProcesos',_.without(s,colClicked));
         }
       }else{
-        Session.set('colSelectedAuthors',_.union(s,colClicked));
+        Session.set('colSelectedProcesos',_.union(s,colClicked));
       }
     }
   },
@@ -77,39 +77,38 @@ Template.authorsList.events({
   'click .rowTable': function (event) {
     // set the blog post we'll display details and news for
     Session.set("formType","disabled");
-    var authorId = this;
-    Router.go("/author/"+ authorId._id);
+    var procesoId = this;
+    Router.go("/proceso/"+ procesoId._id);
   },
   
-  'click #undoDeletedAuthor': function (event) {
+  'click #undoDeletedProceso': function (event) {
     console.log('inside undo');
-    lda = Session.get('lastDeletedAuthor');
-    Authors.insert(_.omit(lda, '_id'));
-    Session.set("lastDeletedAuthor",null);
+    lda = Session.get('lastDeletedProceso');
+    Procesos.insert(_.omit(lda, '_id'));
+    Session.set("lastDeletedProceso",null);
   },
   
   'click .close': function (event) {
-    Session.set('lastDeletedAuthor', null);
+    Session.set('lastDeletedProceso', null);
   }
   
 });
 
 
-Template.authorsList.helpers({
+Template.procesosList.helpers({
   
-  authorsTable: function () {
-    return Authors;  
+  procesosTable: function () {
+    return Procesos;  
   },
   
   tableSettings: function () {
     
-        var sel = Session.get('colSelectedAuthors');
-    
-     var fs =[
-          { key: 'name', label: 'Nombre completo' },
-          { key: 'birthCountry', label: 'País de nacimiento' }];
+        var sel = Session.get('colSelectedProcesos');
         
-        
+       var fs =[
+          { key: 'nombre', label: 'Nombre del proceso' },
+          { key: 'macroProceso_1', label: 'Macro Proceso 1 (Alto)' },
+          { key: 'macroProceso_2', label: 'Macro Proceso 2' }];
       
         var finalArray = _.filter(fs , function(fsObj){return _.contains(sel,fsObj.key);});
 //         finalArray.push({ key: 'title', label: ' ', fn: function (value) {
@@ -134,7 +133,7 @@ Template.authorsList.helpers({
         return {
             rowsPerPage: 5,
             showFilter: true,
-            //fields: ['title', 'author'],
+            //fields: ['title', 'proceso'],
             useFontAwesome: true,
           fields: finalArray,
           rowClass: function(item) {
@@ -144,11 +143,11 @@ Template.authorsList.helpers({
     },
   
 //   colSelected: function(){
-//     return [{ key: 'name', label: 'Título' }, { key: 'author', label: 'Autor' }];
+//     return [{ key: 'name', label: 'Título' }, { key: 'proceso', label: 'Autor' }];
 //   },
   
   buttonClass: function(field){
-    s = Session.get('colSelectedAuthors');
+    s = Session.get('colSelectedProcesos');
     if( s === undefined || s === false){
       return 'btn btn-primary btn-xs';
     }else{

@@ -1,16 +1,16 @@
-Template.authorsList.rendered = function(){
-  s = Session.get('colSelectedAuthors');
+Template.fichaIndicadoresList.rendered = function(){
+  s = Session.get('colSelectedFichaIndicadores');
   if( s === undefined || s === false || _.isEmpty(s)){
-    Session.set('colSelectedAuthors',['name', 'birthCountry']);
+    Session.set('colSelectedFichaIndicadores',['nombre', 'proceso.nombre']);
   }
 }
-Template.authorsList.helpers({
-  authors: function () {
-    return Authors.find().fetch();  
+Template.fichaIndicadoresList.helpers({
+  fichaIndicadores: function () {
+    return FichaIndicadores.find().fetch();  
   },
   
-  showWarningDeletedAuthor: function(){
-    ldb = Session.get('lastDeletedAuthor');
+  showWarningDeletedFichaIndicador: function(){
+    ldb = Session.get('lastDeletedFichaIndicador');
     if(ldb === undefined || ldb === false || ldb === null){
       return false; 
     }else{
@@ -18,15 +18,15 @@ Template.authorsList.helpers({
     }
   },
   
-  toConfirmDelete: function(authorId){
-    if(Session.get('toConfirmDelete') !== undefined && Session.get('toConfirmDelete') && Session.get('edit_authorId') == authorId){
+  toConfirmDelete: function(fichaIndicadorId){
+    if(Session.get('toConfirmDelete') !== undefined && Session.get('toConfirmDelete') && Session.get('edit_fichaIndicadorId') == fichaIndicadorId){
       return "";   
     }else{
       return "hidden";
     }
   },
   
-  toEnableDelete: function(authorId){
+  toEnableDelete: function(fichaIndicadorId){
     if(Session.get('toConfirmDelete') === undefined || !Session.get('toConfirmDelete')){
       return "";   
     }else{
@@ -36,40 +36,40 @@ Template.authorsList.helpers({
 });
 
 
-Template.authorsList.events({
+Template.fichaIndicadoresList.events({
   "click .fa-times-circle" : function(event){    
     bId = $(event.target).attr("name");
-    Session.set('edit_authorId', bId);
+    Session.set('edit_fichaIndicadorId', bId);
     Session.set('toConfirmDelete', true);
   },
   
   "click #cancelDelete" : function(event){
-    Session.set('edit_authorId', null);
+    Session.set('edit_fichaIndicadorId', null);
     Session.set('toConfirmDelete', false);
   },
   
   "click #confirmDelete" : function(event){  
-    Authors.remove({_id:bId});
-    Session.set('edit_authorId', null);
+    FichaIndicadores.remove({_id:bId});
+    Session.set('edit_fichaIndicadorId', null);
     Session.set('toConfirmDelete', false);
   },
   
   "click .colSelect" : function(event){  
     
-    s = Session.get('colSelectedAuthors');
+    s = Session.get('colSelectedFichaIndicadores');
     colClicked = $(event.target).attr("name");
     
     console.log("clicked: " + colClicked);
     
     if( s === undefined || s === false || _.isEmpty(s)){
-      Session.set('colSelectedAuthors',['title']); 
+      Session.set('colSelectedFichaIndicadores',['title']); 
     }else{
       if(_.contains(s,colClicked)){
         if(s.length > 1){
-          Session.set('colSelectedAuthors',_.without(s,colClicked));
+          Session.set('colSelectedFichaIndicadores',_.without(s,colClicked));
         }
       }else{
-        Session.set('colSelectedAuthors',_.union(s,colClicked));
+        Session.set('colSelectedFichaIndicadores',_.union(s,colClicked));
       }
     }
   },
@@ -77,56 +77,56 @@ Template.authorsList.events({
   'click .rowTable': function (event) {
     // set the blog post we'll display details and news for
     Session.set("formType","disabled");
-    var authorId = this;
-    Router.go("/author/"+ authorId._id);
+    var fichaIndicadorId = this;
+    Router.go("/fichaIndicador/"+fichaIndicadorId._id);      
+    
   },
   
-  'click #undoDeletedAuthor': function (event) {
+  'click #undoDeletedFichaIndicador': function (event) {
     console.log('inside undo');
-    lda = Session.get('lastDeletedAuthor');
-    Authors.insert(_.omit(lda, '_id'));
-    Session.set("lastDeletedAuthor",null);
+    ldb = Session.get('lastDeletedFichaIndicador');
+    FichaIndicadores.insert(_.omit(ldb, '_id'));
+    Session.set("lastDeletedFichaIndicador",null);
   },
   
   'click .close': function (event) {
-    Session.set('lastDeletedAuthor', null);
+    Session.set('lastDeletedFichaIndicador', null);
   }
   
 });
 
 
-Template.authorsList.helpers({
+Template.fichaIndicadoresList.helpers({
   
-  authorsTable: function () {
-    return Authors;  
+  fichaIndicadoresTable: function () {
+    return FichaIndicadores;  
   },
   
   tableSettings: function () {
     
-        var sel = Session.get('colSelectedAuthors');
-    
-     var fs =[
-          { key: 'name', label: 'Nombre completo' },
-          { key: 'birthCountry', label: 'País de nacimiento' }];
+        var sel = Session.get('colSelectedFichaIndicadores');
         
-        
+        var fs =[
+          { key: 'nombre', label: 'Nombre' },
+          { key: 'proceso.nombre', label: 'Proceso' },
+          ];
       
         var finalArray = _.filter(fs , function(fsObj){return _.contains(sel,fsObj.key);});
 //         finalArray.push({ key: 'title', label: ' ', fn: function (value) {
 //           return new Spacebars.SafeString('ver detalles');
 //         }});
 //         finalArray.push({ key: '_id', label: 'Editar', fn: function (value) {
-//                  return new Spacebars.SafeString('<a href="/book/'+value+'"><i class="fa fa-edit"></i></a>');
+//                  return new Spacebars.SafeString('<a href="/fichaIndicador/'+value+'"><i class="fa fa-edit"></i></a>');
 //                }});
 //        finalArray.push({ key: '_id', label: 'Eliminar', fn: function (value) {
 //                 var str="";
 //                 if(Session.get('toConfirmDelete') !== undefined && 
 //                    Session.get('toConfirmDelete') && 
-//                    Session.get('edit_bookId') == value){
+//                    Session.get('edit_fichaIndicadorId') == value){
 //                      str = '<a href="#" id="cancelDelete" name ="'+value+'" class="btn btn-primary btn-sm {{toConfirmDelete _id}}">Cancelar</a>' + 
 //                        '<a href="#" id="confirmDelete" name="'+value+'" class="btn btn-danger btn-sm {{toConfirmDelete _id}}">Confirmar Eliminación</a>  ';                     
 //                 }else{
-//                   str= '<a href="#"><i id="deleteBook" name="'+value+'" class="fa fa-times-circle {{toEnableDelete _id}}" style="color:#C8423E;"></i></a>';   
+//                   str= '<a href="#"><i id="deleteFichaIndicador" name="'+value+'" class="fa fa-times-circle {{toEnableDelete _id}}" style="color:#C8423E;"></i></a>';   
 //                 }
 //                 return new Spacebars.SafeString(str);
 //               }});
@@ -143,12 +143,12 @@ Template.authorsList.helpers({
         };
     },
   
-//   colSelected: function(){
-//     return [{ key: 'name', label: 'Título' }, { key: 'author', label: 'Autor' }];
-//   },
+  colSelected: function(){
+    return [{ key: 'title', label: 'Título' }, { key: 'author', label: 'Autor' }];
+  },
   
   buttonClass: function(field){
-    s = Session.get('colSelectedAuthors');
+    s = Session.get('colSelectedFichaIndicadores');
     if( s === undefined || s === false){
       return 'btn btn-primary btn-xs';
     }else{

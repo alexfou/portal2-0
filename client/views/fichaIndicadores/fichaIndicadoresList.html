@@ -1,0 +1,57 @@
+<template name="fichaIndicadoresList">
+  
+  <div class="row">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+      <div class="row">
+        <div class="col-lg-6">
+          <h3>Ficha de Indicadores</h3>
+        </div>
+        <div class="col-lg-6 text-right">
+          <a href="/fichaIndicadorInsert" class="btn btn-primary btn-sm">Agregar Ficha de Indicador</a>
+        </div>
+      </div>
+    </div>
+      <div class="panel-body">
+         {{#if showWarningDeletedFichaIndicador}}
+  <div class="row">
+    <div class="col-lg-12">
+
+      <div class="bs-component">
+              <div class="alert alert-dismissable alert-warning">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <h4>¡Atención! Usted eliminó un registro. Si fue un error haga click <a href="#" id="undoDeletedFichaIndicador" class="alert-link">aquí para deshacer la última eliminación</a>.</h4>
+              </div>
+            </div>
+    </div>
+  </div>
+  {{/if}}
+        <div class="row" style="border-style: solid; border-width: 1px; border-color:#ecf0f1 ;padding:20px 20px 20px 20px; margin:20px 20px 20px 20px;">
+          {{> reactiveTable collection=fichaIndicadoresTable settings=tableSettings}}
+        </div>
+      </div>
+    </div>
+  </div>
+  
+<!--   <div class="row">
+    <div class="col-lg-8">
+      <h1 id="buttons">Lista de libros</h1>
+    </div>
+    <div class="col-lg-4">
+  <div class="panel panel-default">
+    <div class="panel-heading">Columnas a filtrar</div>
+      <div class="panel-body">
+        <a href="#" id="titleCol" name="title" class="{{buttonClass 'title'}} colSelect">Título</a>
+        <a href="#" id="authorCol" name="author.name" class="{{buttonClass 'author.name'}} colSelect">Autor</a>
+        <a href="#" id="mediaTypeCol" name="mediaType" class="{{buttonClass 'mediaType'}} colSelect">Tipo de medio</a> 
+      </div>
+  </div>
+  </div>
+  </div> -->
+  
+  
+  
+ 
+  
+  
+</template>

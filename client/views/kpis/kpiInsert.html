@@ -1,0 +1,38 @@
+<template name="kpiInsert">
+  
+<div class="row">
+    <div class="col-lg-8 col-lg-offset-2">
+      <table class="table" style="margin-bottom:0px">
+      <thead>
+        <tr>
+          <th><h2 style="margin-top:0px; margin-bottom:0px; width:60%">Agregar un indicador</h2></th>
+          <th style="vertical-align:middle; text-align:right; width:40%"><a href="/kpis/kpisList"><button type="button" id="returnButton" class="btn btn-success btn-xs">Regresar</button></a>
+          </th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2">
+      <div class="well bs-component">
+<!--            {{> quickForm collection="Kpis" schema="Schemas.Kpi" id="insertKpiForm" type="insert" validation="keyup" buttonContent="Guardar"}} -->
+            {{#autoForm collection="Kpis" id="insertKpiForm" type="insert" doc=tempInsertKpi validation="keyup" }}
+              
+                
+                  {{> afQuickField name='name'  }}
+                  {{> afQuickField name='processId' options=processOptions firstOption="Seleccionar un proceso"}}
+                  <a href="#" id="addProcess" class="btn btn-link" style="padding:0px 0px 10px 0px">Agregar proceso</a><br><br>
+                  
+                <button type="submit" class="btn btn-primary">Guardar</button><br><br>
+                <button type="button" id="cancelButton" class="btn btn-warning">Cancelar</button>
+               
+               
+             
+            {{/autoForm}}  
+      </div>
+    </div>
+  </div>
+</template>

@@ -7,12 +7,20 @@ Template.home.rendered = function(){
 
   if (! self.handle) {
     self.handle = Deps.autorun(function () {
+      
       var authors = Authors.find().fetch();
       var books = Books.find().fetch();
       var stores = Stores.find().fetch();
+      var procesos = Procesos.find().fetch();
+      var fichaIndicadores = FichaIndicadores.find().fetch();
+      var fuentes = Fuentes.find().fetch();
+      
       var svg =  d3.select("#authorsGraph");
       var svg2 =  d3.select("#booksGraph");
       var svg3 =  d3.select("#storesGraph");
+      var svgProcesos =  d3.select("#procesosGraph");
+      var svgFichaIndicadores =  d3.select("#fichaIndicadoresGraph");
+      var svgFuentes=  d3.select("#fuentesGraph");
       
       var width = 200;
       var height = 200;
@@ -35,6 +43,21 @@ Template.home.rendered = function(){
      var datasetValues3 = _.values(dataset3);
      var datasetKeys3 = _.keys(dataset3);
       var datasetTotal3 = _.reduce(datasetValues3, function(memo, num){ return memo + num; }, 0);
+      
+      var datasetProcesos = _.countBy(procesos,function(proceso){return proceso.macroProceso_2;}); 
+     var datasetValuesProcesos = _.values(datasetProcesos);
+     var datasetKeysProcesos = _.keys(datasetProcesos);
+      var datasetTotalProcesos = _.reduce(datasetValuesProcesos, function(memo, num){ return memo + num; }, 0);
+      
+       var datasetFichaIndicadores = _.countBy(fichaIndicadores,function(fi){return fi.proceso.nombre;}); 
+     var datasetValuesFichaIndicadores = _.values(datasetFichaIndicadores);
+     var datasetKeysFichaIndicadores = _.keys(datasetFichaIndicadores);
+      var datasetTotalFichaIndicadores = _.reduce(datasetValuesFichaIndicadores, function(memo, num){ return memo + num; }, 0);
+      
+       var datasetFuentes = _.countBy(fuentes,function(f){return f.tipo;}); 
+     var datasetValuesFuentes = _.values(datasetFuentes);
+     var datasetKeysFuentes = _.keys(datasetFuentes);
+      var datasetTotalFuentes = _.reduce(datasetFuentes, function(memo, num){ return memo + num; }, 0);
 
       
 
@@ -160,9 +183,101 @@ var path = svgb.selectAll("path")
                  .attr("dominant-baseline", "central")
                  .attr("fill", "#2C3E4E");
       
+////////// SVR PROCESOS ///////////////////////////////////////////////////////////////
+       var svgProcesosb = svgProcesos
+    .append("g")
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+ svgProcesosb.selectAll("path")
+    .data(pie(datasetValuesProcesos))
+    .enter().append("path")
+    .attr("fill", function(d, i) { return color(i); })
+    .attr("d", arc)
+    .on("click", function(d, i) {
+              //console.log("mousein")
+              text = svgProcesosb.append("text")
+                  .attr("transform", "translate(" + arc.centroid(d) + ")")
+                  .attr("dy", ".5em")
+                  .attr("font-size", "12px")
+                  .style("text-anchor", "middle")
+                  .attr("fill", "#2C3E4E")
+                  .text(datasetKeysProcesos[i]);
+      });
+    
+       svgProcesosb.append("text").attr("x", 0)
+                 .attr("y", 0)
+                 .text(datasetTotalProcesos)
+                 .attr("font-family", "sans-serif")
+                 .attr("font-size", "40px")
+                 .attr("text-anchor", "middle")
+                 .attr("dominant-baseline", "central")
+                 .attr("fill", "#2C3E4E");
+
+            
+////////// SVR FICHA INDICADORES ///////////////////////////////////////////////////////////////
+       var svgFichaIndicadoresb = svgFichaIndicadores
+    .append("g")
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+ svgFichaIndicadoresb.selectAll("path")
+    .data(pie(datasetValuesFichaIndicadores))
+    .enter().append("path")
+    .attr("fill", function(d, i) { return color(i); })
+    .attr("d", arc)
+    .on("click", function(d, i) {
+              //console.log("mousein")
+              text = svgFichaIndicadoresb.append("text")
+                  .attr("transform", "translate(" + arc.centroid(d) + ")")
+                  .attr("dy", ".5em")
+                  .attr("font-size", "12px")
+                  .style("text-anchor", "middle")
+                  .attr("fill", "#2C3E4E")
+                  .text(datasetKeysFichaIndicadores[i]);
+      });
+    
+       svgFichaIndicadoresb.append("text").attr("x", 0)
+                 .attr("y", 0)
+                 .text(datasetTotalFichaIndicadores)
+                 .attr("font-family", "sans-serif")
+                 .attr("font-size", "40px")
+                 .attr("text-anchor", "middle")
+                 .attr("dominant-baseline", "central")
+                 .attr("fill", "#2C3E4E");
+    
+            
+////////// SVG FUENTES ///////////////////////////////////////////////////////////////
+       var svgFuentesb = svgFuentes
+    .append("g")
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+ svgFuentesb.selectAll("path")
+    .data(pie(datasetValuesFuentes))
+    .enter().append("path")
+    .attr("fill", function(d, i) { return color(i); })
+    .attr("d", arc)
+    .on("click", function(d, i) {
+              //console.log("mousein")
+              text = svgFuentesb.append("text")
+                  .attr("transform", "translate(" + arc.centroid(d) + ")")
+                  .attr("dy", ".5em")
+                  .attr("font-size", "12px")
+                  .style("text-anchor", "middle")
+                  .attr("fill", "#2C3E4E")
+                  .text(datasetKeysFuentes[i]);
+      });
+    
+       svgFuentesb.append("text").attr("x", 0)
+                 .attr("y", 0)
+                 .text(datasetTotalFuentes)
+                 .attr("font-family", "sans-serif")
+                 .attr("font-size", "40px")
+                 .attr("text-anchor", "middle")
+                 .attr("dominant-baseline", "central")
+                 .attr("fill", "#2C3E4E");     
       
     });
     
+  
     $(".panel").velocity({translateY: [0, 25]}, 500);
     
    

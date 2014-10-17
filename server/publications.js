@@ -1,9 +1,13 @@
-Meteor.publish('kpis', function() {
-return Kpis.find();
+Meteor.publish('fichaIndicadores', function() {
+return FichaIndicadores.find();
 });
 
-Meteor.publish('processes', function() {
-return Processes.find();
+Meteor.publish('procesos', function() {
+return Procesos.find();
+});
+
+Meteor.publish('fuentes', function() {
+return Fuentes.find();
 });
 
 Meteor.publish('books', function() {

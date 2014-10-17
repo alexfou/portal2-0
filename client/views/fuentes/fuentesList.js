@@ -1,16 +1,16 @@
-Template.authorsList.rendered = function(){
-  s = Session.get('colSelectedAuthors');
+Template.fuentesList.rendered = function(){
+  s = Session.get('colSelectedFuentes');
   if( s === undefined || s === false || _.isEmpty(s)){
-    Session.set('colSelectedAuthors',['name', 'birthCountry']);
+    Session.set('colSelectedFuentes',['nombre', 'tipo']);
   }
 }
-Template.authorsList.helpers({
-  authors: function () {
-    return Authors.find().fetch();  
+Template.fuentesList.helpers({
+  fuentes: function () {
+    return Fuentes.find().fetch();  
   },
   
-  showWarningDeletedAuthor: function(){
-    ldb = Session.get('lastDeletedAuthor');
+  showWarningDeletedFuente: function(){
+    ldb = Session.get('lastDeletedFuente');
     if(ldb === undefined || ldb === false || ldb === null){
       return false; 
     }else{
@@ -18,15 +18,15 @@ Template.authorsList.helpers({
     }
   },
   
-  toConfirmDelete: function(authorId){
-    if(Session.get('toConfirmDelete') !== undefined && Session.get('toConfirmDelete') && Session.get('edit_authorId') == authorId){
+  toConfirmDelete: function(fuenteId){
+    if(Session.get('toConfirmDelete') !== undefined && Session.get('toConfirmDelete') && Session.get('edit_fuenteId') == fuenteId){
       return "";   
     }else{
       return "hidden";
     }
   },
   
-  toEnableDelete: function(authorId){
+  toEnableDelete: function(fuenteId){
     if(Session.get('toConfirmDelete') === undefined || !Session.get('toConfirmDelete')){
       return "";   
     }else{
@@ -36,40 +36,40 @@ Template.authorsList.helpers({
 });
 
 
-Template.authorsList.events({
+Template.fuentesList.events({
   "click .fa-times-circle" : function(event){    
     bId = $(event.target).attr("name");
-    Session.set('edit_authorId', bId);
+    Session.set('edit_fuenteId', bId);
     Session.set('toConfirmDelete', true);
   },
   
   "click #cancelDelete" : function(event){
-    Session.set('edit_authorId', null);
+    Session.set('edit_fuenteId', null);
     Session.set('toConfirmDelete', false);
   },
   
   "click #confirmDelete" : function(event){  
-    Authors.remove({_id:bId});
-    Session.set('edit_authorId', null);
+    Fuentes.remove({_id:bId});
+    Session.set('edit_fuenteId', null);
     Session.set('toConfirmDelete', false);
   },
   
   "click .colSelect" : function(event){  
     
-    s = Session.get('colSelectedAuthors');
+    s = Session.get('colSelectedFuentes');
     colClicked = $(event.target).attr("name");
     
     console.log("clicked: " + colClicked);
     
     if( s === undefined || s === false || _.isEmpty(s)){
-      Session.set('colSelectedAuthors',['title']); 
+      Session.set('colSelectedFuentes',['title']); 
     }else{
       if(_.contains(s,colClicked)){
         if(s.length > 1){
-          Session.set('colSelectedAuthors',_.without(s,colClicked));
+          Session.set('colSelectedFuentes',_.without(s,colClicked));
         }
       }else{
-        Session.set('colSelectedAuthors',_.union(s,colClicked));
+        Session.set('colSelectedFuentes',_.union(s,colClicked));
       }
     }
   },
@@ -77,37 +77,37 @@ Template.authorsList.events({
   'click .rowTable': function (event) {
     // set the blog post we'll display details and news for
     Session.set("formType","disabled");
-    var authorId = this;
-    Router.go("/author/"+ authorId._id);
+    var fuenteId = this;
+    Router.go("/fuente/"+ fuenteId._id);
   },
   
-  'click #undoDeletedAuthor': function (event) {
+  'click #undoDeletedFuente': function (event) {
     console.log('inside undo');
-    lda = Session.get('lastDeletedAuthor');
-    Authors.insert(_.omit(lda, '_id'));
-    Session.set("lastDeletedAuthor",null);
+    lda = Session.get('lastDeletedFuente');
+    Fuentes.insert(_.omit(lda, '_id'));
+    Session.set("lastDeletedFuente",null);
   },
   
   'click .close': function (event) {
-    Session.set('lastDeletedAuthor', null);
+    Session.set('lastDeletedFuente', null);
   }
   
 });
 
 
-Template.authorsList.helpers({
+Template.fuentesList.helpers({
   
-  authorsTable: function () {
-    return Authors;  
+  fuentesTable: function () {
+    return Fuentes;  
   },
   
   tableSettings: function () {
     
-        var sel = Session.get('colSelectedAuthors');
+        var sel = Session.get('colSelectedFuentes');
     
      var fs =[
-          { key: 'name', label: 'Nombre completo' },
-          { key: 'birthCountry', label: 'País de nacimiento' }];
+          { key: 'nombre', label: 'Nombre' },
+          { key: 'tipo', label: 'Tipo' }];
         
         
       
@@ -134,7 +134,7 @@ Template.authorsList.helpers({
         return {
             rowsPerPage: 5,
             showFilter: true,
-            //fields: ['title', 'author'],
+            //fields: ['title', 'fuente'],
             useFontAwesome: true,
           fields: finalArray,
           rowClass: function(item) {
@@ -144,11 +144,11 @@ Template.authorsList.helpers({
     },
   
 //   colSelected: function(){
-//     return [{ key: 'name', label: 'Título' }, { key: 'author', label: 'Autor' }];
+//     return [{ key: 'name', label: 'Título' }, { key: 'fuente', label: 'Autor' }];
 //   },
   
   buttonClass: function(field){
-    s = Session.get('colSelectedAuthors');
+    s = Session.get('colSelectedFuentes');
     if( s === undefined || s === false){
       return 'btn btn-primary btn-xs';
     }else{

@@ -54,6 +54,55 @@
           <a href="/storeInsert"><i class="fa fa-plus"></i> Agregar tienda</a>
         </div>  
         {{/if}}
+        
+        {{#if checkGUIAccess template="home" guiElement="homeFichaIndicadoresMeter"}}
+         <div class="col-lg-4 dashboardEntity text-center">
+          <h3>Fichas de Indicadores</h3>
+          <div class="map">
+            <svg id="fichaIndicadoresGraph" class="kpiSvg" width="200" height="200">
+<!--               <circle class="callout" cx=-100 cy=-100></circle>
+              <g class="arc"></g>
+              <g class="path"></g> -->
+            </svg>
+          </div>
+          <br>
+          <a href="/fichaIndicadoresList"><i class="fa fa-list"></i> Ver detalles</a><br>
+          <a href="/fichaIndicadorInsert"><i class="fa fa-plus"></i> Agregar Ficha de Indicador</a>
+        </div>  
+        {{/if}}
+        
+        {{#if checkGUIAccess template="home" guiElement="homeProcesosMeter"}}
+         <div class="col-lg-4 dashboardEntity text-center">
+          <h3>Procesos</h3>
+          <div class="map">
+            <svg id="procesosGraph" class="kpiSvg" width="200" height="200">
+<!--               <circle class="callout" cx=-100 cy=-100></circle>
+              <g class="arc"></g>
+              <g class="path"></g> -->
+            </svg>
+          </div>
+          <br>
+          <a href="/procesosList"><i class="fa fa-list"></i> Ver detalles</a><br>
+          <a href="/procesoInsert"><i class="fa fa-plus"></i> Agregar Proceso</a>
+        </div>  
+        {{/if}}
+        
+        {{#if checkGUIAccess template="home" guiElement="homeFuentesMeter"}}
+         <div class="col-lg-4 dashboardEntity text-center">
+          <h3>Fuentes</h3>
+          <div class="map">
+            <svg id="fuentesGraph" class="kpiSvg" width="200" height="200">
+<!--               <circle class="callout" cx=-100 cy=-100></circle>
+              <g class="arc"></g>
+              <g class="path"></g> -->
+            </svg>
+          </div>
+          <br>
+          <a href="/fuentesList"><i class="fa fa-list"></i> Ver detalles</a><br>
+          <a href="/fuenteInsert"><i class="fa fa-plus"></i> Agregar Fuente</a>
+        </div>  
+        {{/if}}
+        
       </div>
     </div>
   </div>
