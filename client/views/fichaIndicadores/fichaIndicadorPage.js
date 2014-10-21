@@ -1,10 +1,22 @@
-Template.fuentePage.helpers({
+Template.fichaIndicadorPage.helpers({
   editingDoc: function () {
-    return Fuentes.findOne({_id: this._id});
+    return FichaIndicadores.findOne({_id: this._id});
+  },
+  
+  procesoOptions: function () {
+    return Procesos.find().map(function (a) {
+      return {label: a.nombre, value: a._id};
+    });
   },
   
   fuenteOptions: function () {
     return Fuentes.find().map(function (a) {
+      return {label: a.nombre, value: a._id};
+    });
+  },
+  
+  unidadMedicionOptions: function () {
+    return UnidadesMedicion.find().map(function (a) {
       return {label: a.nombre, value: a._id};
     });
   },
@@ -26,7 +38,7 @@ Template.fuentePage.helpers({
   }
 });
 
-Template.fuentePage.events({
+Template.fichaIndicadorPage.events({
   "click #editButton" : function(event){   
     Session.set('formType', "update");
   },
@@ -35,21 +47,22 @@ Template.fuentePage.events({
     Session.set('formType', "disabled");
   },
   
-  "click #returnButton": function(){
-    Router.go('unidadesMedicionList');
+   "click #returnButton" : function(event){   
+    Session.set('formType', "disabled");
+    Router.go('fichaIndicadoresList');
   },
   
   "click #deleteButton" : function(event){
-    Session.set('lastDeletedFuente', this);
-    UnidadesMedicion.remove({'_id': this._id});
-    Router.go("/fuentesList")
+    Session.set('lastDeletedFichaIndicador', this);
+    FichaIndicadores.remove({'_id': this._id});
+    Router.go("/fichaIndicadoresList")
   },
 });
 
-Template.fuentesList.rendered = function(){
+Template.fichaIndicadoresList.rendered = function(){
     Session.set("formType","disabled");
 }
 
-Template.fuentesList.destroyed = function(){
+Template.fichaIndicadoresList.destroyed = function(){
     Session.set("formType","disabled");
 }

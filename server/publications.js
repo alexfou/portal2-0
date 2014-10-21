@@ -10,6 +10,10 @@ Meteor.publish('fuentes', function() {
 return Fuentes.find();
 });
 
+Meteor.publish('unidadesMedicion', function() {
+return UnidadesMedicion.find();
+});
+
 Meteor.publish('books', function() {
 return Books.find();
 });

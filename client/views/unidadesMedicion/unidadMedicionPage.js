@@ -1,10 +1,10 @@
-Template.fuentePage.helpers({
+Template.unidadMedicionPage.helpers({
   editingDoc: function () {
-    return Fuentes.findOne({_id: this._id});
+    return UnidadesMedicion.findOne({_id: this._id});
   },
   
-  fuenteOptions: function () {
-    return Fuentes.find().map(function (a) {
+  unidadMedicionOptions: function () {
+    return UnidadesMedicion.find().map(function (a) {
       return {label: a.nombre, value: a._id};
     });
   },
@@ -26,7 +26,7 @@ Template.fuentePage.helpers({
   }
 });
 
-Template.fuentePage.events({
+Template.unidadMedicionPage.events({
   "click #editButton" : function(event){   
     Session.set('formType', "update");
   },
@@ -40,16 +40,16 @@ Template.fuentePage.events({
   },
   
   "click #deleteButton" : function(event){
-    Session.set('lastDeletedFuente', this);
+    Session.set('lastDeletedUnidadMedicion', this);
     UnidadesMedicion.remove({'_id': this._id});
-    Router.go("/fuentesList")
+    Router.go("/unidadesMedicionList")
   },
 });
 
-Template.fuentesList.rendered = function(){
+Template.unidadesMedicionList.rendered = function(){
     Session.set("formType","disabled");
 }
 
-Template.fuentesList.destroyed = function(){
+Template.unidadesMedicionList.destroyed = function(){
     Session.set("formType","disabled");
 }

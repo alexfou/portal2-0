@@ -1,4 +1,42 @@
 AutoForm.hooks({
+  
+   
+  updateFichaIndicadorForm:{
+      onSubmit: function(insertDoc, updateDoc, currentDoc) {
+        console.log('InsertDoc: ' + Object.keys(insertDoc) + "-" +insertDoc.nombre);
+        console.log('InsertDoc: ' + Object.keys(updateDoc) + "-" +updateDoc.nombre);
+        console.log('InsertDoc: ' + Object.keys(currentDoc) + "-" +currentDoc.nombre); //tiene _id
+        if(currentDoc.procesoId !== insertDoc.procesoId){
+          console.log('Cambio de proceso');
+          a = Procesos.findOne({'_id':insertDoc.procesoId});
+          console.log("Proceso find: " + a + " and its keys: " + Object.keys(a));
+          insertDoc.procesoId = a._id;
+          insertDoc.proceso = a;
+          //FichaIndicadores.update({'_id':currentDoc._id}, {$set: insertDoc});
+          //this.done();
+          //Router.go('/fichaIndicadoresList');
+          //return false;     
+        }if(currentDoc.fuenteId !== insertDoc.procesoId){
+          console.log('Cambio de fuente');
+          a = Fuentes.findOne({'_id':insertDoc.fuenteId});
+          console.log("Fuente find: " + a + " and its keys: " + Object.keys(a));
+          insertDoc.fuenteId = a._id;
+          insertDoc.fuente = a;
+        }
+         // Procesos.update({'_id':currentDoc._id}, {$set: insertDoc});
+          //this.done();
+          //Router.go('/fichaIndicadoresList');
+          //return false;
+        //}else{
+          FichaIndicadores.update({'_id':currentDoc._id}, {$set: insertDoc});
+          this.done();
+          Router.go('/fichaIndicadoresList');
+          return false;
+        //}
+        //return false;
+      },
+  },
+ 
   insertBookForm: {
     before: {
       insert: function(doc, template) {
@@ -172,6 +210,11 @@ AutoForm.hooks({
           console.log("Fuente find: " + a + " and its keys: " + Object.keys(a));
           doc.fuente = a;  
         }
+        if(doc.unidadMedicionId !== undefined){
+           a = UnidadesMedicion.findOne({'_id':doc.unidadMedicionId});
+          console.log("Unidad de Medicion find: " + a + " and its keys: " + Object.keys(a));
+          doc.unidadMedicion = a;  
+        }
        
          //Books.insert(doc);    
          //Session.set('tempInsertBook', undefined);
@@ -205,7 +248,23 @@ insertFuenteForm: {
        Router.go('/fuentesList');     
     }, 
   },
-  
 
-               
+//////////// UNIDADES MEDICION /////////////////////////////////////////////////////
+  insertUnidadMedicionForm: {
+    onSuccess: function(operation, result, template) {
+      s = Session.get('originRoute');
+      if(s === undefined || s === false || s === null){
+        Router.go('/unidadesMedicionList');   
+      }
+      if(s == 'unidadMedicionInsert')
+       Router.go('/unidadMedicionInsert');     
+    }, 
+  },
+  
+  updateUnidadMedicionForm: {
+    onSuccess: function(operation, result, template) {
+       Router.go('/unidadesMedicionList');     
+    }, 
+  },
+                
 });

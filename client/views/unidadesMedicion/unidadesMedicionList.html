@@ -1,0 +1,75 @@
+<template name="unidadesMedicionList">
+  <div class="row">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+      <div class="row">
+        <div class="col-lg-6">
+          <h3>Unidades de Medición</h3>
+        </div>
+        <div class="col-lg-6 text-right">
+          <a href="/unidadMedicionInsert" class="btn btn-primary btn-sm">Agregar Unidad de Medición</a>
+        </div>
+      </div>
+    </div>
+      <div class="panel-body">
+        {{#if showWarningDeletedUnidadMedicion}}
+  <div class="row">
+    <div class="col-lg-12">
+
+      <div class="bs-component">
+              <div class="alert alert-dismissable alert-warning">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <h4>¡Atención! Usted eliminó un registro. Si fue un error haga click <a href="#" id="undoDeletedUnidadMedicion" class="alert-link">aquí para deshacer la última eliminación</a>.</h4>
+              </div>
+            </div>
+    </div>
+  </div>
+  {{/if}}
+        <div class="row" style="border-style: solid; border-width: 1px; border-color:#ecf0f1 ;padding:20px 20px 20px 20px; margin:20px 20px 20px 20px;">
+          {{> reactiveTable collection=unidadesMedicionTable settings=tableSettings}}
+        </div>
+      </div>
+    </div>
+  </div>
+  
+    
+  
+  
+  
+  
+<!--   
+  <div class="row">
+    <div class="col-lg-8">
+      <h1 id="buttons">Autores</h1>
+    </div>
+    <div class="col-lg-4">
+      <a href="/authorInsert"><i class="fa fa-plus-circle fa-4x"></i> Agregar un autor</a>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="col-lg-4">
+        <a href="#" id="nameCol" name="name" class="{{buttonClass 'name'}} colSelect">Nombre completo</a>
+        <a href="#" id="birthCountryCol" name="birthCountry" class="{{buttonClass 'birthCountry'}} colSelect">País de nacimiento</a> 
+  </div>
+  
+  
+  
+  {{#if showWarningDeletedAuthor}}
+  <div class="row">
+    <div class="col-lg-12">
+
+      <div class="bs-component">
+              <div class="alert alert-dismissable alert-warning">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <h4>¡Atención! Usted eliminó un registro. Si fue un error <a href="#" id="undoDeletedAuthor" class="alert-link">deshacer última eliminación</a>.</h4>
+              </div>
+            </div>
+    </div>
+  </div>
+  {{/if}}
+  
+  <div class="row">
+    {{> reactiveTable collection=authorsTable settings=tableSettings}}
+  </div> -->
+</template>

@@ -11,6 +11,12 @@ Template.fichaIndicadorInsert.helpers({
     });
   },
   
+  unidadMedicionOptions: function () {
+    return UnidadesMedicion.find().map(function (a) {
+      return {label: a.nombre, value: a._id};
+    });
+  },
+  
   tempInsertFichaIndicador: function(){
     return Session.get('tempInsertFichaIndicador')
   }

@@ -16,24 +16,38 @@ Schemas.FichaIndicador = new SimpleSchema({
   
   procesoId: {
     type: String,
-    label: "Proceso Id"
+    label: "Proceso Id",
+    optional:false
   },
   
   proceso:{
     type: Schemas.Proceso,
     label: "Proceso",
-    optional:false
+    optional:true
   },
   
   fuenteId: {
     type: String,
-    label: "Fuente Id"
+    label: "Fuente Id",
+    optional:false
   },
   
   fuente:{
     type: Schemas.Fuente,
     label: "Fuente",
+    optional:true
+  },
+  
+  unidadMedicionId: {
+    type: String,
+    label: "Unidad de Medición",
     optional:false
+  },
+  
+  unidadMedicion:{
+    type: Schemas.UnidadMedicion,
+    label: "Unidad de Medición",
+    optional:true
   },
   
 });
