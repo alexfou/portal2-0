@@ -26,7 +26,8 @@
                   {{> afQuickField name='objetivo'  }}
                   {{> afQuickField name='procesoId' options=procesoOptions}}
                   {{> afQuickField name='fuenteId' options=fuenteOptions}}  
-                  {{> afQuickField name='unidadMedicionId' options=unidadMedicionOptions}}  
+                  {{> afQuickField name='unidadMedicionId' options=unidadMedicionOptions}}
+        {{> asignacionesAtributoNormativoIndicador}}
             {{/autoForm}}  
          <table class="table" style="margin-bottom:0px">
       <thead>
@@ -50,6 +51,8 @@
                   {{> afQuickField name='fuenteId' options=fuenteOptions firstOption="Seleccionar una fuente"}}
         {{> afQuickField name='unidadMedicionId' options=unidadMedicionOptions firstOption="Seleccionar una unidad de medición"}}
         
+        {{> asignacionesAtributoNormativoIndicador this}}
+        <br>
          <button type="submit" class="btn btn-primary">Guardar</button>
             {{/autoForm}}   
         <br>
@@ -62,4 +65,19 @@
       </div>
   </div>
 
+</template>
+
+<template name="asignacionesAtributoNormativoIndicador">
+  <label class="control-label" for="unidadMedicionId">Atributos Normativos</label>
+  <br>
+  {{#each getAtributosNormativos}}
+    {{#if formType "update"}}<i style="color: #e74c3c" id={{_id}} for={{../_id}} class="fa fa-times-circle-o fa-1.5x removeAtributoNormativo"></i> 
+<!--   <a href="#" id={{_id}} for={{../_id}} class="btn btn-link removeAtributoNormativo" style="padding:0px 0px 5px 0px">Eliminar</a> -->
+  {{/if}} {{nombreAt}} <br>
+  {{/each}}
+  {{#if formType "update"}}<i style="color: #18bc9c" class="fa fa-plus-circle fa-1.5x"></i> {{> inputAutocomplete settings=settings id="addAtributoNormativo" class="input-xlarge" placeholder="Agregar atributo normativo..."}}{{/if}}<br>
+</template>
+
+<template name="userPill">
+    <span class="label">{{nombre}}</span>
 </template>

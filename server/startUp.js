@@ -33,7 +33,9 @@ Meteor.startup(function () {
     Meteor.myFixtures.createProcesos();
     Meteor.myFixtures.createFuentes();
     Meteor.myFixtures.createUnidadesMedicion();
+    Meteor.myFixtures.createAtributosNormativos(); 
     Meteor.myFixtures.createFichaIndicadores();
+    Meteor.myFixtures.createAsignacionesAtributoNormativoIndicador();
     
   }
 

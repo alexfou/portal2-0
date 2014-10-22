@@ -15,6 +15,7 @@ Template.home.rendered = function(){
       var fichaIndicadores = FichaIndicadores.find().fetch();
       var fuentes = Fuentes.find().fetch();
       var unidadesMedicion = UnidadesMedicion.find().fetch();
+      var atributosNormativos = AtributosNormativos.find().fetch();
       
       var svg =  d3.select("#authorsGraph");
       var svg2 =  d3.select("#booksGraph");
@@ -23,6 +24,7 @@ Template.home.rendered = function(){
       var svgFichaIndicadores =  d3.select("#fichaIndicadoresGraph");
       var svgFuentes=  d3.select("#fuentesGraph");
       var svgUnidadesMedicion=  d3.select("#unidadesMedicionGraph");
+      var svgAtributosNormativos=  d3.select("#atributosNormativosGraph");
       
       var width = 200;
       var height = 200;
@@ -65,6 +67,11 @@ Template.home.rendered = function(){
      var datasetValuesUnidadesMedicion = _.values(datasetUnidadesMedicion);
      var datasetKeysUnidadesMedicion = _.keys(datasetUnidadesMedicion);
       var datasetTotalUnidadesMedicion = _.reduce(datasetUnidadesMedicion, function(memo, num){ return memo + num; }, 0);
+      
+       var datasetAtributosNormativos = _.countBy(atributosNormativos,function(f){return f.nombre;}); 
+     var datasetValuesAtributosNormativos = _.values(datasetAtributosNormativos);
+     var datasetKeysAtributosNormativos = _.keys(datasetAtributosNormativos);
+      var datasetTotalAtributosNormativos = _.reduce(datasetAtributosNormativos, function(memo, num){ return memo + num; }, 0);
       
 
 var color = d3.scale.category20();
@@ -312,7 +319,37 @@ var path = svgb.selectAll("path")
                  .attr("font-size", "40px")
                  .attr("text-anchor", "middle")
                  .attr("dominant-baseline", "central")
-                 .attr("fill", "#2C3E4E");     
+                 .attr("fill", "#2C3E4E");   
+
+////////// SVG ATRIBUTOS NORMATIVOS  ///////////////////////////////////////////////////////
+    var svgAtributosNormativosb = svgAtributosNormativos
+    .append("g")
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+ svgAtributosNormativosb.selectAll("path")
+    .data(pie(datasetValuesAtributosNormativos))
+    .enter().append("path")
+    .attr("fill", function(d, i) { return color(i); })
+    .attr("d", arc)
+    .on("click", function(d, i) {
+              //console.log("mousein")
+              text = svgAtributosNormativosb.append("text")
+                  .attr("transform", "translate(" + arc.centroid(d) + ")")
+                  .attr("dy", ".5em")
+                  .attr("font-size", "12px")
+                  .style("text-anchor", "middle")
+                  .attr("fill", "#2C3E4E")
+                  .text(datasetKeysAtributosNormativos[i]);
+      });
+    
+       svgAtributosNormativosb.append("text").attr("x", 0)
+                 .attr("y", 0)
+                 .text(datasetTotalAtributosNormativos)
+                 .attr("font-family", "sans-serif")
+                 .attr("font-size", "40px")
+                 .attr("text-anchor", "middle")
+                 .attr("dominant-baseline", "central")
+                 .attr("fill", "#2C3E4E");
       
     });
     

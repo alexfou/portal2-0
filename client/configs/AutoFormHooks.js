@@ -266,5 +266,24 @@ insertFuenteForm: {
        Router.go('/unidadesMedicionList');     
     }, 
   },
+  
+//////////// ATRIBUTOS NORMATIVOS /////////////////////////////////////////////////////
+  insertAtributoNormativoForm: {
+    onSuccess: function(operation, result, template) {
+      s = Session.get('originRoute');
+      if(s === undefined || s === false || s === null){
+        Router.go('/atributosNormativosList');   
+      }
+      if(s == 'atributoNormativoInsert')
+       Router.go('/atributoNormativoInsert');     
+    }, 
+  },
+  
+  updateAtributoNormativoForm: {
+    onSuccess: function(operation, result, template) {
+       Router.go('/atributosNormativosList');     
+    }, 
+  },
+     
                 
 });

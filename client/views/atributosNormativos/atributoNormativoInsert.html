@@ -1,0 +1,25 @@
+<template name="atributoNormativoInsert">
+<div class="row">
+    <div class="col-lg-8 col-lg-offset-2">
+      <table class="table" style="margin-bottom:0px">
+      <thead>
+        <tr>
+          <th><h2 style="margin-top:0px; margin-bottom:0px; width:60%">Agregar un atributo normativo</h2></th>
+          <th style="vertical-align:middle; text-align:right; width:40%"><a href="/atributosNormativosList"><button type="button" id="returnButton" class="btn btn-success btn-xs">Regresar</button></a>
+          </th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2">
+      <div class="well bs-component">
+           {{> quickForm collection="AtributosNormativos" id="insertAtributoNormativoForm" type="insert" validation="keyup" buttonContent="Guardar"}}<br>
+        <button type="button" id="cancelButton" class="btn btn-warning">Cancelar</button>
+    </div>
+  </div>
+  </div>
+</template>

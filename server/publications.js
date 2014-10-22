@@ -14,6 +14,14 @@ Meteor.publish('unidadesMedicion', function() {
 return UnidadesMedicion.find();
 });
 
+Meteor.publish('atributosNormativos', function() {
+return AtributosNormativos.find();
+});
+
+Meteor.publish('asignacionesAtributoNormativoIndicador', function() {
+return AsignacionesAtributoNormativoIndicador.find();
+});
+
 Meteor.publish('books', function() {
 return Books.find();
 });
