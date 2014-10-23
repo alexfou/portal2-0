@@ -12,6 +12,12 @@ Schemas.AtributoNormativo = new SimpleSchema({
     label: "Fecha de inicio",
     optional:true,
   },
+  normaId: {
+    type: String,
+    label: "Norma",
+    max: 50,
+    optional:false
+  },
    
 });
 

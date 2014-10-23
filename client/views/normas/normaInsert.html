@@ -1,0 +1,39 @@
+<template name="normaInsert">
+<div class="row">
+    <div class="col-lg-8 col-lg-offset-2">
+      <table class="table" style="margin-bottom:0px">
+      <thead>
+        <tr>
+          <th><h2 style="margin-top:0px; margin-bottom:0px; width:60%">Agregar una norma</h2></th>
+          <th style="vertical-align:middle; text-align:right; width:40%"><a href="/normasList"><button type="button" id="returnButton" class="btn btn-success btn-xs">Regresar</button></a>
+          </th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2">
+      <div class="well bs-component">
+           {{#autoForm collection="Normas" id="insertNormaForm" type="insert" doc=tempInsertNorma validation="keyup" }}
+              
+                
+                  {{> afQuickField name='nombre'  }}
+                  {{> afQuickField name='descripcion'  }}
+                  {{> afQuickField name='entidadReguladoraId' options=entidadReguladoraOptions firstOption="Seleccionar una entidad reguladora"}}
+        <a href="#" id="addEntidadReguladoraNorma" class="btn btn-link" style="padding:0px 0px 10px 0px">Agregar entidad reguladora</a>
+        {{> afQuickField name='fechaInicio'  }}
+                  {{> afQuickField name='fechaFin'  }}
+                
+                <button type="submit" class="btn btn-primary">Guardar</button><br><br>
+                <button type="button" id="cancelButton" class="btn btn-warning">Cancelar</button>
+               
+               
+             
+            {{/autoForm}}
+    </div>
+  </div>
+  </div>
+</template>

@@ -135,6 +135,38 @@
         </div>  
         {{/if}}
         
+         {{#if checkGUIAccess template="home" guiElement="homeNormasMeter"}}
+         <div class="col-lg-4 dashboardEntity text-center">
+          <h3>Normas</h3>
+          <div class="map">
+            <svg id="normasGraph" class="kpiSvg" width="200" height="200">
+<!--               <circle class="callout" cx=-100 cy=-100></circle>
+              <g class="arc"></g>
+              <g class="path"></g> -->
+            </svg>
+          </div>
+          <br>
+          <a href="/normasList"><i class="fa fa-list"></i> Ver detalles</a><br>
+          <a href="/normaInsert"><i class="fa fa-plus"></i> Agregar Norma</a>
+        </div>  
+        {{/if}}
+        
+        {{#if checkGUIAccess template="home" guiElement="homeEntidadesReguladorasMeter"}}
+         <div class="col-lg-4 dashboardEntity text-center">
+          <h3>Entidades Reguladoras</h3>
+          <div class="map">
+            <svg id="entidadesReguladorasGraph" class="kpiSvg" width="200" height="200">
+<!--               <circle class="callout" cx=-100 cy=-100></circle>
+              <g class="arc"></g>
+              <g class="path"></g> -->
+            </svg>
+          </div>
+          <br>
+          <a href="/entidadesReguladorasList"><i class="fa fa-list"></i> Ver detalles</a><br>
+          <a href="/entidadReguladoraInsert"><i class="fa fa-plus"></i> Agregar Entidad Reguladora</a>
+        </div>  
+        {{/if}}
+        
       </div>
     </div>
   </div>

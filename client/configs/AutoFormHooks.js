@@ -284,6 +284,44 @@ insertFuenteForm: {
        Router.go('/atributosNormativosList');     
     }, 
   },
-     
-                
+
+//////////// ENTIDADES REGULADORAS /////////////////////////////////////////////////////
+insertEntidadReguladoraForm: {
+    onSuccess: function(operation, result, template) {
+      s = Session.get('originRoute');
+      if(s === undefined || s === false || s === null){
+        Router.go('/entidadesReguladorasList');   
+      }
+      if(s == 'entidadReguladoraInsert')
+       Router.go('/entidadReguladoraInsert');     
+    }, 
+  },
+  
+  updateFuenteForm: {
+    onSuccess: function(operation, result, template) {
+       Router.go('/entidadesReguladorasList');     
+    }, 
+  },
+
+//////////// NORMAS /////////////////////////////////////////////////////
+insertNormaForm: {
+    onSuccess: function(operation, result, template) {
+      s = Session.get('originRoute');
+      if(s === undefined || s === false || s === null){
+        Router.go('/normasList');   
+      }
+      if(s == 'AtributoNormativoInsert')
+       Router.go('/atributoNormativoInsert');     
+    }, 
+  },
+  
+   updateNormaForm: {
+     onSubmit: function(insertDoc, updateDoc, currentDoc) {
+       Normas.update({'_id':currentDoc._id}, {$set: insertDoc});
+          this.done();
+          Router.go('/normasList');
+          return false;    
+     }, 
+   },
+                   
 });

@@ -18,6 +18,14 @@ Meteor.publish('atributosNormativos', function() {
 return AtributosNormativos.find();
 });
 
+Meteor.publish('normas', function() {
+return Normas.find();
+});
+
+Meteor.publish('entidadesReguladoras', function() {
+return EntidadesReguladoras.find();
+});
+
 Meteor.publish('asignacionesAtributoNormativoIndicador', function() {
 return AsignacionesAtributoNormativoIndicador.find();
 });

@@ -17,7 +17,19 @@
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2">
       <div class="well bs-component">
-           {{> quickForm collection="AtributosNormativos" id="insertAtributoNormativoForm" type="insert" validation="keyup" buttonContent="Guardar"}}<br>
+          {{#autoForm collection="AtributosNormativos" id="insertAtributoNormativoForm" type="insert" doc=tempInsertAtributoNormativo validation="keyup" }}
+              
+                
+                  {{> afQuickField name='nombre'  }}
+                  {{> afQuickField name='fechaInicio'  }}
+                  {{> afQuickField name='normaId' options=normaOptions firstOption="Seleccionar una norma"}}
+        <a href="#" id="addNormaAtributoNormativo" class="btn btn-link" style="padding:0px 0px 10px 0px">Agregar norma</a><br>
+                
+                <button type="submit" class="btn btn-primary">Guardar</button><br><br>
+               
+               
+             
+            {{/autoForm}}
         <button type="button" id="cancelButton" class="btn btn-warning">Cancelar</button>
     </div>
   </div>

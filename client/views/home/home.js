@@ -16,6 +16,8 @@ Template.home.rendered = function(){
       var fuentes = Fuentes.find().fetch();
       var unidadesMedicion = UnidadesMedicion.find().fetch();
       var atributosNormativos = AtributosNormativos.find().fetch();
+      var entidadesReguladoras = EntidadesReguladoras.find().fetch();
+      var normas = Normas.find().fetch();
       
       var svg =  d3.select("#authorsGraph");
       var svg2 =  d3.select("#booksGraph");
@@ -25,6 +27,8 @@ Template.home.rendered = function(){
       var svgFuentes=  d3.select("#fuentesGraph");
       var svgUnidadesMedicion=  d3.select("#unidadesMedicionGraph");
       var svgAtributosNormativos=  d3.select("#atributosNormativosGraph");
+      var svgEntidadesReguladoras=  d3.select("#entidadesReguladorasGraph");
+      var svgNormas=  d3.select("#normasGraph");
       
       var width = 200;
       var height = 200;
@@ -72,6 +76,16 @@ Template.home.rendered = function(){
      var datasetValuesAtributosNormativos = _.values(datasetAtributosNormativos);
      var datasetKeysAtributosNormativos = _.keys(datasetAtributosNormativos);
       var datasetTotalAtributosNormativos = _.reduce(datasetAtributosNormativos, function(memo, num){ return memo + num; }, 0);
+      
+       var datasetEntidadesReguladoras = _.countBy(entidadesReguladoras,function(f){return f.nombre;}); 
+     var datasetValuesEntidadesReguladoras = _.values(datasetEntidadesReguladoras);
+     var datasetKeysEntidadesReguladoras = _.keys(datasetEntidadesReguladoras);
+      var datasetTotalEntidadesReguladoras = _.reduce(datasetEntidadesReguladoras, function(memo, num){ return memo + num; }, 0);
+      
+       var datasetNormas = _.countBy(normas,function(f){return f.nombre;}); 
+     var datasetValuesNormas = _.values(datasetNormas);
+     var datasetKeysNormas = _.keys(datasetNormas);
+      var datasetTotalNormas = _.reduce(datasetNormas, function(memo, num){ return memo + num; }, 0);
       
 
 var color = d3.scale.category20();
@@ -350,6 +364,66 @@ var path = svgb.selectAll("path")
                  .attr("text-anchor", "middle")
                  .attr("dominant-baseline", "central")
                  .attr("fill", "#2C3E4E");
+      
+////////// SVG ENTIDADES REGULADORAS ///////////////////////////////////////////////////////////////
+       var svgEntidadesReguladorasb = svgEntidadesReguladoras
+    .append("g")
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+ svgEntidadesReguladorasb.selectAll("path")
+    .data(pie(datasetValuesEntidadesReguladoras))
+    .enter().append("path")
+    .attr("fill", function(d, i) { return color(i); })
+    .attr("d", arc)
+    .on("click", function(d, i) {
+              //console.log("mousein")
+              text = svgEntidadesReguladorasb.append("text")
+                  .attr("transform", "translate(" + arc.centroid(d) + ")")
+                  .attr("dy", ".5em")
+                  .attr("font-size", "12px")
+                  .style("text-anchor", "middle")
+                  .attr("fill", "#2C3E4E")
+                  .text(datasetKeysEntidadesReguladoras[i]);
+      });
+    
+       svgEntidadesReguladorasb.append("text").attr("x", 0)
+                 .attr("y", 0)
+                 .text(datasetTotalEntidadesReguladoras)
+                 .attr("font-family", "sans-serif")
+                 .attr("font-size", "40px")
+                 .attr("text-anchor", "middle")
+                 .attr("dominant-baseline", "central")
+                 .attr("fill", "#2C3E4E");  
+
+////////// SVG NORMAS ///////////////////////////////////////////////////////////////
+       var svgNormasb = svgNormas
+    .append("g")
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+ svgNormasb.selectAll("path")
+    .data(pie(datasetValuesNormas))
+    .enter().append("path")
+    .attr("fill", function(d, i) { return color(i); })
+    .attr("d", arc)
+    .on("click", function(d, i) {
+              //console.log("mousein")
+              text = svgNormasb.append("text")
+                  .attr("transform", "translate(" + arc.centroid(d) + ")")
+                  .attr("dy", ".5em")
+                  .attr("font-size", "12px")
+                  .style("text-anchor", "middle")
+                  .attr("fill", "#2C3E4E")
+                  .text(datasetKeysNormas[i]);
+      });
+    
+       svgNormasb.append("text").attr("x", 0)
+                 .attr("y", 0)
+                 .text(datasetTotalNormas)
+                 .attr("font-family", "sans-serif")
+                 .attr("font-size", "40px")
+                 .attr("text-anchor", "middle")
+                 .attr("dominant-baseline", "central")
+                 .attr("fill", "#2C3E4E"); 
       
     });
     

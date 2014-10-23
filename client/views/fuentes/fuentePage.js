@@ -41,7 +41,7 @@ Template.fuentePage.events({
   
   "click #deleteButton" : function(event){
     Session.set('lastDeletedFuente', this);
-    UnidadesMedicion.remove({'_id': this._id});
+    Fuentes.remove({'_id': this._id});
     Router.go("/fuentesList")
   },
 });

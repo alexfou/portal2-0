@@ -1,10 +1,10 @@
-Template.atributoNormativoPage.helpers({
+Template.entidadReguladoraPage.helpers({
   editingDoc: function () {
-    return AtributosNormativos.findOne({_id: this._id});
+    return EntidadesReguladoras.findOne({_id: this._id});
   },
   
-  normaOptions: function () {
-    return Normas.find().map(function (a) {
+  entidadReguladoraOptions: function () {
+    return EntidadesReguladoras.find().map(function (a) {
       return {label: a.nombre, value: a._id};
     });
   },
@@ -26,7 +26,7 @@ Template.atributoNormativoPage.helpers({
   }
 });
 
-Template.atributoNormativoPage.events({
+Template.entidadReguladoraPage.events({
   "click #editButton" : function(event){   
     Session.set('formType', "update");
   },
@@ -36,20 +36,20 @@ Template.atributoNormativoPage.events({
   },
   
   "click #returnButton": function(){
-    Router.go('atributosNormativosList');
+    Router.go('entidadesReguladorasList');
   },
   
   "click #deleteButton" : function(event){
-    Session.set('lastDeletedAtributoNormativo', this);
-    AtributosNormativos.remove({'_id': this._id});
-    Router.go("/atributosNormativosList")
+    Session.set('lastDeletedEntidadReguladora', this);
+    EntidadesReguladoras.remove({'_id': this._id});
+    Router.go("/entidadesReguladorasList")
   },
 });
 
-Template.atributosNormativosList.rendered = function(){
+Template.entidadesReguladorasList.rendered = function(){
     Session.set("formType","disabled");
 }
 
-Template.atributosNormativosList.destroyed = function(){
+Template.entidadesReguladorasList.destroyed = function(){
     Session.set("formType","disabled");
 }

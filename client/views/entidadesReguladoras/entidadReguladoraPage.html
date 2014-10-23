@@ -1,10 +1,10 @@
-<template name="atributoNormativoPage">
+<template name="entidadReguladoraPage">
   <div class="row" >
     <div class="col-lg-8 col-lg-offset-2">
     <table class="table" style="margin-bottom:0px">
       <thead>
         <tr>
-          <th><h2 style="margin-top:0px; margin-bottom:0px; width:60%">Detalles del atributo normativo</h2></th>
+          <th><h2 style="margin-top:0px; margin-bottom:0px; width:60%">Detalles de la Entidad Reguladora</h2></th>
           <th style="vertical-align:middle; text-align:right; width:13%">{{#if formType "disabled"}}<button type="button" id="editButton" class="btn btn-primary btn-xs">Editar</button>{{/if}}</th>
           <th style="vertical-align:middle; text-align:right; width:13%">{{#if formType "disabled"}}<button type="button" id="deleteButton" class="btn btn-danger btn-xs">Eliminar</button>{{/if}}</th>
           <th style="vertical-align:middle; text-align:right; width:14%">{{#if formType "disabled"}}<button type="button" id="returnButton" class="btn btn-success btn-xs">Regresar</button>{{/if}}</th>
@@ -21,10 +21,10 @@
         
         {{#if formType "disabled"}}
 <!--          {{> quickForm collection="Books" doc=editingDoc id="updateBookForm" type="disabled" buttonContent="Guardar"}} -->
-         {{#autoForm collection="AtributosNormativos" id="updateAtributoNormativoForm" doc=editingDoc  type="disabled" validation="keyup" buttonContent="Guardar" }}                
+         {{#autoForm collection="EntidadesReguladoras" id="updateEntidadReguladoraForm" doc=editingDoc  type="disabled" validation="keyup" buttonContent="Guardar" }}                
                   {{> afQuickField name='nombre'}}         
-                  {{> afQuickField name='fechaInicio'}}
-                  {{> afQuickField name='normaId'  options=normaOptions}}
+                  {{> afQuickField name='direccion'}}
+                  {{> afQuickField name='telefono'}}   
             {{/autoForm}}  
          <table class="table" style="margin-bottom:0px">
       <thead>
@@ -39,10 +39,10 @@
     </table>
         {{/if}}
         {{#if formType "update"}}
-          {{#autoForm collection="AtributosNormativos" id="updateAtributoNormativoForm" doc=editingDoc type="update"  validation="keyup" buttonContent="Guardar" }}                
-                  {{> afQuickField name='nombre'  }}           
-                  {{> afQuickField name='fechaInicio'}}
-                  {{> afQuickField name='normaId'  options=normaOptions}}
+          {{#autoForm collection="EntidadesReguladoras" id="updateEntidadReguladoraForm" doc=editingDoc type="update"  validation="keyup" buttonContent="Guardar" }}                
+                  {{> afQuickField name='nombre'}}         
+                  {{> afQuickField name='direccion'}}
+                  {{> afQuickField name='telefono'}}  
          <button type="submit" class="btn btn-primary">Guardar</button>
             {{/autoForm}}   
         <br>

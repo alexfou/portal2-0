@@ -1,32 +1,32 @@
-<template name="atributosNormativosList">
+<template name="entidadesReguladorasList">
   <div class="row">
     <div class="panel panel-default">
       <div class="panel-heading">
       <div class="row">
         <div class="col-lg-6">
-          <h3>Atributos Normativos</h3>
+          <h3>EntidadesReguladoras</h3>
         </div>
         <div class="col-lg-6 text-right">
-          <a href="/atributoNormativoInsert" class="btn btn-primary btn-sm">Agregar atributo normativo</a>
+          <a href="/entidadReguladoraInsert" class="btn btn-primary btn-sm">Agregar Entidad Reguladora</a>
         </div>
       </div>
     </div>
       <div class="panel-body">
-        {{#if showWarningDeletedAtributoNormativo}}
+        {{#if showWarningDeletedEntidadReguladora}}
   <div class="row">
     <div class="col-lg-12">
 
       <div class="bs-component">
               <div class="alert alert-dismissable alert-warning">
                 <button type="button" class="close" data-dismiss="alert">×</button>
-                <h4>¡Atención! Usted eliminó un registro. Si fue un error haga click <a href="#" id="undoDeletedAtributoNormativo" class="alert-link">aquí para deshacer la última eliminación</a>.</h4>
+                <h4>¡Atención! Usted eliminó un registro. Si fue un error haga click <a href="#" id="undoDeletedEntidadReguladora" class="alert-link">aquí para deshacer la última eliminación</a>.</h4>
               </div>
             </div>
     </div>
   </div>
   {{/if}}
         <div class="row" style="border-style: solid; border-width: 1px; border-color:#ecf0f1 ;padding:20px 20px 20px 20px; margin:20px 20px 20px 20px;">
-          {{> reactiveTable collection=atributosNormativosTable settings=tableSettings}}
+          {{> reactiveTable collection=entidadesReguladorasTable settings=tableSettings}}
         </div>
       </div>
     </div>
@@ -43,7 +43,7 @@
       <h1 id="buttons">Autores</h1>
     </div>
     <div class="col-lg-4">
-      <a href="/atributoNormativoInsert"><i class="fa fa-plus-circle fa-4x"></i> Agregar un autor</a>
+      <a href="/authorInsert"><i class="fa fa-plus-circle fa-4x"></i> Agregar un autor</a>
     </div>
   </div>
   <br>
@@ -55,14 +55,14 @@
   
   
   
-  {{#if showWarningDeletedAtributoNormativo}}
+  {{#if showWarningDeletedAuthor}}
   <div class="row">
     <div class="col-lg-12">
 
       <div class="bs-component">
               <div class="alert alert-dismissable alert-warning">
                 <button type="button" class="close" data-dismiss="alert">×</button>
-                <h4>¡Atención! Usted eliminó un registro. Si fue un error <a href="#" id="undoDeletedAtributoNormativo" class="alert-link">deshacer última eliminación</a>.</h4>
+                <h4>¡Atención! Usted eliminó un registro. Si fue un error <a href="#" id="undoDeletedAuthor" class="alert-link">deshacer última eliminación</a>.</h4>
               </div>
             </div>
     </div>
@@ -70,6 +70,6 @@
   {{/if}}
   
   <div class="row">
-    {{> reactiveTable collection=atributosNormativosTable settings=tableSettings}}
+    {{> reactiveTable collection=authorsTable settings=tableSettings}}
   </div> -->
 </template>
