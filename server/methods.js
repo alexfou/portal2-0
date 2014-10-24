@@ -13,5 +13,9 @@ Meteor.methods({
   
   resetPasswordDefault: function(userId) {
     Accounts.setPassword(userId, 'abc123');
+  },
+  
+  getAllUsers: function(){
+    Meteor.users.find({}).fetch();
   }
 });

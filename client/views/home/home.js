@@ -18,6 +18,7 @@ Template.home.rendered = function(){
       var atributosNormativos = AtributosNormativos.find().fetch();
       var entidadesReguladoras = EntidadesReguladoras.find().fetch();
       var normas = Normas.find().fetch();
+      var users = Meteor.users.find({},{fields: {emails: 1, profile: 1, roles: 1}}).fetch();
       
       var svg =  d3.select("#authorsGraph");
       var svg2 =  d3.select("#booksGraph");
@@ -29,6 +30,7 @@ Template.home.rendered = function(){
       var svgAtributosNormativos=  d3.select("#atributosNormativosGraph");
       var svgEntidadesReguladoras=  d3.select("#entidadesReguladorasGraph");
       var svgNormas=  d3.select("#normasGraph");
+      var svgUsers=  d3.select("#usersGraph");
       
       var width = 200;
       var height = 200;
@@ -86,6 +88,11 @@ Template.home.rendered = function(){
      var datasetValuesNormas = _.values(datasetNormas);
      var datasetKeysNormas = _.keys(datasetNormas);
       var datasetTotalNormas = _.reduce(datasetNormas, function(memo, num){ return memo + num; }, 0);
+      
+      var datasetUsers = _.countBy(users,function(f){return f.profile.name;}); 
+     var datasetValuesUsers = _.values(datasetUsers);
+     var datasetKeysUsers = _.keys(datasetUsers);
+      var datasetTotalUsers = _.reduce(datasetUsers, function(memo, num){ return memo + num; }, 0);
       
 
 var color = d3.scale.category20();
@@ -419,6 +426,36 @@ var path = svgb.selectAll("path")
        svgNormasb.append("text").attr("x", 0)
                  .attr("y", 0)
                  .text(datasetTotalNormas)
+                 .attr("font-family", "sans-serif")
+                 .attr("font-size", "40px")
+                 .attr("text-anchor", "middle")
+                 .attr("dominant-baseline", "central")
+                 .attr("fill", "#2C3E4E");
+
+////////// SVG USERS ///////////////////////////////////////////////////////////////
+       var svgUsersb = svgUsers
+    .append("g")
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+ svgUsersb.selectAll("path")
+    .data(pie(datasetValuesUsers))
+    .enter().append("path")
+    .attr("fill", function(d, i) { return color(i); })
+    .attr("d", arc)
+    .on("click", function(d, i) {
+              //console.log("mousein")
+              text = svgUsersb.append("text")
+                  .attr("transform", "translate(" + arc.centroid(d) + ")")
+                  .attr("dy", ".5em")
+                  .attr("font-size", "12px")
+                  .style("text-anchor", "middle")
+                  .attr("fill", "#2C3E4E")
+                  .text(datasetKeysUsers[i]);
+      });
+    
+       svgUsersb.append("text").attr("x", 0)
+                 .attr("y", 0)
+                 .text(datasetTotalUsers)
                  .attr("font-family", "sans-serif")
                  .attr("font-size", "40px")
                  .attr("text-anchor", "middle")

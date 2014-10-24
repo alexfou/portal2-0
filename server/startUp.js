@@ -38,6 +38,7 @@ Meteor.startup(function () {
     Meteor.myFixtures.createAtributosNormativos(); 
     Meteor.myFixtures.createFichaIndicadores();
     Meteor.myFixtures.createAsignacionesAtributoNormativoIndicador();
+    Meteor.myFixtures.createAsignacionesUsuarioIndicador();
     
   }
 

@@ -30,6 +30,11 @@ Meteor.publish('asignacionesAtributoNormativoIndicador', function() {
 return AsignacionesAtributoNormativoIndicador.find();
 });
 
+Meteor.publish('asignacionesUsuarioIndicador', function() {
+return AsignacionesUsuarioIndicador.find();
+});
+
+
 Meteor.publish('books', function() {
 return Books.find();
 });
