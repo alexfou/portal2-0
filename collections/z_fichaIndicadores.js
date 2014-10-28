@@ -16,7 +16,7 @@ Schemas.FichaIndicador = new SimpleSchema({
   
   procesoId: {
     type: String,
-    label: "Proceso Id",
+    label: "Proceso",
     optional:false
   },
   
@@ -28,7 +28,7 @@ Schemas.FichaIndicador = new SimpleSchema({
   
   fuenteId: {
     type: String,
-    label: "Fuente Id",
+    label: "Fuente",
     optional:false
   },
   
@@ -48,6 +48,47 @@ Schemas.FichaIndicador = new SimpleSchema({
     type: Schemas.UnidadMedicion,
     label: "Unidad de Medición",
     optional:true
+  },
+  
+  tendencia:{
+    type: String,
+    label: "Tendencia",
+    allowedValues: ['incremental', 'decremental', 'neutral'],
+    optional:true,
+  },
+  
+   alcance:{
+    type: [String],
+    label: "Alcance",
+    allowedValues: ['eficiencia', 'eficacia', 'efectividad'],
+    optional:true,
+  },
+  
+   frecuenciaMedicion:{
+    type: String,
+    label: "Frecuencia de medición",
+    allowedValues: ['mensual', 'trimestral', 'semestral', 'anual'],
+    optional:true,
+  },
+  
+  segmentosMediciones:{
+    type: [String],
+    label: "Segmentos de mediciones",
+    optional:true,
+  },
+  
+  observaciones:{
+    type: String,
+    label: "Observaciones",
+    max: 800,
+    optional:true,
+  },
+  
+  estado:{
+    type: String,
+    label: "Estado",
+    allowedValues: ['borrador', 'publicado', 'descontinuado'],
+    optional:false,
   },
   
 });

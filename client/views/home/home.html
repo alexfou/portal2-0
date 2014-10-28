@@ -10,50 +10,6 @@
       </div>
     </div>
       <div class="panel-body">
-           {{#if checkGUIAccess template="home" guiElement="homeBooksMeter"}}
-        <div class="col-lg-4 dashboardEntity text-center booksMeter">
-          <h3>Libros</h3>
-          <div class="map">
-            <svg id="booksGraph" class="kpiSvg" width="200" height="200">
-            </svg>
-          </div>
-          <br>
-          <a href="/booksList"><i class="fa fa-list"></i> Ver detalles</a><br>
-          <a href="/bookInsert"><i class="fa fa-plus"></i> Agregar libro</a>
-        </div>
-      {{/if}}
-        
-        {{#if checkGUIAccess template="home" guiElement="homeAuthorsMeter"}}
-        <div class="col-lg-4 dashboardEntity text-center">
-          <h3>Autores</h3>
-          <div class="map">
-            <svg id="authorsGraph" class="kpiSvg" width="200" height="200">
-<!--               <circle class="callout" cx=-100 cy=-100></circle>
-              <g class="arc"></g>
-              <g class="path"></g> -->
-            </svg>
-          </div>
-          <br>
-          <a href="/authorsList"><i class="fa fa-list"></i> Ver detalles</a><br>
-          <a href="/authorInsert"><i class="fa fa-plus"></i> Agregar autor</a>
-        </div> 
-        {{/if}}
-
-        {{#if checkGUIAccess template="home" guiElement="homeStoresMeter"}}
-         <div class="col-lg-4 dashboardEntity text-center">
-          <h3>Tiendas</h3>
-          <div class="map">
-            <svg id="storesGraph" class="kpiSvg" width="200" height="200">
-<!--               <circle class="callout" cx=-100 cy=-100></circle>
-              <g class="arc"></g>
-              <g class="path"></g> -->
-            </svg>
-          </div>
-          <br>
-          <a href="/storesList"><i class="fa fa-list"></i> Ver detalles</a><br>
-          <a href="/storeInsert"><i class="fa fa-plus"></i> Agregar tienda</a>
-        </div>  
-        {{/if}}
         
         {{#if checkGUIAccess template="home" guiElement="homeFichaIndicadoresMeter"}}
          <div class="col-lg-4 dashboardEntity text-center">

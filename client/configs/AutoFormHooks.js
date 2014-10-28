@@ -52,12 +52,14 @@ AutoForm.hooks({
          //Books.insert(doc);    
          //Session.set('tempInsertBook', undefined);
          //Router.go('/booksList');
+        
         return doc;
     
       },
     },
     
     onSuccess: function(operation, result, template) {
+      
       Session.set('tempInsertBook', undefined);
       Router.go('/booksList');
       
@@ -219,13 +221,24 @@ AutoForm.hooks({
          //Books.insert(doc);    
          //Session.set('tempInsertBook', undefined);
          //Router.go('/booksList');
+        doc.estado = "borrador"
         return doc;
     
       },
     },
     
     onSuccess: function(operation, result, template) {
+      var arr = Session.get('newAtributosNormativos');
+      _.map(arr, function(a){
+        AsignacionesAtributoNormativoIndicador.insert({fichaIndicadorId:result, atributoNormativoId:a.atributoNormativoId});
+      });
+       var arr = Session.get('newUsuariosRoles');
+      _.map(arr, function(a){
+        AsignacionesUsuarioIndicador.insert({fichaIndicadorId:result, userId:a.userId, rol:[a.rol[0]]});
+      });
       Session.set('tempInsertFichaIndicador', undefined);
+      Session.set('newAtributosNormativos', undefined);
+      Session.set('newUsuariosRoles', undefined);
       Router.go('/fichaIndicadoresList');
       
     },

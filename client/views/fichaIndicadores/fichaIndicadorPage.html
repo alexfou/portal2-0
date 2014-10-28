@@ -27,6 +27,11 @@
                   {{> afQuickField name='procesoId' options=procesoOptions}}
                   {{> afQuickField name='fuenteId' options=fuenteOptions}}  
                   {{> afQuickField name='unidadMedicionId' options=unidadMedicionOptions}}
+        {{> afQuickField name='tendencia' options="allowed" firstOption="Seleccionar una tendencia"}}
+        {{> afQuickField name='alcance' options="allowed" firstOption="Seleccionar un alcance"}}
+         {{> afQuickField name='frecuenciaMedicion' options="allowed" firstOption="Seleccionar una frecuencia de medicion"}}
+         {{> afQuickField name='segmentosMediciones' }}
+         {{> afQuickField name='observaciones' }}
         {{> asignacionesAtributoNormativoIndicador}}<br>
         {{> asignacionesUsuarioIndicador}}
             {{/autoForm}}  
@@ -51,6 +56,11 @@
                   {{> afQuickField name='procesoId' options=procesoOptions firstOption="Seleccionar un proceso"}}
                   {{> afQuickField name='fuenteId' options=fuenteOptions firstOption="Seleccionar una fuente"}}
         {{> afQuickField name='unidadMedicionId' options=unidadMedicionOptions firstOption="Seleccionar una unidad de medición"}}
+        {{> afQuickField name='tendencia' options="allowed" firstOption="Seleccionar una tendencia"}}
+         {{> afQuickField name='alcance' options="allowed" firstOption="Seleccionar un alcance"}}
+        {{> afQuickField name='frecuenciaMedicion' options="allowed" firstOption="Seleccionar una frecuencia de medicion"}}
+         {{> afQuickField name='segmentosMediciones' }}
+         {{> afQuickField name='observaciones' }}
         
         {{> asignacionesAtributoNormativoIndicador this}}<br>
         {{> asignacionesUsuarioIndicador this}}
