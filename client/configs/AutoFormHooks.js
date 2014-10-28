@@ -336,5 +336,24 @@ insertNormaForm: {
           return false;    
      }, 
    },
+  
+//////////// TABLEROS /////////////////////////////////////////////////////
+insertTableroForm: {
+    onSuccess: function(operation, result, template) {
+      s = Session.get('originRoute');
+      if(s === undefined || s === false || s === null){
+        Router.go('/tablerosList');   
+      }
+      if(s == 'tableroInsert')
+       Router.go('/tableroInsert');     
+    }, 
+  },
+  
+  updateTableroForm: {
+    onSuccess: function(operation, result, template) {
+       Router.go('/tablerosList');     
+    }, 
+  },
+
                    
 });

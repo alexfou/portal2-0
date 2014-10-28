@@ -19,6 +19,7 @@ Template.home.rendered = function(){
       var entidadesReguladoras = EntidadesReguladoras.find().fetch();
       var normas = Normas.find().fetch();
       var users = Meteor.users.find({},{fields: {emails: 1, profile: 1, roles: 1}}).fetch();
+      var tableros = Tableros.find().fetch();
       
       var svg =  d3.select("#authorsGraph");
       var svg2 =  d3.select("#booksGraph");
@@ -31,6 +32,7 @@ Template.home.rendered = function(){
       var svgEntidadesReguladoras=  d3.select("#entidadesReguladorasGraph");
       var svgNormas=  d3.select("#normasGraph");
       var svgUsers=  d3.select("#usersGraph");
+      var svgTableros=  d3.select("#tablerosGraph");
       
       var width = 200;
       var height = 200;
@@ -93,6 +95,11 @@ Template.home.rendered = function(){
      var datasetValuesUsers = _.values(datasetUsers);
      var datasetKeysUsers = _.keys(datasetUsers);
       var datasetTotalUsers = _.reduce(datasetUsers, function(memo, num){ return memo + num; }, 0);
+      
+      var datasetTableros = _.countBy(tableros,function(f){return f.nombre;}); 
+     var datasetValuesTableros = _.values(datasetTableros);
+     var datasetKeysTableros = _.keys(datasetTableros);
+      var datasetTotalTableros = _.reduce(datasetTableros, function(memo, num){ return memo + num; }, 0);
       
 
 var color = d3.scale.category20();
@@ -461,6 +468,38 @@ var path = svgb.selectAll("path")
                  .attr("text-anchor", "middle")
                  .attr("dominant-baseline", "central")
                  .attr("fill", "#2C3E4E"); 
+
+////////// SVG TABLEROS ///////////////////////////////////////////////////////////////
+       var svgTablerosb = svgTableros
+    .append("g")
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+ svgTablerosb.selectAll("path")
+    .data(pie(datasetValuesTableros))
+    .enter().append("path")
+    .attr("fill", function(d, i) { return color(i); })
+    .attr("d", arc)
+    .on("click", function(d, i) {
+              //console.log("mousein")
+              text = svgTablerosb.append("text")
+                  .attr("transform", "translate(" + arc.centroid(d) + ")")
+                  .attr("dy", ".5em")
+                  .attr("font-size", "12px")
+                  .style("text-anchor", "middle")
+                  .attr("fill", "#2C3E4E")
+                  .text(datasetKeysTableros[i]);
+      });
+    
+       svgTablerosb.append("text").attr("x", 0)
+                 .attr("y", 0)
+                 .text(datasetTotalTableros)
+                 .attr("font-family", "sans-serif")
+                 .attr("font-size", "40px")
+                 .attr("text-anchor", "middle")
+                 .attr("dominant-baseline", "central")
+                 .attr("fill", "#2C3E4E");     
+      
+   // });
       
     });
     

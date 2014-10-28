@@ -26,6 +26,10 @@ Meteor.publish('entidadesReguladoras', function() {
 return EntidadesReguladoras.find();
 });
 
+Meteor.publish('tableros', function() {
+return Tableros.find();
+});
+
 Meteor.publish('asignacionesAtributoNormativoIndicador', function() {
 return AsignacionesAtributoNormativoIndicador.find();
 });
