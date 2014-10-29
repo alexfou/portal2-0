@@ -95,8 +95,6 @@ Schemas.FichaIndicador = new SimpleSchema({
                                 
 FichaIndicadores.attachSchema(Schemas.FichaIndicador);
 
-
-
 //this allow ande deny are on the client side
 //so...NOTE: Meteor.call(...) on client side igonres this rules, call is trusted on server
 FichaIndicadores.allow({

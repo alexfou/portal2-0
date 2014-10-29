@@ -242,3 +242,77 @@ Template.asignacionesUsuarioIndicadorInsert.settings = function() {
    ]
   }
 };
+
+/////////////// ASIGNACIONES GRUPO INDICADOR INSERT/////////////////////////////////////////
+Template.asignacionesGrupoIndicadorInsert.helpers({
+  
+  getGrupos: function () {
+    var asig = Session.get('newGrupos');
+    var cont = 0;
+    return _.map(asig, function(as){ cont++; return _.extend(as, {nombre: GruposTableros.findOne(as.grupoId).nombre,nombreTablero: GruposTableros.findOne(as.grupoId).nombreTablero,numIt: cont-1}); });
+  },
+  
+  formType: function(t){
+    var ft = Session.get('formType');
+    if((ft === undefined || ft === false || ft === null) && (t == "disabled")){
+      return true;
+    }
+    if((ft === undefined || ft === false || ft === null) && (t == "update")){
+      return false;
+    }  
+    if((ft == "update") && (t == "update")){
+      return true;
+    }
+    if((ft == "disabled") && (t == "disabled")){
+      return true;
+    } 
+  },
+  
+  settings: function(){
+    return {
+   position: "top",
+   limit: 5,
+   rules: [
+     {
+       //token: '@',
+       collection: GruposTableros,
+       field: "nombre",
+       template: Template.autoCompleteGruposTableros,
+       callback: function(doc) { 
+         console.log(doc._id + "-" + Router.current().params._id);
+//          AsignacionesAtributoNormativoIndicador.insert({
+//           fichaIndicadorId: Router.current().params._id,
+//           atributoNormativoId: doc._id
+//           });
+         if(Session.get('newGrupos') === undefined || Session.get('newGrupos') === null){
+           Session.set('newGrupos', [{grupoId: doc._id}]);  
+         }else{
+           var arr = Session.get('newGrupos');
+           arr.push({grupoId: doc._id});
+           Session.set('newGrupos',arr);
+         }
+         
+         $('#addGrupo').val("");
+         }
+     },
+   ]
+  }
+  }
+  
+});
+
+Template.asignacionesAtributoNormativoIndicadorInsert.events({
+  "click .removeGrupo" : function(event){
+    var anId = event.currentTarget.id;
+    var arr = Session.get('newGrupos'); 
+    arr.splice(anId, 1);
+    Session.set('newAtributosNormativos', arr); 
+    //var fiId = $(event.currentTarget).attr('for');
+    //var toRemove = _.where(AsignacionesAtributoNormativoIndicador.find({}).fetch(), {fichaIndicadorId: fiId,atributoNormativoId: anId});
+    //AsignacionesAtributoNormativoIndicador.remove(anId);
+    $('#addGrupo').val("");
+    //console.log('clicked remove' + );
+  },
+});
+
+

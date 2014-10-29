@@ -3,6 +3,10 @@ Template.fichaIndicadorPage.helpers({
     return FichaIndicadores.findOne({_id: this._id});
   },
   
+  getEstado: function () {
+    return FichaIndicadores.findOne({_id: this._id}).estado;
+  },
+  
   procesoOptions: function () {
     return Procesos.find().map(function (a) {
       return {label: a.nombre, value: a._id};
@@ -228,3 +232,91 @@ Template.asignacionesUsuarioIndicador.helpers({
     return [{nombre:"administrador"},{nombre:"responsable"}, {nombre:"reporteador"}, {nombre:"auditor"}];
   },
 });
+
+////////// ASIGNACIONES GRUPO INDICADOR //////////////////////////////////
+Template.asignacionesGrupoIndicador.helpers({
+  
+  getGrupos: function () {
+    var asig = AsignacionesGrupoIndicador.find({fichaIndicadorId: this._id}).fetch();
+    return _.map(asig, function(as){ return _.extend(as, {nombre: GruposTableros.findOne(as.grupoId).nombre, nombreTablero: GruposTableros.findOne(as.grupoId).nombreTablero}); });
+  },
+  
+  formType: function(t){
+    var ft = Session.get('formType');
+    if((ft === undefined || ft === false || ft === null) && (t == "disabled")){
+      return true;
+    }
+    if((ft === undefined || ft === false || ft === null) && (t == "update")){
+      return false;
+    }  
+    if((ft == "update") && (t == "update")){
+      return true;
+    }
+    if((ft == "disabled") && (t == "disabled")){
+      return true;
+    } 
+  },
+  
+  settings: function(){
+    return {
+   position: "top",
+   limit: 5,
+   rules: [
+     {
+       //token: '@',
+       collection: GruposTableros,
+       field: "nombre",
+       template: Template.autoCompleteGruposTableros,
+       callback: function(doc) { 
+         console.log(doc._id + "-" + Router.current().params._id);
+         AsignacionesGrupoIndicador.insert({
+          fichaIndicadorId: Router.current().params._id,
+          grupoId: doc._id
+          });
+         $('#addGrupo').val("");
+         }
+     },
+   ]
+    }
+    
+  }
+  
+});
+
+Template.asignacionesGrupoIndicador.events({
+  "click .removeGrupo" : function(event){
+    var anId = event.currentTarget.id;
+    //var fiId = $(event.currentTarget).attr('for');
+    //var toRemove = _.where(AsignacionesAtributoNormativoIndicador.find({}).fetch(), {fichaIndicadorId: fiId,atributoNormativoId: anId});
+    AsignacionesGrupoIndicador.remove(anId);
+    $('#addGrupo').val("");
+    //console.log('clicked remove' + );
+  },
+  
+  
+});
+
+// Template.asignacionesAtributoNormativoIndicador.settings = function() {
+//   return {
+//    position: "top",
+//    limit: 5,
+//    rules: [
+//      {
+//        //token: '@',
+//        collection: AtributosNormativos,
+//        field: "nombre",
+//        template: Template.userPill,
+//        callback: function(doc) { 
+//          console.log(doc._id + "-" + Router.current().params._id);
+//          AsignacionesAtributoNormativoIndicador.insert({
+//           fichaIndicadorId: Router.current().params._id,
+//           atributoNormativoId: doc._id
+//           });
+//          $('#addAtributoNormativo').val("");
+//          }
+//      },
+//    ]
+//   }
+// };
+
+

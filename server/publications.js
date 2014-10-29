@@ -30,8 +30,16 @@ Meteor.publish('tableros', function() {
 return Tableros.find();
 });
 
+Meteor.publish('gruposTableros', function() {
+return GruposTableros.find();
+});
+
 Meteor.publish('asignacionesAtributoNormativoIndicador', function() {
 return AsignacionesAtributoNormativoIndicador.find();
+});
+
+Meteor.publish('asignacionesGrupoIndicador', function() {
+return AsignacionesGrupoIndicador.find();
 });
 
 Meteor.publish('asignacionesUsuarioIndicador', function() {

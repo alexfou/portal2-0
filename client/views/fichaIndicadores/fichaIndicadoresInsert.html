@@ -39,6 +39,7 @@
                 <br>
         {{> asignacionesAtributoNormativoIndicadorInsert}}<br>
         {{> asignacionesUsuarioIndicadorInsert}}<br><br>
+        {{> asignacionesGrupoIndicadorInsert}}<br><br>
         
                 <button type="submit" class="btn btn-primary">Guardar</button><br><br>
                 <button type="button" id="cancelButton" class="btn btn-warning">Cancelar</button>       
@@ -74,4 +75,14 @@
     <option value="{{nombre}}">{{nombre}}</option>
   {{/each}}
 </select>
+</template>
+
+<template name="asignacionesGrupoIndicadorInsert">
+  <label class="control-label" for="unidadMedicionId">Grupo en Tablero</label>
+  <br>
+  {{#each getGrupos}}
+    <i style="color: #e74c3c" id={{numIt}} class="fa fa-times-circle-o fa-1.5x removeGrupo"></i> 
+  {{nombre}}&nbsp;({{nombreTablero}})<br>
+  {{/each}}
+  <i style="color: #18bc9c" class="fa fa-plus-circle fa-1.5x"></i> {{> inputAutocomplete settings=settings id="addGrupo" class="input-xlarge" placeholder="agregar grupo en tablero..."}}   <i style="color: #18bc9c" class="fa fa-plus-circle fa-1.5x"></i> 
 </template>

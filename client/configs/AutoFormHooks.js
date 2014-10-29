@@ -60,7 +60,7 @@ AutoForm.hooks({
     
     onSuccess: function(operation, result, template) {
       
-      Session.set('tempInsertBook', undefined);
+      Session.set('tempInsertFichaIndicador', undefined);
       Router.go('/booksList');
       
     },
@@ -236,9 +236,14 @@ AutoForm.hooks({
       _.map(arr, function(a){
         AsignacionesUsuarioIndicador.insert({fichaIndicadorId:result, userId:a.userId, rol:[a.rol[0]]});
       });
+       var arr = Session.get('newGrupos');
+      _.map(arr, function(a){
+        AsignacionesGrupoIndicador.insert({fichaIndicadorId:result, grupoId:a.grupoId});
+      });
       Session.set('tempInsertFichaIndicador', undefined);
       Session.set('newAtributosNormativos', undefined);
       Session.set('newUsuariosRoles', undefined);
+      Session.set('newGrupos', undefined);
       Router.go('/fichaIndicadoresList');
       
     },

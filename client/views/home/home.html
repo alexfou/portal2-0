@@ -11,6 +11,8 @@
     </div>
       <div class="panel-body">
         
+        
+        
         {{#if checkGUIAccess template="home" guiElement="homeTablerosMeter"}}
          <div class="col-lg-4 dashboardEntity text-center">
           <h3>Tableros</h3>
@@ -24,6 +26,22 @@
           <br>
           <a href="/tablerosList"><i class="fa fa-list"></i> Ver detalles</a><br>
           <a href="/tableroInsert"><i class="fa fa-plus"></i> Agregar Tablero</a>
+        </div>  
+        {{/if}}
+        
+        {{#if checkGUIAccess template="home" guiElement="homeGruposTablerosMeter"}}
+         <div class="col-lg-4 dashboardEntity text-center">
+          <h3>Grupos en Tableros</h3>
+          <div class="map">
+            <svg id="gruposTablerosGraph" class="kpiSvg" width="200" height="200">
+<!--               <circle class="callout" cx=-100 cy=-100></circle>
+              <g class="arc"></g>
+              <g class="path"></g> -->
+            </svg>
+          </div>
+          <br>
+          <a href="/gruposTablerosList"><i class="fa fa-list"></i> Ver detalles</a><br>
+          <a href="/grupoTableroInsert"><i class="fa fa-plus"></i> Agregar Grupo en Tablero</a>
         </div>  
         {{/if}}
         

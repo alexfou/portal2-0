@@ -20,6 +20,7 @@ Template.home.rendered = function(){
       var normas = Normas.find().fetch();
       var users = Meteor.users.find({},{fields: {emails: 1, profile: 1, roles: 1}}).fetch();
       var tableros = Tableros.find().fetch();
+      var gruposTableros = GruposTableros.find().fetch();
       
       var svg =  d3.select("#authorsGraph");
       var svg2 =  d3.select("#booksGraph");
@@ -33,6 +34,7 @@ Template.home.rendered = function(){
       var svgNormas=  d3.select("#normasGraph");
       var svgUsers=  d3.select("#usersGraph");
       var svgTableros=  d3.select("#tablerosGraph");
+      var svgGruposTableros=  d3.select("#gruposTablerosGraph");
       
       var width = 200;
       var height = 200;
@@ -100,6 +102,11 @@ Template.home.rendered = function(){
      var datasetValuesTableros = _.values(datasetTableros);
      var datasetKeysTableros = _.keys(datasetTableros);
       var datasetTotalTableros = _.reduce(datasetTableros, function(memo, num){ return memo + num; }, 0);
+      
+      var datasetGruposTableros = _.countBy(gruposTableros,function(f){return f.nombre;}); 
+     var datasetValuesGruposTableros = _.values(datasetGruposTableros);
+     var datasetKeysGruposTableros = _.keys(datasetGruposTableros);
+      var datasetTotalGruposTableros = _.reduce(datasetGruposTableros, function(memo, num){ return memo + num; }, 0);
       
 
 var color = d3.scale.category20();
@@ -493,6 +500,37 @@ var path = svgb.selectAll("path")
        svgTablerosb.append("text").attr("x", 0)
                  .attr("y", 0)
                  .text(datasetTotalTableros)
+                 .attr("font-family", "sans-serif")
+                 .attr("font-size", "40px")
+                 .attr("text-anchor", "middle")
+                 .attr("dominant-baseline", "central")
+                 .attr("fill", "#2C3E4E");     
+      
+      
+ ////////// SVG GRUPOS TABLEROS ///////////////////////////////////////////////////////////////
+       var svgGruposTablerosb = svgGruposTableros
+    .append("g")
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+ svgGruposTablerosb.selectAll("path")
+    .data(pie(datasetValuesGruposTableros))
+    .enter().append("path")
+    .attr("fill", function(d, i) { return color(i); })
+    .attr("d", arc)
+    .on("click", function(d, i) {
+              //console.log("mousein")
+              text = svgGruposTablerosb.append("text")
+                  .attr("transform", "translate(" + arc.centroid(d) + ")")
+                  .attr("dy", ".5em")
+                  .attr("font-size", "12px")
+                  .style("text-anchor", "middle")
+                  .attr("fill", "#2C3E4E")
+                  .text(datasetKeysGruposTableros[i]);
+      });
+    
+       svgGruposTablerosb.append("text").attr("x", 0)
+                 .attr("y", 0)
+                 .text(datasetTotalGruposTableros)
                  .attr("font-family", "sans-serif")
                  .attr("font-size", "40px")
                  .attr("text-anchor", "middle")
