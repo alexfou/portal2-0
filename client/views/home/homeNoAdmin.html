@@ -1,0 +1,34 @@
+<template name="homeNoAdmin">
+  
+   <div class="col-lg-4 dashboardEntity text-center">
+      <h3>Indicadores (borradores)</h3>
+      <div class="map">
+        {{> doughnutGraph collection=getFichasBorradoresCollection svgName="fichasIndicadoresBorradoresSVG" 
+            groupBy="proceso.nombre"}}
+      </div>
+      <br>
+      <a id="fichasBorrador" href="#"><i class="fa fa-list"></i> Ver detalles</a><br>
+      <a id="agregarBorrador" href="#"><i class="fa fa-plus"></i> Solicitar Ficha de Indicador</a>
+   </div>
+  
+   <div class="col-lg-4 dashboardEntity text-center">
+      <h3>Indicadores (activos)</h3>
+      <div class="map">
+        {{> doughnutGraph collection=getFichasActivasCollection svgName="fichasIndicadoresActivasSVG"
+            groupBy="proceso.nombre"}}
+      </div>
+      <br>
+      <a id="fichasActivas" href="#"><i class="fa fa-list"></i> Ver detalles</a><br>
+   </div>
+  
+  <div class="col-lg-4 dashboardEntity text-center">
+      <h3>Indicadores (inactivos)</h3>
+      <div class="map">
+        {{> doughnutGraph collection=getFichasInactivasCollection svgName="fichasIndicadoresInactivasSVG"
+            groupBy="proceso.nombre"}}
+      </div>
+      <br>
+      <a id="fichasInactivas" href="#"><i class="fa fa-list"></i> Ver detalles</a><br>
+   </div>
+  
+</template>

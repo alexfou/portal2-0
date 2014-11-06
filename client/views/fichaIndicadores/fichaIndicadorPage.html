@@ -35,7 +35,17 @@
         {{> asignacionesAtributoNormativoIndicador}}<br>
         {{> asignacionesUsuarioIndicador}}<br>
         {{> asignacionesGrupoIndicador}}<br>
-        <label class="control-label" for="estado">Estado:&nbsp;</label>{{getEstado}}<br><br>
+        <label class="control-label" for="estado">Estado:&nbsp;</label>{{getEstado}}<br>
+        {{#if showToAproveAdmin this.aprobAdminPublicacion}}<br>
+        <label class="control-label" for="estado">* Sin aprobación por parte de la Administración para publicar</label><br>
+        {{else}}
+        <label class="control-label" for="estado">* Aprobación de Administración:&nbsp;</label>{{fechaAprobacionAdmin this}}<br>
+        {{/if}}
+        {{#if showToAproveGestor this.aprobGestorPublicacion}}
+        <label class="control-label" for="estado">* Sin aprobación por parte del Responsable para publicar</label>
+        {{else}}
+        <label class="control-label" for="estado">* Aprobación del Responsable:&nbsp;</label>{{fechaAprobacionGestor this}}<br>     
+        {{/if}}
             {{/autoForm}}  
          <table class="table" style="margin-bottom:0px">
       <thead>
@@ -67,8 +77,21 @@
         {{> asignacionesAtributoNormativoIndicador this}}<br>
         {{> asignacionesUsuarioIndicador this}}<br>
         {{> asignacionesGrupoIndicador}}<br>
-        {{> afFieldInput name='estado' type="hidden"}}
-        <label class="control-label" for="estado">Estado:&nbsp;</label>{{getEstado}}<br><br>
+        {{> afQuickField name='estado' type="hidden"}} <!-- estos hidden campos son cecesarios por ser obligatorios-->
+        {{> afQuickField name='ultimaVersion' type="hidden"}}
+        {{> afQuickField name='fechaHoraEfectiva' type="hidden"}}
+
+        <label class="control-label" for="estado">Estado:&nbsp;</label>{{getEstado}}<br>
+        {{#if showToAproveAdmin this.aprobAdminPublicacion}}
+        <button type="button" id="aprobAdminButton" class="btn btn-primary btn-xs">Aprobar para publicación por parte de Administración</button><br>
+        {{else}}
+        <label class="control-label" for="estado">* Aprobación de Administración:&nbsp;</label>{{fechaAprobacionAdmin this}}<br>
+        {{/if}}
+         {{#if showToAproveGestor this.aprobGestorPublicacion}}
+        <label class="control-label" for="estado">* Sin aprobación por parte del Responsable para publicar</label><br><br>
+        {{else}}
+        <label class="control-label" for="estado">* Aprobación del Responsable:&nbsp;</label>{{fechaAprobacionGestor this}}<br>     
+        {{/if}}
          <button type="submit" class="btn btn-primary">Guardar</button>
             {{/autoForm}}   
         <br>

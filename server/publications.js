@@ -1,6 +1,28 @@
 Meteor.publish('fichaIndicadores', function() {
-return FichaIndicadores.find();
+  //var uVersiones = FichaIndicadores.find({ultimaVersion:true, eliminacion: {$ne: null }});
+  return FichaIndicadores.find({ultimaVersion:true, eliminacion:{$in:[null]}});
+   //return uVersiones;
+ // return FichaIndicadores.find({ultimaVersion:true});
 });
+
+Meteor.publish('fichaIndicadoresResponsable', function() {
+  
+  if (this.userId) {
+    var userId = this.userId;
+    console.log('User ID: ' + this.userId);
+     var fichasId = AsignacionesUsuarioIndicador.find({userId:userId}).fetch();
+    fichasId = _.countBy(fichasId, "fichaIndicadorId");
+    fichasId = _.keys(fichasId);
+    return FichaIndicadores.find({_id:{$in: fichasId}});
+    
+  } else {
+    return null;
+  }
+ 
+   //return uVersiones;
+ // return FichaIndicadores.find({ultimaVersion:true});
+});
+
 
 Meteor.publish('procesos', function() {
 return Procesos.find();

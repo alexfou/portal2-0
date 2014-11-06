@@ -45,6 +45,49 @@ Template.fichaIndicadorPage.helpers({
     if((ft == "disabled") && (t == "disabled")){
       return true;
     } 
+  },
+  
+  showToAproveAdmin: function(aprobAdmin){
+    var userRoleAdmin = _.contains(Meteor.user().roles,'admin');
+    //aquí llega ya el campo de la fecha solamente
+    console.log('Aprobacion: ' + aprobAdmin);
+    if (userRoleAdmin && (aprobAdmin === null)){
+      return true;
+    }else{
+      return false;
+    }
+  },
+  
+  showToAproveGestor: function(aprobGestor){
+    var userRoleAdmin = _.contains(Meteor.user().roles,'admin');
+    //aquí llega ya el campo de la fecha solamente
+    console.log('Aprobacion: ' + aprobGestor);
+    if (userRoleAdmin && (aprobGestor === null)){
+      return true;
+    }else{
+      return false;
+    }
+  },
+  
+  fechaAprobacionAdmin: function(fi){
+//     var userRoleAdmin = _.contains(Meteor.user().roles,'admin');
+//     if (userRoleAdmin && (aprobGestor.aprobAdminPublicacion === null)){
+//       return "Sin fecha de aprobación";
+//     }else{
+//       return fi.aprobAdminPublicacion;  
+//     }
+    
+    return fi.aprobAdminPublicacion;  
+     
+  },
+  
+  fechaAprobacionGestor: function(fi){
+    var userRoleAdmin = _.contains(Meteor.user().roles,'admin');
+    if (userRoleAdmin && (fi.aprobGestorPublicacion === null)){
+      return "Sin fecha de aprobación";
+    }else{
+      return fi.aprobGestorPublicacion;  
+    }    
   }
 });
 
@@ -63,10 +106,15 @@ Template.fichaIndicadorPage.events({
   },
   
   "click #deleteButton" : function(event){
-    Session.set('lastDeletedFichaIndicador', this);
-    FichaIndicadores.remove({'_id': this._id});
+    Session.set('lastDeletedFichaIndicador', this._id);
+    FichaIndicadores.update({'_id': this._id},{$set: { eliminacion: new Date() }});
+    //FichaIndicadores.remove({'_id': this._id});
     Router.go("/fichaIndicadoresList")
   },
+  
+  "click #aprobAdminButton": function(){
+    FichaIndicadores.update({'_id': this._id},{$set: { aprobAdminPublicacion: new Date() }});
+  }
 });
 
 Template.fichaIndicadoresList.rendered = function(){

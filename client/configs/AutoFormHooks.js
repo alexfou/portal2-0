@@ -16,19 +16,45 @@ AutoForm.hooks({
           //this.done();
           //Router.go('/fichaIndicadoresList');
           //return false;     
-        }if(currentDoc.fuenteId !== insertDoc.procesoId){
+        }if(currentDoc.fuenteId !== insertDoc.fuenteId){
           console.log('Cambio de fuente');
           a = Fuentes.findOne({'_id':insertDoc.fuenteId});
           console.log("Fuente find: " + a + " and its keys: " + Object.keys(a));
           insertDoc.fuenteId = a._id;
           insertDoc.fuente = a;
         }
+        
          // Procesos.update({'_id':currentDoc._id}, {$set: insertDoc});
           //this.done();
           //Router.go('/fichaIndicadoresList');
           //return false;
         //}else{
-          FichaIndicadores.update({'_id':currentDoc._id}, {$set: insertDoc});
+//         FichaIndicadores.update({'_id':currentDoc._id}, {$set: {ultimaVersion:false}});
+        insertDoc.fechaHoraEfectiva = new Date();
+        insertDoc.ultimaVersion = true;
+        insertDoc.estado = currentDoc.estado;
+        insertDoc.aprobAdminPublicacion = currentDoc.aprobAdminPublicacion;
+        insertDoc.aprobGestorPublicacion = currentDoc.aprobGestorPublicacion;
+        insertDoc.eliminacion = currentDoc.eliminacion;
+        
+        //insertDoc.eliminado = false;
+        
+        FichaIndicadores.update({'_id':currentDoc._id}, {$set: insertDoc});
+       // FichaIndicadores.update({'_id':currentDoc._id}, {$set: {fechaHoraEfectiva: newDate}});
+        
+//         var a = Procesos.findOne({'_id':insertDoc.procesoId});
+//         insertDoc.proceso = a;
+//         a = Fuentes.findOne({'_id':insertDoc.fuenteId});
+//         insertDoc.fuente = a;
+//         insertDoc.ultimaVersion = false;
+//         insertDoc.fechaHoraEfectiva = lastDate;
+//         var fi = _.omit(insertDoc,'_id');
+          //currentDoc.fechaHoraEfectiva = lastDate;
+          currentDoc.ultimaVersion = false;
+        currentDoc.idOriginal = currentDoc._id;
+          var fi = _.omit(currentDoc,'_id');
+         fi = FichaIndicadores.insert(fi);
+        //AsignacionesAtributoNormativoIndicador.update({fichaIndicadorId: currentDoc._id}, {$set:{fichaIndicadorId: fi._id}});
           this.done();
           Router.go('/fichaIndicadoresList');
           return false;
@@ -37,84 +63,7 @@ AutoForm.hooks({
       },
   },
  
-  insertBookForm: {
-    before: {
-      insert: function(doc, template) {
-        console.log('before insert: ' + Object.keys(doc) + " " +Object.keys(template));
-        console.log('Doc: ' + doc._id + "-" + doc.authorId + "-" + doc.author);
-        console.log('Type of doc: ' + typeof(doc));
-        if(doc.authorId !== undefined){
-           a = Authors.findOne({'_id':doc.authorId});
-          console.log("Author find: " + a + " and its keys: " + Object.keys(a));
-          doc.author = a;  
-        }
-       
-         //Books.insert(doc);    
-         //Session.set('tempInsertBook', undefined);
-         //Router.go('/booksList');
-        
-        return doc;
-    
-      },
-    },
-    
-    onSuccess: function(operation, result, template) {
-      
-      Session.set('tempInsertFichaIndicador', undefined);
-      Router.go('/booksList');
-      
-    },
-      
-  },
-    
-    updateBookForm:{
-//       after: {
-//         update: function(error, result, template) {
-//          Router.go('/booksList')
-//         }
-//       },
-        
-      onSubmit: function(insertDoc, updateDoc, currentDoc) {
-        console.log('InsertDoc: ' + Object.keys(insertDoc) + "-" +insertDoc.title);
-        console.log('InsertDoc: ' + Object.keys(updateDoc) + "-" +updateDoc.title);
-        console.log('InsertDoc: ' + Object.keys(currentDoc) + "-" +currentDoc.title); //tiene _id
-        if(currentDoc.authorId !== insertDoc.authorId){
-          console.log('Cambio de autor');
-          a = Authors.findOne({'_id':insertDoc.authorId});
-          console.log("Author find: " + a + " and its keys: " + Object.keys(a));
-          insertDoc.author = a;
-          Books.update({'_id':currentDoc._id}, {$set: insertDoc});
-          this.done();
-          Router.go('/booksList');
-          return false;
-          
-        }else{
-          Books.update({'_id':currentDoc._id}, {$set: insertDoc});
-          this.done();
-          Router.go('/booksList');
-          return false;
-        }
-        //return false;
-      },
-      
-    },
-  
-  updateAuthorForm: {
-    onSuccess: function(operation, result, template) {
-       Router.go('/authorsList');     
-    }, 
-  },
-  
-   insertAuthorForm: {
-    onSuccess: function(operation, result, template) {
-      s = Session.get('originRoute');
-      if(s === undefined || s === false || s === null){
-        Router.go('/authorsList');   
-      }
-      if(s == 'bookInsert')
-       Router.go('/bookInsert');     
-    }, 
-  },
+     
   
   insertRolePermissionForm: {
     onSuccess: function(operation, result, template) {
@@ -133,50 +82,7 @@ AutoForm.hooks({
     }, 
   },
   
-  updateStoreForm: {
-    onSuccess: function(operation, result, template) {
-       Router.go('/storesList');     
-    }, 
-  },
-  
-   insertStoreForm: {
-    onSuccess: function(operation, result, template) {
-      s = Session.get('originRoute');
-      if(s === undefined || s === false || s === null){
-        Router.go('/storesList');   
-      }
-      if(s == 'bookInsert')
-       Router.go('/bookInsert');     
-    }, 
-  },
-  
-   insertKpiForm: {
-    before: {
-      insert: function(doc, template) {
-//         console.log('before insert: ' + Object.keys(doc) + " " +Object.keys(template));
-//         console.log('Doc: ' + doc._id + "-" + doc.authorId + "-" + doc.author);
-//         console.log('Type of doc: ' + typeof(doc));
-        if(doc.processId !== undefined){
-           a = Processes.findOne({'_id':doc.processId});
-          console.log("Process find: " + a + " and its keys: " + Object.keys(a));
-          doc.process = a;  
-        }
-       
-         //Books.insert(doc);    
-         //Session.set('tempInsertBook', undefined);
-         //Router.go('/booksList');
-        return doc;
-    
-      },
-    },
-     
-     onSuccess: function(operation, result, template) {
-      Session.set('tempInsertKpi', undefined);
-      Router.go('/kpis/kpisList');
-      
-    },
-   },
-  
+////////// PROCESO //////////  
   insertProcesoForm: {
     onSuccess: function(operation, result, template) {
       s = Session.get('originRoute');
@@ -222,6 +128,13 @@ AutoForm.hooks({
          //Session.set('tempInsertBook', undefined);
          //Router.go('/booksList');
         doc.estado = "borrador"
+        doc.fechaHoraEfectiva = new Date();
+        doc.ultimaVersion = true;
+        doc.estado = "borrador";
+        doc.aprobAdminPublicacion = null;
+        doc.aprobGestorPublicacion = null;
+        doc.eliminacion = null;
+        
         return doc;
     
       },

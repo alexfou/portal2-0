@@ -1,6 +1,23 @@
 FichaIndicadores = new Meteor.Collection("fichaIndicadores");
 
 Schemas.FichaIndicador = new SimpleSchema({
+  
+  fechaHoraEfectiva:{
+    type: Date,
+    autoValue: function(){
+      if (this.isInsert) {
+          return new Date();
+        }
+    },
+    label: "Fecha y hora efectiva",
+    optional: false
+  },
+  
+  idOriginal:{
+    type:String,
+    optional:true
+  },
+  
   nombre: {
     type: String,
     label: "Nombre",
@@ -87,8 +104,32 @@ Schemas.FichaIndicador = new SimpleSchema({
   estado:{
     type: String,
     label: "Estado",
-    allowedValues: ['borrador', 'publicado', 'descontinuado'],
+    allowedValues: ['borrador', 'activo', 'inactivo'],
     optional:false,
+  },
+  
+  ultimaVersion:{
+    type: Boolean,
+    label: "Ultima version",
+    optional: false
+  },
+  
+  aprobAdminPublicacion:{
+    type: Date,
+    label: "Aprobación por Administración del borrador",
+    optional:true
+  },
+  
+  aprobGestorPublicacion:{
+    type: Date,
+    label: "Aprobación por Gestor del borrador",
+    optional:true
+  },
+  
+  eliminacion:{
+    type: Date,
+    label: "Eliminación",
+    optional: true
   },
   
 });

@@ -4,13 +4,29 @@ Template.fichaIndicadoresList.rendered = function(){
     Session.set('colSelectedFichaIndicadores',['nombre', 'proceso.nombre']);
   }
 }
+
+Template.fichaIndicadoresList.destroyed = function(){
+  Session.get('busquedaFichaEstado', undefined);
+}
+
 Template.fichaIndicadoresList.helpers({
+  
+  getBusquedaEstado:function(){
+    
+    var sv = Session.get('busquedaFichaEstado');
+    if(sv === undefined || sv === false || sv === null){
+      return "";
+    }else{
+      return Session.get('busquedaFichaEstado');  
+    }  
+  },
+  
   fichaIndicadores: function () {
     return FichaIndicadores.find().fetch();  
   },
   
   showWarningDeletedFichaIndicador: function(){
-    ldb = Session.get('lastDeletedFichaIndicador');
+    var ldb = Session.get('lastDeletedFichaIndicador');
     if(ldb === undefined || ldb === false || ldb === null){
       return false; 
     }else{
@@ -83,9 +99,10 @@ Template.fichaIndicadoresList.events({
   },
   
   'click #undoDeletedFichaIndicador': function (event) {
-    console.log('inside undo');
+    //console.log('inside undo');
     ldb = Session.get('lastDeletedFichaIndicador');
-    FichaIndicadores.insert(_.omit(ldb, '_id'));
+    FichaIndicadores.update({'_id': ldb},{$set: { eliminacion: null }});
+    //FichaIndicadores.insert(_.omit(ldb, '_id'));
     Session.set("lastDeletedFichaIndicador",null);
   },
   
@@ -99,7 +116,15 @@ Template.fichaIndicadoresList.events({
 Template.fichaIndicadoresList.helpers({
   
   fichaIndicadoresTable: function () {
-    return FichaIndicadores;  
+    var sv = Session.get('busquedaFichaEstado');
+    if(sv === undefined || sv === false || sv === null){
+     return FichaIndicadores;
+    }else{
+      if(sv == "(borradores)"){return FichaIndicadores.find({estado:"borrador"});};
+      if(sv == "(activas)"){return FichaIndicadores.find({estado:"activo"});};
+      if(sv == "(inactivas)"){return FichaIndicadores.find({estado:"inactivo"});};
+    }  
+     
   },
   
   tableSettings: function () {
@@ -112,24 +137,7 @@ Template.fichaIndicadoresList.helpers({
           ];
       
         var finalArray = _.filter(fs , function(fsObj){return _.contains(sel,fsObj.key);});
-//         finalArray.push({ key: 'title', label: ' ', fn: function (value) {
-//           return new Spacebars.SafeString('ver detalles');
-//         }});
-//         finalArray.push({ key: '_id', label: 'Editar', fn: function (value) {
-//                  return new Spacebars.SafeString('<a href="/fichaIndicador/'+value+'"><i class="fa fa-edit"></i></a>');
-//                }});
-//        finalArray.push({ key: '_id', label: 'Eliminar', fn: function (value) {
-//                 var str="";
-//                 if(Session.get('toConfirmDelete') !== undefined && 
-//                    Session.get('toConfirmDelete') && 
-//                    Session.get('edit_fichaIndicadorId') == value){
-//                      str = '<a href="#" id="cancelDelete" name ="'+value+'" class="btn btn-primary btn-sm {{toConfirmDelete _id}}">Cancelar</a>' + 
-//                        '<a href="#" id="confirmDelete" name="'+value+'" class="btn btn-danger btn-sm {{toConfirmDelete _id}}">Confirmar Eliminación</a>  ';                     
-//                 }else{
-//                   str= '<a href="#"><i id="deleteFichaIndicador" name="'+value+'" class="fa fa-times-circle {{toEnableDelete _id}}" style="color:#C8423E;"></i></a>';   
-//                 }
-//                 return new Spacebars.SafeString(str);
-//               }});
+
     
         return {
             rowsPerPage: 5,
@@ -137,6 +145,7 @@ Template.fichaIndicadoresList.helpers({
             //fields: ['title', 'author'],
             useFontAwesome: true,
           fields: finalArray,
+          showColumnToggles:true,
           rowClass: function(item) {
             return "rowTable";
           }

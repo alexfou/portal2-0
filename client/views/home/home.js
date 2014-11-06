@@ -549,6 +549,18 @@ var path = svgb.selectAll("path")
 }
 
 Template.home.helpers({
+  
+  isAdminRole: function(){
+    var userRoles = Meteor.user().roles;
+    var intersection = _.intersection(['admin'], userRoles);
+   // console.log("check var: " + _.isArray(grants) + "and roles: " + _.isArray(userRoles) + " intersection: " + intersection);
+    if(_.isEmpty(intersection)){
+       return false;
+    }else{
+      return true;
+    }
+  },
+  
   checkGUIAccess: function(r){
     console.log("ROUTER URL: " + Router.current().path);
     console.log('TEMPLATE NAME: ' + r.hash.template);
@@ -575,5 +587,30 @@ Template.home.helpers({
       return true;
     }
   }
+});
+
+Template.home.events({
+   
+  'click #fichasBorrador': function(){
+    Session.set('busquedaFichaEstado', '(borradores)');
+    Router.go('/fichaIndicadoresList');
+  },
+  
+  'click #agregarBorrador': function(){
+    Session.set('busquedaFichaEstado', undefined);
+    Router.go('/fichaIndicadorInsert');
+  },
+  
+  'click #fichasActivas': function(){
+    Session.set('busquedaFichaEstado', '(activas)');
+    Router.go('/fichaIndicadoresList');
+  },
+  
+  'click #fichasInactivas': function(){
+    Session.set('busquedaFichaEstado', '(inactivas)');
+    Router.go('/fichaIndicadoresList');
+  },
+  
+  
 });
                                

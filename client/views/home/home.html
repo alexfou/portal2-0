@@ -10,7 +10,12 @@
       </div>
     </div>
       <div class="panel-body">
-        
+       
+        {{#if isAdminRole}}
+        {{else}}
+        {{> homeNoAdmin}}
+        {{/if}}
+
         
         
         {{#if checkGUIAccess template="home" guiElement="homeTablerosMeter"}}
@@ -45,21 +50,45 @@
         </div>  
         {{/if}}
         
+
+        
+         {{#if checkGUIAccess template="home" guiElement="homeFichaIndicadoresMeter"}}
+         <div class="col-lg-4 dashboardEntity text-center">
+      <h3>Indicadores (borradores)</h3>
+      <div class="map">
+        {{> doughnutGraph collection=getFichasBorradoresCollection svgName="fichasIndicadoresBorradoresSVG" 
+            groupBy="proceso.nombre"}}
+      </div>
+      <br>
+      <a id="fichasBorrador" href="#"><i class="fa fa-list"></i> Ver detalles</a><br>
+      <a id="agregarBorrador" href="#"><i class="fa fa-plus"></i> Agregar Borrador</a>
+   </div> 
+        {{/if}}
+        
         {{#if checkGUIAccess template="home" guiElement="homeFichaIndicadoresMeter"}}
          <div class="col-lg-4 dashboardEntity text-center">
-          <h3>Fichas de Indicadores</h3>
-          <div class="map">
-            <svg id="fichaIndicadoresGraph" class="kpiSvg" width="200" height="200">
-<!--               <circle class="callout" cx=-100 cy=-100></circle>
-              <g class="arc"></g>
-              <g class="path"></g> -->
-            </svg>
-          </div>
-          <br>
-          <a href="/fichaIndicadoresList"><i class="fa fa-list"></i> Ver detalles</a><br>
-          <a href="/fichaIndicadorInsert"><i class="fa fa-plus"></i> Agregar Ficha de Indicador</a>
-        </div>  
+      <h3>Indicadores (activos)</h3>
+      <div class="map">
+        {{> doughnutGraph collection=getFichasActivasCollection svgName="fichasIndicadoresActivasSVG" 
+            groupBy="proceso.nombre"}}
+      </div>
+      <br>
+      <a id="fichasActivas" href="#"><i class="fa fa-list"></i> Ver detalles</a><br>
+   </div> 
         {{/if}}
+        
+        {{#if checkGUIAccess template="home" guiElement="homeFichaIndicadoresMeter"}}
+         <div class="col-lg-4 dashboardEntity text-center">
+      <h3>Indicadores (inactivos)</h3>
+      <div class="map">
+        {{> doughnutGraph collection=getFichasInactivasCollection svgName="fichasIndicadoresInactivasSVG" 
+            groupBy="proceso.nombre"}}
+      </div>
+      <br>
+      <a id="fichasInactivas" href="#"><i class="fa fa-list"></i> Ver detalles</a><br>
+   </div> 
+        {{/if}}
+        
         
         {{#if checkGUIAccess template="home" guiElement="homeProcesosMeter"}}
          <div class="col-lg-4 dashboardEntity text-center">
@@ -77,6 +106,7 @@
         </div>  
         {{/if}}
         
+       
         {{#if checkGUIAccess template="home" guiElement="homeFuentesMeter"}}
          <div class="col-lg-4 dashboardEntity text-center">
           <h3>Fuentes</h3>

@@ -2,6 +2,9 @@
   <div class="entry col-md-4 col-md-offset-4">   
           <div class="email-option">
             <h3>Ingresar</h3>
+            {{#if userPasswordIncorrect}}
+            <div class="alert alert-dismissable alert-danger"> Usuario y/o Contraseña inválidos </div>
+            {{/if}}
           </div>
           <form class="entry-form" id="signInForm">
             <div class="form-group">
