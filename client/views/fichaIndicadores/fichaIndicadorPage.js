@@ -58,11 +58,11 @@ Template.fichaIndicadorPage.helpers({
     }
   },
   
-  showToAproveGestor: function(aprobGestor){
-    var userRoleAdmin = _.contains(Meteor.user().roles,'admin');
+  showToAproveGestor: function(fi){
+    var userRoleAdmin = _.contains(Meteor.user().roles,'noAdmin');
     //aquí llega ya el campo de la fecha solamente
-    console.log('Aprobacion: ' + aprobGestor);
-    if (userRoleAdmin && (aprobGestor === null)){
+    console.log('Aprobacion: ' + fi.aprobGestorPublicacion);
+    if (userRoleAdmin && (fi.aprobGestorPublicacion === null) &&(fi.aprobAdminPublicacion !== null)){
       return true;
     }else{
       return false;
@@ -77,13 +77,20 @@ Template.fichaIndicadorPage.helpers({
 //       return fi.aprobAdminPublicacion;  
 //     }
     
-    return fi.aprobAdminPublicacion;  
+     if (fi.aprobAdminPublicacion === null){
+       return "Sin fecha de aprobación";
+     }else{
+       return fi.aprobAdminPublicacion;  
+     }
+    
+    //return fi.aprobAdminPublicacion;  
      
   },
   
   fechaAprobacionGestor: function(fi){
-    var userRoleAdmin = _.contains(Meteor.user().roles,'admin');
-    if (userRoleAdmin && (fi.aprobGestorPublicacion === null)){
+    //var userRoleAdmin = _.contains(Meteor.user().roles,'admin');
+    //if (userRoleAdmin && (fi.aprobGestorPublicacion === null)){
+    if (fi.aprobGestorPublicacion === null){
       return "Sin fecha de aprobación";
     }else{
       return fi.aprobGestorPublicacion;  
@@ -114,6 +121,14 @@ Template.fichaIndicadorPage.events({
   
   "click #aprobAdminButton": function(){
     FichaIndicadores.update({'_id': this._id},{$set: { aprobAdminPublicacion: new Date() }});
+  },
+    
+  "click #aprobGestorButton": function(){
+    FichaIndicadores.update({'_id': this._id},{$set: { aprobGestorPublicacion: new Date() }});
+    var fi  = FichaIndicadores.findOne({'_id': this._id});
+    if((fi.aprobAdminPublicacion !== null)&&(fi.obGestorPublicacion !== null)){
+       FichaIndicadores.update({'_id': this._id},{$set: { estado: 'activo' }});  
+    }
   }
 });
 

@@ -87,8 +87,8 @@
         {{else}}
         <label class="control-label" for="estado">* Aprobación de Administración:&nbsp;</label>{{fechaAprobacionAdmin this}}<br>
         {{/if}}
-         {{#if showToAproveGestor this.aprobGestorPublicacion}}
-        <label class="control-label" for="estado">* Sin aprobación por parte del Responsable para publicar</label><br><br>
+         {{#if showToAproveGestor this}}
+        <button type="button" id="aprobGestorButton" class="btn btn-primary btn-xs">Aprobar para publicación por parte del Responsable</button><br>
         {{else}}
         <label class="control-label" for="estado">* Aprobación del Responsable:&nbsp;</label>{{fechaAprobacionGestor this}}<br>     
         {{/if}}
