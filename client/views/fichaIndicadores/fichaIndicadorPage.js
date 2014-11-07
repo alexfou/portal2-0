@@ -47,7 +47,7 @@ Template.fichaIndicadorPage.helpers({
     } 
   },
   
-  showToAproveAdmin: function(aprobAdmin){
+  showButtonToAproveAdmin: function(aprobAdmin){
     var userRoleAdmin = _.contains(Meteor.user().roles,'admin');
     //aquí llega ya el campo de la fecha solamente
     console.log('Aprobacion: ' + aprobAdmin);
@@ -58,7 +58,7 @@ Template.fichaIndicadorPage.helpers({
     }
   },
   
-  showToAproveGestor: function(fi){
+  showButtonToAproveGestor: function(fi){
     var userRoleAdmin = _.contains(Meteor.user().roles,'noAdmin');
     //aquí llega ya el campo de la fecha solamente
     console.log('Aprobacion: ' + fi.aprobGestorPublicacion);
@@ -91,7 +91,7 @@ Template.fichaIndicadorPage.helpers({
     //var userRoleAdmin = _.contains(Meteor.user().roles,'admin');
     //if (userRoleAdmin && (fi.aprobGestorPublicacion === null)){
     if (fi.aprobGestorPublicacion === null){
-      return "Sin fecha de aprobación";
+      return "Sin fecha de aprobación (sólo se puede aprobar una vez la adminstración la haya aprobado)";
     }else{
       return fi.aprobGestorPublicacion;  
     }    

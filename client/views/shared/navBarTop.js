@@ -1,6 +1,6 @@
 Template.navBarTop.helpers({
   pathWithUser: function (navElement){ 
-    console.log('-----------------------' + navElement + '-------------------------')
+   // console.log('-----------------------' + navElement + '-------------------------')
     var temp = [{liElement:"dashboardNav", activeUrls:['/home']},
                 
                 {liElement:"adminResourcesNav", activeUrls:['/booksList', '/authorsList', '/storesList', '/bookInsert', '/authorInsert', '/storeInsert', '/book' , '/author' , '/store', '/kpis/kpisList', '/kpis/kpiInsert']},
@@ -15,15 +15,15 @@ Template.navBarTop.helpers({
                ];
     
     urls = _.findWhere(temp, {liElement: navElement});
-                console.log("Count of urls: " + urls.activeUrls)
+              //  console.log("Count of urls: " + urls.activeUrls)
                 au = urls.activeUrls
     var elementId = this._id
     if(this._id !== undefined){
       var activeUrls = _.map(au,function(p){return p + "/" + elementId;});     
     }else{var activeUrls = au;}
-    console.log(activeUrls + "-"+ Router.current().path);
+  //  console.log(activeUrls + "-"+ Router.current().path);
     var intersection = _.intersection(activeUrls, [Router.current().path]);
-    console.log('Intersection: ' + intersection + "id: " +this._id);
+   // console.log('Intersection: ' + intersection + "id: " +this._id);
     
     if(Meteor.user()){
       if (_.isEmpty(intersection)){

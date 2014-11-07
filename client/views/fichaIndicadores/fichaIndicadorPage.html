@@ -36,16 +36,19 @@
         {{> asignacionesUsuarioIndicador}}<br>
         {{> asignacionesGrupoIndicador}}<br>
         <label class="control-label" for="estado">Estado:&nbsp;</label>{{getEstado}}<br>
-        {{#if showToAproveAdmin this.aprobAdminPublicacion}}<br>
+<!--         {{#if showToAproveAdmin this.aprobAdminPublicacion}}
         <label class="control-label" for="estado">* Sin aprobación por parte de la Administración para publicar</label><br>
         {{else}}
         <label class="control-label" for="estado">* Aprobación de Administración:&nbsp;</label>{{fechaAprobacionAdmin this}}<br>
-        {{/if}}
-        {{#if showToAproveGestor this.aprobGestorPublicacion}}
+        {{/if}} -->
+        
+        <label class="control-label" for="estado">* Aprobación de Administración:&nbsp;</label>{{fechaAprobacionAdmin this}}<br>
+<!--         {{#if showToAproveGestor this.aprobGestorPublicacion}}
         <label class="control-label" for="estado">* Sin aprobación por parte del Responsable para publicar</label>
         {{else}}
         <label class="control-label" for="estado">* Aprobación del Responsable:&nbsp;</label>{{fechaAprobacionGestor this}}<br>     
-        {{/if}}
+        {{/if}} -->
+        <label class="control-label" for="estado">* Aprobación del Responsable:&nbsp;</label>{{fechaAprobacionGestor this}}<br>     
             {{/autoForm}}  
          <table class="table" style="margin-bottom:0px">
       <thead>
@@ -77,20 +80,20 @@
         {{> asignacionesAtributoNormativoIndicador this}}<br>
         {{> asignacionesUsuarioIndicador this}}<br>
         {{> asignacionesGrupoIndicador}}<br>
-        {{> afQuickField name='estado' type="hidden"}} <!-- estos hidden campos son cecesarios por ser obligatorios-->
-        {{> afQuickField name='ultimaVersion' type="hidden"}}
-        {{> afQuickField name='fechaHoraEfectiva' type="hidden"}}
+        {{> afFieldInput name='estado' type="hidden"}} <!-- estos hidden campos son cecesarios por ser obligatorios-->
+        {{> afFieldInput name='ultimaVersion' type="hidden"}}
+        {{> afFieldInput name='fechaHoraEfectiva' type="hidden"}}
 
         <label class="control-label" for="estado">Estado:&nbsp;</label>{{getEstado}}<br>
-        {{#if showToAproveAdmin this.aprobAdminPublicacion}}
+        {{#if showButtonToAproveAdmin this.aprobAdminPublicacion}}
         <button type="button" id="aprobAdminButton" class="btn btn-primary btn-xs">Aprobar para publicación por parte de Administración</button><br>
         {{else}}
         <label class="control-label" for="estado">* Aprobación de Administración:&nbsp;</label>{{fechaAprobacionAdmin this}}<br>
         {{/if}}
-         {{#if showToAproveGestor this}}
-        <button type="button" id="aprobGestorButton" class="btn btn-primary btn-xs">Aprobar para publicación por parte del Responsable</button><br>
+         {{#if showButtonToAproveGestor this}}
+        <button type="button" id="aprobGestorButton" class="btn btn-primary btn-xs">Aprobar para publicación por parte del Responsable</button><br><br>
         {{else}}
-        <label class="control-label" for="estado">* Aprobación del Responsable:&nbsp;</label>{{fechaAprobacionGestor this}}<br>     
+        <label class="control-label" for="estado">* Aprobación del Responsable:&nbsp;</label>{{fechaAprobacionGestor this}}<br><br>  
         {{/if}}
          <button type="submit" class="btn btn-primary">Guardar</button>
             {{/autoForm}}   

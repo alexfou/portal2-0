@@ -7,9 +7,10 @@ Template.doughnutGraph.rendered = function(){
   var svg =  d3.select("#"+this.data.svgName);
   var grupos =  this.data.groupBy;
   
-  console.log('INSIDE Template.doughnutGraph.rendered: ' + col + "-" + svg + "-" + grupos);
+ // console.log('INSIDE Template.doughnutGraph.rendered: ' + col + "-" + svg + "-" + grupos);
   if (! self.handle) {
     self.handle = Deps.autorun(function () {
+      var d = FichaIndicadores.find({estado:"borrador"}).fetch();
           
      // var dataset = _.countBy(col,function(fi){return fi[grupos];}); 
       var dataset = _.countBy(col,function(fi){

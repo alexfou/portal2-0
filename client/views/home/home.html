@@ -15,6 +15,21 @@
         {{else}}
         {{> homeNoAdmin}}
         {{/if}}
+        
+        {{#if checkGUIAccess template="home" guiElement="homeFichaIndicadoresMeter"}}
+         <div class="col-lg-4 dashboardEntity text-center">
+      <h3>Prueba</h3>
+      <div class="map">
+<!--         {{#with borradores}} -->
+        {{> testSVG collection=this svgName="pruebaSVG" 
+            groupBy="proceso.nombre"}}
+<!--         {{/with}} -->
+      </div>
+      <br>
+      <a id="fichasBorrador" href="#"><i class="fa fa-list"></i> Ver detalles</a><br>
+      <a id="agregarBorrador" href="#"><i class="fa fa-plus"></i> Agregar Borrador</a>
+   </div> 
+        {{/if}}
 
         
         
@@ -56,8 +71,10 @@
          <div class="col-lg-4 dashboardEntity text-center">
       <h3>Indicadores (borradores)</h3>
       <div class="map">
-        {{> doughnutGraph collection=getFichasBorradoresCollection svgName="fichasIndicadoresBorradoresSVG" 
+        {{#with borradores}}
+        {{> doughnutGraph collection=this svgName="fichasIndicadoresBorradoresSVG" 
             groupBy="proceso.nombre"}}
+        {{/with}}
       </div>
       <br>
       <a id="fichasBorrador" href="#"><i class="fa fa-list"></i> Ver detalles</a><br>

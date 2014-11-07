@@ -550,6 +550,10 @@ var path = svgb.selectAll("path")
 
 Template.home.helpers({
   
+  borradores: function(){
+    return FichaIndicadores.find({estado:"borrador"}).fetch();
+  },
+  
   isAdminRole: function(){
     var userRoles = Meteor.user().roles;
     var intersection = _.intersection(['admin'], userRoles);
@@ -562,20 +566,20 @@ Template.home.helpers({
   },
   
   checkGUIAccess: function(r){
-    console.log("ROUTER URL: " + Router.current().path);
-    console.log('TEMPLATE NAME: ' + r.hash.template);
-    console.log('GUI ELEMENT: ' + r.hash.guiElement);
+   // console.log("ROUTER URL: " + Router.current().path);
+   // console.log('TEMPLATE NAME: ' + r.hash.template);
+   // console.log('GUI ELEMENT: ' + r.hash.guiElement);
     
 //     var temp = [{routeURL: "/home", template:"home", guiElement: "homeBooksMeter", permittedRoles: ["admin","crud-books"]},
 //                {routeURL: "/home", template:"home", guiElement: "homeAuthorsMeter", permittedRoles: ["admin","crud-authors"]},
 //                {routeURL: "/home", template:"home", guiElement: "homeStoresMeter", permittedRoles: ["admin","crud-stores"]}];
     
     temp = RolePermissions.find().fetch();
-    console.log('Lenght of Permissions: ' +temp.length);
+   // console.log('Lenght of Permissions: ' +temp.length);
     
     var roles = _.findWhere(temp, {routeUrl:Router.current().path, template:r.hash.template, guiElement:r.hash.guiElement});
     
-    console.log('Permitted roles' + roles.permittedRoles);
+   // console.log('Permitted roles' + roles.permittedRoles);
     
     //var grants = _.values(_.pick(temp,r.hash.guiElement));
     var userRoles = Meteor.user().roles;
