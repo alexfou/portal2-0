@@ -550,8 +550,12 @@ var path = svgb.selectAll("path")
 
 Template.home.helpers({
   
-  borradores: function(){
-    return FichaIndicadores.find({estado:"borrador"}).fetch();
+  tablerosCursor: function(){
+    return Tableros.find();
+  },
+  
+  gruposTablerosCursor: function(){
+    return GruposTableros.find();
   },
   
   isAdminRole: function(){

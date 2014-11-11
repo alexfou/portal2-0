@@ -1,16 +1,11 @@
-// UI.registerHelper("getFichasBorradoresCollection", function() {
-//   Tracker.autorun(function() {
-//     var fis = FichaIndicadores.find({estado:"borrador"}).fetch();
-//     return FichaIndicadores.find({estado:"borrador"}).fetch();
-//   });
-  
-//   return FichaIndicadores.find({estado:"borrador"}).fetch();
-// });
+UI.registerHelper("borradoresCursor", function() {
+  return FichaIndicadores.find({estado:"borrador"});
+});
 
 UI.registerHelper("getFichasActivasCollection", function() {
-  return FichaIndicadores.find({estado:"activo"}).fetch();
+  return FichaIndicadores.find({estado:"activo"});
 });
 
 UI.registerHelper("getFichasInactivasCollection", function() {
-  return FichaIndicadores.find({estado:"inactivo"}).fetch();
+  return FichaIndicadores.find({estado:"inactivo"});
 });

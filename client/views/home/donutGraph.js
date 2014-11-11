@@ -1,28 +1,37 @@
-Template.testSVG.rendered = function () {
-    var svg, width = 200, height = 200, x;
+Template.donutGraph.rendered = function () {
+  var dbCursor = this.data.collCursor;
+  var svg, width = 200, height = 200;
   var grupos =  this.data.groupBy;
+  var svgName =  this.data.svgName;
   
-  svg = d3.select("#"+this.data.svgName).append('svg')
+  svg = d3.select("#"+svgName).append('svg')
       .attr('width', width)
       .attr('height', height);
   
   var svgb = svg.append("g")
        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
   
-  var drawDoughnut = function(update){
+  
+ 
+  var drawDonut = function(update){
+    var col = dbCursor.fetch();
     
-    
-    
-    var col = FichaIndicadores.find().fetch();
-    var dataset = _.countBy(col,function(fi){
+    console.log(svgName + "VALUES LENGTH COL: " + col.length)
+    var dataset = [{"Sin registros":0}];
+      var datasetValues = ["100"];
+      var datasetKeys = ["Sin registros"];
+      var datasetTotal = 0;
+    if(col.length !== 0){
+     dataset = _.countBy(col,function(fi){
         var current=fi; 
         grupos.split('.').forEach(function(p){ current = current[p]; }); 
         return current;        
       }); 
       
-      var datasetValues = _.values(dataset);
-      var datasetKeys = _.keys(dataset);
-      var datasetTotal = _.reduce(datasetValues, function(memo, num){ return memo + num; }, 0);
+       datasetValues = _.values(dataset);
+       datasetKeys = _.keys(dataset);
+       datasetTotal = _.reduce(datasetValues, function(memo, num){ return memo + num; }, 0);
+    }
     
     var color = d3.scale.category20();
     var pie = d3.layout.pie().sort(null);
@@ -32,7 +41,8 @@ Template.testSVG.rendered = function () {
         .innerRadius(radius - 35)
         .outerRadius(radius - 10);
     
-    var doughnuts = svgb.selectAll('path').data(pie(datasetValues), function(d){return Math.random();});
+    console.log('DATASET VALUES: ' + datasetValues);
+    var donuts = svgb.selectAll('path').data(pie(datasetValues), function(d){return Math.random();});
    // var numText = svgb.selectAll('text').data([datasetTotal], function(d){return d;});
      var numText = svgb.selectAll('text').data([datasetTotal], function(d){return d;});
     
@@ -48,8 +58,7 @@ Template.testSVG.rendered = function () {
     console.log('VALUE UPDATE IN drawDoughnut: ' + update);
     if(!update){
       console.log('IN ADDED!!!!!!!!!!!!!11')
-      doughnuts = doughnuts 
-       .enter().append("path")
+      donuts.enter().append("path")
        .attr("fill", function(d, i) { 
          if (datasetTotal === 0){
            return "transparent";
@@ -57,6 +66,13 @@ Template.testSVG.rendered = function () {
            return color(i); 
          }
        })
+      .attr("stroke", function(d, i) {
+        if (datasetTotal === 0){
+           return "#a4a4aa";
+         }else{
+           return ""; 
+         }
+      })
        .attr("d", arc)
        .on("click", function(d, i) {
               console.log("mousein")
@@ -97,7 +113,7 @@ Template.testSVG.rendered = function () {
 
     numText.exit().remove();
     
-    doughnuts 
+    donuts 
        .enter().append("path")
        .attr("fill", function(d, i) { 
          if (datasetTotal === 0){
@@ -106,6 +122,13 @@ Template.testSVG.rendered = function () {
            return color(i); 
          }
        })
+    .attr("stroke", function(d, i) {
+        if (datasetTotal === 0){
+           return "#a4a4aa";
+         }else{
+           return ""; 
+         }
+      })
        .attr("d", arc)
        .on("click", function(d, i) {
               console.log("mousein")
@@ -118,18 +141,32 @@ Template.testSVG.rendered = function () {
                   .text(datasetKeys[i]);
        });
     
-    doughnuts.exit().remove();
-    
-    
+    donuts.exit().remove();   
   }
   }
   
-  FichaIndicadores.find().observe({
+  console.log(svgName +  ': LENGTH IN dbCursor,col: ' + dbCursor.fetch().length);
+  if(dbCursor.fetch().length === 0){
+    drawDonut(false);
+  }
+  
+  //var dbCursor = this.data.collectionCursor;
+  //var dbCursor = FichaIndicadores.find();
+  
+  dbCursor.observe({
       added: function () {  //added is for initialization
-        drawDoughnut(false);
+        console.log("-----------------DBCURSOR ADDED");
+        drawDonut(false);
       },
       //changed: _.partial(drawCircles, true)
-    changed: _.partial(drawDoughnut,true)
+    changed: function() {
+       console.log("-----------------DBCURSOR CHANGED");
+       drawDonut(true);
+    },
+    removed: function () {
+       console.log("-----------------DBCURSOR REMOVED");
+       drawDonut(true);
+    }
     });
   
 };

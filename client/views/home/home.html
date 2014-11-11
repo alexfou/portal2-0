@@ -16,58 +16,71 @@
         {{> homeNoAdmin}}
         {{/if}}
         
-        {{#if checkGUIAccess template="home" guiElement="homeFichaIndicadoresMeter"}}
+        {{#if checkGUIAccess template="home" guiElement="homeTablerosMeter"}}
          <div class="col-lg-4 dashboardEntity text-center">
-      <h3>Prueba</h3>
+      <h3>Tableros</h3>
       <div class="map">
-<!--         {{#with borradores}} -->
-        {{> testSVG collection=this svgName="pruebaSVG" 
+        {{> donutGraph collCursor=tablerosCursor svgName="tablerosSVG" 
+            groupBy="nombre"}}
+      </div>
+      <br>
+      <a id="tableros" href="/tablerosList"><i class="fa fa-list"></i> Ver detalles</a><br>
+      <a id="agregarBorrador" href="/tableroInsert"><i class="fa fa-plus"></i> Agregar Tablero</a>
+   </div> 
+        {{/if}}
+        
+        {{#if checkGUIAccess template="home" guiElement="homeGruposTablerosMeter"}}
+         <div class="col-lg-4 dashboardEntity text-center">
+      <h3>Grupos en Tableros</h3>
+      <div class="map">
+        {{> donutGraph collCursor=gruposTablerosCursor svgName="gruposTablerosSVG" 
+            groupBy="nombre"}}
+      </div>
+      <br>
+      <a id="tableros" href="/tablerosList"><i class="fa fa-list"></i> Ver detalles</a><br>
+      <a id="agregarBorrador" href="/tableroInsert"><i class="fa fa-plus"></i> Agregar Tablero</a>
+   </div> 
+        {{/if}}
+        
+         {{#if checkGUIAccess template="home" guiElement="homeFichaIndicadoresMeter"}}
+         <div class="col-lg-4 dashboardEntity text-center">
+      <h3>Indicadores (borradores)</h3>
+      <div class="map">
+        {{> donutGraph collCursor=borradoresCursor svgName="borradoresSVG" 
             groupBy="proceso.nombre"}}
-<!--         {{/with}} -->
       </div>
       <br>
       <a id="fichasBorrador" href="#"><i class="fa fa-list"></i> Ver detalles</a><br>
       <a id="agregarBorrador" href="#"><i class="fa fa-plus"></i> Agregar Borrador</a>
    </div> 
         {{/if}}
-
         
-        
-        {{#if checkGUIAccess template="home" guiElement="homeTablerosMeter"}}
+        {{#if checkGUIAccess template="home" guiElement="homeFichaIndicadoresMeter"}}
          <div class="col-lg-4 dashboardEntity text-center">
-          <h3>Tableros</h3>
-          <div class="map">
-            <svg id="tablerosGraph" class="kpiSvg" width="200" height="200">
-<!--               <circle class="callout" cx=-100 cy=-100></circle>
-              <g class="arc"></g>
-              <g class="path"></g> -->
-            </svg>
-          </div>
-          <br>
-          <a href="/tablerosList"><i class="fa fa-list"></i> Ver detalles</a><br>
-          <a href="/tableroInsert"><i class="fa fa-plus"></i> Agregar Tablero</a>
-        </div>  
+      <h3>Indicadores (activos)</h3>
+      <div class="map">
+        {{> donutGraph collCursor=getFichasActivasCollection svgName="fichasActivasSVG" 
+            groupBy="proceso.nombre"}}
+      </div>
+      <br>
+      <a id="fichasActivas" href="#"><i class="fa fa-list"></i> Ver detalles</a><br>
+   </div> 
         {{/if}}
         
-        {{#if checkGUIAccess template="home" guiElement="homeGruposTablerosMeter"}}
+        {{#if checkGUIAccess template="home" guiElement="homeFichaIndicadoresMeter"}}
          <div class="col-lg-4 dashboardEntity text-center">
-          <h3>Grupos en Tableros</h3>
-          <div class="map">
-            <svg id="gruposTablerosGraph" class="kpiSvg" width="200" height="200">
-<!--               <circle class="callout" cx=-100 cy=-100></circle>
-              <g class="arc"></g>
-              <g class="path"></g> -->
-            </svg>
-          </div>
-          <br>
-          <a href="/gruposTablerosList"><i class="fa fa-list"></i> Ver detalles</a><br>
-          <a href="/grupoTableroInsert"><i class="fa fa-plus"></i> Agregar Grupo en Tablero</a>
-        </div>  
+      <h3>Indicadores (inactivos)</h3>
+      <div class="map">
+        {{> donutGraph collCursor=getFichasInactivasCollection svgName="fichasInactivasSVG" 
+            groupBy="proceso.nombre"}}
+      </div>
+      <br>
+      <a id="fichasInactivas" href="#"><i class="fa fa-list"></i> Ver detalles</a><br>
+   </div> 
         {{/if}}
         
-
-        
-         {{#if checkGUIAccess template="home" guiElement="homeFichaIndicadoresMeter"}}
+      
+<!--          {{#if checkGUIAccess template="home" guiElement="homeFichaIndicadoresMeter"}}
          <div class="col-lg-4 dashboardEntity text-center">
       <h3>Indicadores (borradores)</h3>
       <div class="map">
@@ -81,8 +94,8 @@
       <a id="agregarBorrador" href="#"><i class="fa fa-plus"></i> Agregar Borrador</a>
    </div> 
         {{/if}}
-        
-        {{#if checkGUIAccess template="home" guiElement="homeFichaIndicadoresMeter"}}
+         -->
+<!--         {{#if checkGUIAccess template="home" guiElement="homeFichaIndicadoresMeter"}}
          <div class="col-lg-4 dashboardEntity text-center">
       <h3>Indicadores (activos)</h3>
       <div class="map">
@@ -92,9 +105,9 @@
       <br>
       <a id="fichasActivas" href="#"><i class="fa fa-list"></i> Ver detalles</a><br>
    </div> 
-        {{/if}}
+        {{/if}} -->
         
-        {{#if checkGUIAccess template="home" guiElement="homeFichaIndicadoresMeter"}}
+<!--         {{#if checkGUIAccess template="home" guiElement="homeFichaIndicadoresMeter"}}
          <div class="col-lg-4 dashboardEntity text-center">
       <h3>Indicadores (inactivos)</h3>
       <div class="map">
@@ -104,7 +117,7 @@
       <br>
       <a id="fichasInactivas" href="#"><i class="fa fa-list"></i> Ver detalles</a><br>
    </div> 
-        {{/if}}
+        {{/if}} -->
         
         
         {{#if checkGUIAccess template="home" guiElement="homeProcesosMeter"}}

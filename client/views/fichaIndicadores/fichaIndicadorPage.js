@@ -58,6 +58,24 @@ Template.fichaIndicadorPage.helpers({
     }
   },
   
+  showButtonToInactiveAdmin: function(fi){
+    var userRoleAdmin = _.contains(Meteor.user().roles,'admin');
+    return userRoleAdmin
+    if (userRoleAdmin && (fi.estado !== "inactivo")){
+      return true;
+    }else{
+      return false;
+    }
+  },
+  
+  isActive: function(fi){
+    if (fi.estado !== "inactivo"){
+      return true;
+    }else{
+      return false;
+    }    
+  },
+  
   showButtonToAproveGestor: function(fi){
     var userRoleAdmin = _.contains(Meteor.user().roles,'noAdmin');
     //aquí llega ya el campo de la fecha solamente
@@ -114,8 +132,19 @@ Template.fichaIndicadorPage.events({
   
   "click #deleteButton" : function(event){
     Session.set('lastDeletedFichaIndicador', this._id);
-    FichaIndicadores.update({'_id': this._id},{$set: { eliminacion: new Date() }});
+    FichaIndicadores.update({'_id': this._id},{$set: { eliminacion: new Date()}});
+    //AsignacionesUsuarioIndicador.update({fichaIndicadorId: this._id},{$set:{userId: null}, rol:["administrador"]});
     //FichaIndicadores.remove({'_id': this._id});
+    Router.go("/fichaIndicadoresList")
+  },
+  
+  "click #inactiveButton" : function(event){
+    FichaIndicadores.update({'_id': this._id},{$set: { estado: "inactivo"}});
+    Router.go("/fichaIndicadoresList")
+  },
+  
+  "click #activeButton" : function(event){
+    FichaIndicadores.update({'_id': this._id},{$set: { estado: "borrador", eliminacion: null, aprobAdminPublicacion: null, aprobGestorPublicacion:null }});
     Router.go("/fichaIndicadoresList")
   },
   

@@ -95,6 +95,15 @@
         {{else}}
         <label class="control-label" for="estado">* Aprobación del Responsable:&nbsp;</label>{{fechaAprobacionGestor this}}<br><br>  
         {{/if}}
+        
+        {{#if showButtonToInactiveAdmin this}}
+          {{#if isActive this}}
+            <button type="button" id="inactiveButton" class="btn btn-warning btn-xs">Inactivar ficha</button><br>
+          {{else}}
+            <button type="button" id="activeButton" class="btn btn-warning btn-xs">Activar ficha a borrador</button><br><br>
+          {{/if}}
+        {{/if}}
+        
          <button type="submit" class="btn btn-primary">Guardar</button>
             {{/autoForm}}   
         <br>

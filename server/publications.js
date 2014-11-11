@@ -1,24 +1,36 @@
 Meteor.publish('fichaIndicadores', function() {
   //var uVersiones = FichaIndicadores.find({ultimaVersion:true, eliminacion: {$ne: null }});
-  return FichaIndicadores.find({ultimaVersion:true, eliminacion:{$in:[null]}});
+  return FichaIndicadores.find({$and:[{ultimaVersion:true}, {eliminacion:{$in:[null]}}]});
    //return uVersiones;
  // return FichaIndicadores.find({ultimaVersion:true});
 });
 
-Meteor.publish('fichaIndicadoresResponsable', function() {
+Meteor.publishComposite('fichaIndicadoresPorUsuario', {
+    find: function() {
+        var userId = this.userId; 
+        return  AsignacionesUsuarioIndicador.find({userId:userId});
+    },
   
-  if (this.userId) {
-    var userId = this.userId;
-    console.log('User ID: ' + this.userId);
-     var fichasId = AsignacionesUsuarioIndicador.find({userId:userId}).fetch();
+  children: [
+        {
+            find: function(asignacion) {
+               return FichaIndicadores.find({'_id':asignacion.fichaIndicadorId, ultimaVersion:true, eliminacion:{$in:[null]}});
+//                 return Meteor.users.find(
+//                     { _id: post.authorId },
+//                     { limit: 1, fields: { profile: 1 } });
+            }
+        },]
+});
+
+
+Meteor.publish('fichaIndicadoresPorUsuarioEliminacion', function() {
+  
+  var userId = this.userId; 
+    console.log('User ID: ' + userId);
+    var fichasId = AsignacionesUsuarioIndicador.find({userId:userId}).fetch();
     fichasId = _.countBy(fichasId, "fichaIndicadorId");
     fichasId = _.keys(fichasId);
-    return FichaIndicadores.find({_id:{$in: fichasId}});
-    
-  } else {
-    return null;
-  }
- 
+    return FichaIndicadores.find({_id:{$in: fichasId}, ultimaVersion:true, eliminacion:{$in:[null]}});
    //return uVersiones;
  // return FichaIndicadores.find({ultimaVersion:true});
 });
