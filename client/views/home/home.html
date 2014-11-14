@@ -233,6 +233,32 @@
         </div>  
         {{/if}}
         
+        {{#if checkGUIAccess template="home" guiElement="homePeriodosMedicionMeter"}}
+         <div class="col-lg-4 dashboardEntity text-center">
+      <h3>Periodos de Medición</h3>
+      <div class="map">
+        {{> donutGraph collCursor=getPeriodosMedicionCollection svgName="periodosMedicionSVG" 
+            groupBy="nombre"}}
+      </div>
+      <br>
+     <a id="periodosMedicion" href="/periodosMedicionList"><i class="fa fa-list"></i> Ver detalles</a><br>
+     <a id="agregarPeriodoMEdicion" href="/periodoMedicionInsert"><i class="fa fa-plus"></i> Agregar Periodo de Medición</a>
+   </div> 
+        {{/if}}
+        
+         {{#if checkGUIAccess template="home" guiElement="homeMedicionesMeter"}}
+         <div class="col-lg-4 dashboardEntity text-center">
+      <h3>Mediciones</h3>
+      <div class="map">
+        {{> donutGraph collCursor=getMedicionesCollection svgName="MedicionesSVG" 
+            groupBy="segmentoMedicion"}}
+      </div>
+      <br>
+<!--      <a id="mediciones" href="/periodosMedicionList"><i class="fa fa-list"></i> Ver detalles</a><br>
+     <a id="agregarPeriodoMEdicion" href="/periodoMedicionInsert"><i class="fa fa-plus"></i> Agregar Periodo de Medición</a> -->
+   </div> 
+        {{/if}}
+        
       </div>
     </div>
   </div>

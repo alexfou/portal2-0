@@ -132,6 +132,12 @@ Schemas.FichaIndicador = new SimpleSchema({
     optional: true
   },
   
+   fechaInicioMedicion:{
+    type: Date,
+    label: "Fecha de Inicio de reporte",
+    optional: false
+  },
+  
 });
                                 
 FichaIndicadores.attachSchema(Schemas.FichaIndicador);

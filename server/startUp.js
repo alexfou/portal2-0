@@ -39,9 +39,11 @@ Meteor.startup(function () {
     Meteor.myFixtures.createTableros();
     Meteor.myFixtures.createGruposTableros();
     Meteor.myFixtures.createFichaIndicadores();
+    Meteor.myFixtures.createPeriodosMedicion();
     Meteor.myFixtures.createAsignacionesAtributoNormativoIndicador();
     Meteor.myFixtures.createAsignacionesUsuarioIndicador();
     Meteor.myFixtures.createAsignacionesGrupoIndicador();
+    Meteor.myFixtures.createMediciones();
     
   }
 

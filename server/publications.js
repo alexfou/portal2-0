@@ -76,8 +76,16 @@ Meteor.publish('asignacionesGrupoIndicador', function() {
 return AsignacionesGrupoIndicador.find();
 });
 
+Meteor.publish('periodosMedicion', function() {
+return PeriodosMedicion.find();
+});
+
 Meteor.publish('asignacionesUsuarioIndicador', function() {
 return AsignacionesUsuarioIndicador.find();
+});
+
+Meteor.publish('mediciones', function() {
+return Mediciones.find();
 });
 
 //this is for the roles package to be available without subscribes to every client
@@ -114,6 +122,13 @@ Meteor.publish("usersList", function() {
               profile: 1
             }
         });
+    }else if(Roles.userIsInRole(user, ["noAdmin"])){
+      return Meteor.users.find({}, {
+            fields: {
+                emails: 1,
+                "profile.name": 1
+            }
+        });            
     }
     this.stop();
     return;

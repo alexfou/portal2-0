@@ -272,6 +272,24 @@ insertTableroForm: {
        Router.go('/tablerosList');     
     }, 
   },
+  
+////////// PERIODOS DE MEDICION //////////  
+  insertPeriodoMedicionForm: {
+    onSuccess: function(operation, result, template) {
+      s = Session.get('originRoute');
+      if(s === undefined || s === false || s === null){
+        Router.go('/periodosMedicionList');   
+      }
+      if(s == 'periodoMedicionInsert')
+       Router.go('/periodoMedicionInsert');     
+    }, 
+  },
+  
+   updatePeriodoMedicionForm: {
+    onSuccess: function(operation, result, template) {
+       Router.go('/periodosMedicionList');     
+    }, 
+  },
 
                    
 });

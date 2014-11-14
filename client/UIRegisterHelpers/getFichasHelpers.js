@@ -9,3 +9,11 @@ UI.registerHelper("getFichasActivasCollection", function() {
 UI.registerHelper("getFichasInactivasCollection", function() {
   return FichaIndicadores.find({estado:"inactivo"});
 });
+
+UI.registerHelper("getPeriodosMedicionCollection", function() {
+  return PeriodosMedicion.find();
+});
+
+UI.registerHelper("getMedicionesCollection", function() {
+  return Mediciones.find();
+});
