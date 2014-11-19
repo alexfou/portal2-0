@@ -1,0 +1,69 @@
+<template name="tablaDatos">
+  <h3>{{segmento}}</h3>
+
+    <div class="table-responsive">
+      <table class="table table-striped table-hover" width="50%">
+        <thead>
+          <tr>
+            <th>  </th>
+            <th> ene </th> <th> feb </th>  <th> mar </th>  <th> abr </th>
+            <th> may </th> <th> jun </th>  <th> jul </th>  <th> ago </th>
+            <th> sep </th> <th> oct </th>  <th> nov </th>  <th> dic </th>
+          </tr>
+        </thead>
+        <tbody>
+          
+          <tr> 
+         <td> Valores 2013 </td>
+        {{#each dataPoints idFicha segmento "valor actual" 2013}}
+            <td id="{{this.fichaId}}-{{this.medicionId}}-{{this.segmento}}" name = "valor 2013" class="tbCell" value="{{this.texto}}"> 
+              {{#if editPointS }}
+               <form>
+                  <input id="{{this.fichaId}}-{{this.medicionId}}-{{this.segmento}}" name="valor 2013" type="text" class="form-control" value={{this.texto}}>
+                  <input type="submit" value="Confirmar valor" class="btn btn-primary btn-xs"/>
+              </form>
+              {{else}}
+                {{this.texto}}
+              {{/if}}
+            </td>
+        {{/each}}
+            </tr>
+          
+           <tr> 
+         <td> Meta 2014 </td>
+        {{#each dataPoints idFicha segmento "meta" 2014}}
+            <td id="{{this.fichaId}}-{{this.medicionId}}-{{this.segmento}}" name = "meta 2014" class="tbCell" value="{{this.texto}}"> 
+              {{#if editPointS }}
+               <form>
+                  <input id="{{this.fichaId}}-{{this.medicionId}}-{{this.segmento}}" name="meta 2014" type="text" class="form-control" value={{this.texto}}>
+                  <input type="submit" value="Confirmar valor" class="btn btn-primary btn-xs"/>
+              </form>
+              {{else}}
+                {{this.texto}}
+              {{/if}}
+            </td>
+        {{/each}}
+            </tr>
+          
+          <tr> 
+         <td> Valores 2014 </td>
+        {{#each dataPoints idFicha segmento "valor actual" 2014}}
+            <td id="{{this.fichaId}}-{{this.medicionId}}-{{this.segmento}}" name = "valor 2014" class="tbCell" value="{{this.texto}}"> 
+              {{#if editPointS }}
+               <form>
+                  <input id="{{this.fichaId}}-{{this.medicionId}}-{{this.segmento}}" name="valor 2014" type="text" class="form-control" value={{this.texto}}>
+                  <input type="submit" value="Confirmar valor" class="btn btn-primary btn-xs"/>
+              </form>
+              {{else}}
+                {{this.texto}}
+              {{/if}}
+            </td>
+        {{/each}}
+            </tr>
+  
+
+          
+        </tbody>
+      </table>
+     </div>
+</template>

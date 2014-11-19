@@ -24,3 +24,11 @@ body{
 .dashboardEntity{
   /*border-right: 2px solid #ecf0f1;*/
 }
+
+h3.kpiH3{
+  padding: 15px;
+  background-color: #95a5a6;
+  border-top: 5px solid #74898a;
+  border-bottom: 5px solid #74898a;
+  color: #2c3e50;
+}

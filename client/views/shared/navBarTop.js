@@ -51,7 +51,7 @@ Template.navBarTop.helpers({
   
   permittedNav:function(guiElement){
     var temp = [
-      {name:"dashboardNav", permittedRoles:['admin','crud-stores','crud-books','crud-authors']},
+      {name:"dashboardNav", permittedRoles:['admin', 'noAdmin', 'crud-stores','crud-books','crud-authors']},
       {name:"adminResourcesNav", permittedRoles:['admin','crud-stores','crud-books','crud-authors']},
       {name:"adminBooksNav", permittedRoles:['admin','crud-books']},
       {name:"adminAuthorsNav", permittedRoles:['admin','crud-authors']},

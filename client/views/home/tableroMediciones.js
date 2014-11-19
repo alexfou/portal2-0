@@ -5,19 +5,29 @@ Template.tableroMediciones.rendered = function(){
   
   _.each(fis, function(f){
       var today = new Date();
+      var month = today.getUTCMonth(); var day = today.getUTCDate(); var year = today.getUTCFullYear(); 
+      var lastDate = new Date(year,month-1,day) ;
+    console.log('LAST DATE: ' + lastDate);
       var fechaInicio = f.fechaInicioMedicion;
+   // var fechaInicio = new Date(fechaIniciob.getUTCFullYear(), fechaIniciob.getUTCMonth(), fechaIniciob.getUTCDate());
+    console.log('fechaInicio: ' + fechaInicio);
      // var periodos = PeriodosMedicion.find({fechaReferencia: { $gte: fechaInicio } }).fetch()
       var periodos = PeriodosMedicion.find({
         $and: [{fechaReferencia: { $gte: fechaInicio }}, 
-               {fechaReferencia: { $lte: today }} 
+               {fechaReferencia: { $lte: lastDate }} 
               ]}).fetch();
+//     console.log("Num periodos: " + periodos.length);
+//     _.each(periodos, function(p){
+//       console.log(p.nombre)
+           
+//            });
       var seg = f.segmentosMediciones;
       console.log("Segmentos: " + seg);
       _.each(periodos, function(p){
         _.each(seg, function(s){
           periodosTotales.push({fichaIndicadorId:f._id, periodoMedicionId:p._id, segmentoMedicion:s}); 
-          console.log('Meses: ' + today.getUTCMonth() + "/" + p.fechaReferencia.getUTCMonth());
-          if(today.getUTCMonth() == p.fechaReferencia.getUTCMonth()){
+//           console.log('Meses: ' + today.getUTCMonth() + "/" + p.fechaReferencia.getUTCMonth());
+          if((today.getUTCMonth()-1) == p.fechaReferencia.getUTCMonth()){
             periodosPeriodo.push({fichaIndicadorId:f._id, periodoMedicionId:p._id, segmentoMedicion:s}); 
           }
         });    
@@ -119,7 +129,7 @@ Template.tableroMediciones.helpers({
   periodosAlDia: function(tipo){  
     
     var periodosMedidos = null;
-    
+    var total = Session.get('periodosPeriodo').length
     if(tipo == "totales"){
       periodosMedidos = Session.get('periodosMedidosTotales');     
     }else{
@@ -129,7 +139,9 @@ Template.tableroMediciones.helpers({
     if(_.isEmpty(periodosMedidos)){
       return 0;
     }else{
-      return periodosMedidos.length;  
+      var perc = (periodosMedidos.length)/total;
+      perc = perc*100;
+      return perc.toFixed(0);  
     }
     
   },

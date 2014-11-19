@@ -35,21 +35,25 @@ Schemas.Medicion = new SimpleSchema({
   
   valorActual:{
     type:Number,
+    decimal:true,
     optional:false
   },
   
   metaActual:{
     type:Number,
+    decimal:true,
     optional:false
   },
   
    valorAnterior:{
     type:Number,
+    decimal:true,
     optional:false
   },
   
    metaAnterior:{
     type:Number,
+    decimal:true,
     optional:false
   },
   
