@@ -1,0 +1,23 @@
+<template name="panelFicha">
+   <div class="{{panelType this}}">
+    <div class="panel-heading">
+      <div style="height:97px;" class="row">
+          <div class="col-xs-3">
+            <i  class="{{arrowType this}}" style="{{arrowColor this}}"></i>
+            <p style="font-size:10px;" align="center">  mes<br>anterior</p>
+          </div>
+          <div class="col-xs-9 text-right">
+<!--             <div class="huge">{{monthVal this}}</div>
+            <div>{{published.name}}</div> -->
+            <div class="huge">{{getValue this}}</div>
+            <div>{{this.nombre}}</div>
+          </div>
+        </div>
+<!--       <h3 class="panel-title">{{this.published.name}}</h3>
+      <div><i  class="{{arrowType this}}" style="{{arrowColor this}}"></i> {{monthVal this}}</div> -->
+    </div>
+    <div class="panel-body">
+      Ver detalles
+    </div>
+  </div>
+</template>

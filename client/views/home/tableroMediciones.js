@@ -4,7 +4,9 @@ Template.tableroMediciones.rendered = function(){
    var fis = FichaIndicadores.find({}).fetch();
   
   _.each(fis, function(f){
-      var today = new Date();
+    //  var today = new Date();
+    var today = new Date(2014,11,24) ;
+    
       var month = today.getUTCMonth(); var day = today.getUTCDate(); var year = today.getUTCFullYear(); 
       var lastDate = new Date(year,month-1,day) ;
     console.log('LAST DATE: ' + lastDate);
@@ -36,6 +38,8 @@ Template.tableroMediciones.rendered = function(){
      
      Session.set('periodosTotales',periodosTotales);
      Session.set('periodosPeriodo',periodosPeriodo);
+  
+  console.log('PERIODOS_PERIODO SET: ' + Session.get('periodosPeriodo'));
      
 //      if(tipo == "totales"){
 //         return periodosTotales.length; 
@@ -129,6 +133,7 @@ Template.tableroMediciones.helpers({
   periodosAlDia: function(tipo){  
     
     var periodosMedidos = null;
+    console.log('IN periodosPEriodo: ' +Session.get('periodosPeriodo') );
     var total = Session.get('periodosPeriodo').length
     if(tipo == "totales"){
       periodosMedidos = Session.get('periodosMedidosTotales');     

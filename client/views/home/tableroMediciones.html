@@ -36,7 +36,12 @@
 <!--       <td><h3 style="border: 4px solid;border-radius: 25px; margin:10px; border-color:#c87f0a">{{periodosFaltantes "periodo"}}<br><h5>periodo actual</h5></h3></td> -->
     </tr>
     <tr>
-      <td colspan="2"><a id="medicionesList" href="/medicionesList"><i class="fa fa-list"></i> Registrar mediciones</a><br></td>
+      {{#if isAdminRole}}
+         <td colspan="2"><a id="medicionesList" href="/resumenTablerosList"><i class="fa fa-list"></i> Ver resumen de tableros</a><br></td>
+      {{else}}
+         <td colspan="2"><a id="medicionesList" href="/medicionesList"><i class="fa fa-list"></i> Registrar mediciones</a><br></td>
+      {{/if}}
+     
     </tr>
 <!--     <tr>
       <td><h3 style="border: 4px solid;border-radius: 25px; margin:10px;border-color:#1a242f">{{periodosAReportar "periodo"}}<br><h5>totales</h5></h3></td>

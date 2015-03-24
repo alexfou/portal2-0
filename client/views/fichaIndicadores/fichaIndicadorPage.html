@@ -31,6 +31,7 @@
         {{> afQuickField name='alcance' options="allowed" firstOption="Seleccionar un alcance"}}
          {{> afQuickField name='frecuenciaMedicion' options="allowed" firstOption="Seleccionar una frecuencia de medicion"}}
          {{> afQuickField name='segmentosMediciones' }}
+<!--         {{> fichasFormulaEdit this}} -->
          {{> afQuickField name='observaciones' }}
         {{> asignacionesAtributoNormativoIndicador}}<br>
         {{> asignacionesUsuarioIndicador}}<br>
@@ -75,6 +76,7 @@
          {{> afQuickField name='alcance' options="allowed" firstOption="Seleccionar un alcance"}}
         {{> afQuickField name='frecuenciaMedicion' options="allowed" firstOption="Seleccionar una frecuencia de medicion"}}
          {{> afQuickField name='segmentosMediciones' }}
+<!--          {{> fichasFormulaEdit this}} -->
          {{> afQuickField name='observaciones' }}
         
         {{> asignacionesAtributoNormativoIndicador this}}<br>
@@ -159,12 +161,27 @@
   {{#if formType "update"}}<i style="color: #18bc9c" class="fa fa-plus-circle fa-1.5x"></i> {{> inputAutocomplete settings=settings id="addGrupo" class="input-xlarge" placeholder="Agregar grupo en tablero..."}}{{/if}}<br>
 </template>
 
+<template name="fichasFormulaEdit">
+  <label class="control-label" for="unidadMedicionId">Fichas para fórmula</label>
+  <br>
+  {{#each getGrupos}}
+    {{#if formType "update"}}<i style="color: #e74c3c" id={{_id}} for={{../_id}} class="fa fa-times-circle-o fa-1.5x removeGrupo"></i> 
+<!--   <a href="#" id={{_id}} for={{../_id}} class="btn btn-link removeAtributoNormativo" style="padding:0px 0px 5px 0px">Eliminar</a> -->
+  {{/if}} {{nombre}}&nbsp;({{nombreTablero}}) <br>
+  {{/each}}
+  {{#if formType "update"}}<i style="color: #18bc9c" class="fa fa-plus-circle fa-1.5x"></i> {{> inputAutocomplete settings=settings id="addGrupo" class="input-xlarge" placeholder="Agregar grupo en tablero..."}}{{/if}}<br>
+</template>
+
 <template name="userPill">
     <span>{{nombre}}</span>
 </template>
 
 <template name="autoCompleteGruposTableros">
     <span>{{nombre}}&nbsp;({{nombreTablero}})</span>
+</template>
+
+<template name="autoCompleteFichasFormula">
+    <span>{{nombre}}</span>
 </template>
 
 <template name="userPillUser">

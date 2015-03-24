@@ -32,3 +32,35 @@ h3.kpiH3{
   border-bottom: 5px solid #74898a;
   color: #2c3e50;
 }
+
+/* NOTE USE SVG ATTRIBURES FOR SVG ELEMENTS, NOT THE COMMON CSS */
+.axis path,
+.axis line {
+fill: none;
+stroke: black;
+shape-rendering: crispEdges;
+}
+
+.axis text {
+font-family: sans-serif;
+fill: #505050;
+}
+
+
+.lineLY {
+  fill: none;
+  stroke: #95a5a6;
+  stroke-width: 4px;
+}
+
+.lineG {
+  fill: none;
+  stroke: #e74c3c;
+  stroke-width: 4px;
+}
+
+.graficaBarrasSvg{
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}

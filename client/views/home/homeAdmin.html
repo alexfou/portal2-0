@@ -1,0 +1,245 @@
+<template name="homeAdmin">
+{{> tableroMediciones}}
+{{#if checkGUIAccess template="home" guiElement="homeTablerosMeter"}}
+         <div class="col-lg-4 dashboardEntity text-center">
+      <h3>Tableros</h3>
+      <div class="map">
+        {{> donutGraph collCursor=tablerosCursor svgName="tablerosSVG" 
+            groupBy="nombre"}}
+      </div>
+      <br>
+      <a id="tableros" href="/tablerosList"><i class="fa fa-list"></i> Ver detalles</a><br>
+      <a id="agregarBorrador" href="/tableroInsert"><i class="fa fa-plus"></i> Agregar Tablero</a>
+   </div> 
+        {{/if}}
+        
+        {{#if checkGUIAccess template="home" guiElement="homeGruposTablerosMeter"}}
+         <div class="col-lg-4 dashboardEntity text-center">
+      <h3>Grupos en Tableros</h3>
+      <div class="map">
+        {{> donutGraph collCursor=gruposTablerosCursor svgName="gruposTablerosSVG" 
+            groupBy="nombre"}}
+      </div>
+      <br>
+      <a id="tableros" href="/tablerosList"><i class="fa fa-list"></i> Ver detalles</a><br>
+      <a id="agregarBorrador" href="/tableroInsert"><i class="fa fa-plus"></i> Agregar Tablero</a>
+   </div> 
+        {{/if}}
+        
+         {{#if checkGUIAccess template="home" guiElement="homeFichaIndicadoresMeter"}}
+         <div class="col-lg-4 dashboardEntity text-center">
+      <h3>Indicadores (borradores)</h3>
+      <div class="map">
+        {{> donutGraph collCursor=borradoresCursor svgName="borradoresSVG" 
+            groupBy="proceso.nombre"}}
+      </div>
+      <br>
+      <a id="fichasBorrador" href="/fichaIndicadoresList"><i class="fa fa-list"></i> Ver detalles</a><br>
+      <a id="agregarBorrador" href="#"><i class="fa fa-plus"></i> Agregar Borrador</a>
+   </div> 
+        {{/if}}
+        
+        {{#if checkGUIAccess template="home" guiElement="homeFichaIndicadoresMeter"}}
+         <div class="col-lg-4 dashboardEntity text-center">
+      <h3>Indicadores (activos)</h3>
+      <div class="map">
+        {{> donutGraph collCursor=getFichasActivasCollection svgName="fichasActivasSVG" 
+            groupBy="proceso.nombre"}}
+      </div>
+      <br>
+      <a id="fichasActivas" href="#"><i class="fa fa-list"></i> Ver detalles</a><br>
+   </div> 
+        {{/if}}
+        
+        {{#if checkGUIAccess template="home" guiElement="homeFichaIndicadoresMeter"}}
+         <div class="col-lg-4 dashboardEntity text-center">
+      <h3>Indicadores (inactivos)</h3>
+      <div class="map">
+        {{> donutGraph collCursor=getFichasInactivasCollection svgName="fichasInactivasSVG" 
+            groupBy="proceso.nombre"}}
+      </div>
+      <br>
+      <a id="fichasInactivas" href="#"><i class="fa fa-list"></i> Ver detalles</a><br>
+   </div> 
+        {{/if}}
+        
+      
+<!--          {{#if checkGUIAccess template="home" guiElement="homeFichaIndicadoresMeter"}}
+         <div class="col-lg-4 dashboardEntity text-center">
+      <h3>Indicadores (borradores)</h3>
+      <div class="map">
+        {{#with borradores}}
+        {{> doughnutGraph collection=this svgName="fichasIndicadoresBorradoresSVG" 
+            groupBy="proceso.nombre"}}
+        {{/with}}
+      </div>
+      <br>
+      <a id="fichasBorrador" href="#"><i class="fa fa-list"></i> Ver detalles</a><br>
+      <a id="agregarBorrador" href="#"><i class="fa fa-plus"></i> Agregar Borrador</a>
+   </div> 
+        {{/if}}
+         -->
+<!--         {{#if checkGUIAccess template="home" guiElement="homeFichaIndicadoresMeter"}}
+         <div class="col-lg-4 dashboardEntity text-center">
+      <h3>Indicadores (activos)</h3>
+      <div class="map">
+        {{> doughnutGraph collection=getFichasActivasCollection svgName="fichasIndicadoresActivasSVG" 
+            groupBy="proceso.nombre"}}
+      </div>
+      <br>
+      <a id="fichasActivas" href="#"><i class="fa fa-list"></i> Ver detalles</a><br>
+   </div> 
+        {{/if}} -->
+        
+<!--         {{#if checkGUIAccess template="home" guiElement="homeFichaIndicadoresMeter"}}
+         <div class="col-lg-4 dashboardEntity text-center">
+      <h3>Indicadores (inactivos)</h3>
+      <div class="map">
+        {{> doughnutGraph collection=getFichasInactivasCollection svgName="fichasIndicadoresInactivasSVG" 
+            groupBy="proceso.nombre"}}
+      </div>
+      <br>
+      <a id="fichasInactivas" href="#"><i class="fa fa-list"></i> Ver detalles</a><br>
+   </div> 
+        {{/if}} -->
+        
+        
+        {{#if checkGUIAccess template="home" guiElement="homeProcesosMeter"}}
+         <div class="col-lg-4 dashboardEntity text-center">
+          <h3>Procesos</h3>
+          <div class="map">
+            <svg id="procesosGraph" class="kpiSvg" width="200" height="200">
+<!--               <circle class="callout" cx=-100 cy=-100></circle>
+              <g class="arc"></g>
+              <g class="path"></g> -->
+            </svg>
+          </div>
+          <br>
+          <a href="/procesosList"><i class="fa fa-list"></i> Ver detalles</a><br>
+          <a href="/procesoInsert"><i class="fa fa-plus"></i> Agregar Proceso</a>
+        </div>  
+        {{/if}}
+        
+       
+        {{#if checkGUIAccess template="home" guiElement="homeFuentesMeter"}}
+         <div class="col-lg-4 dashboardEntity text-center">
+          <h3>Fuentes</h3>
+          <div class="map">
+            <svg id="fuentesGraph" class="kpiSvg" width="200" height="200">
+<!--               <circle class="callout" cx=-100 cy=-100></circle>
+              <g class="arc"></g>
+              <g class="path"></g> -->
+            </svg>
+          </div>
+          <br>
+          <a href="/fuentesList"><i class="fa fa-list"></i> Ver detalles</a><br>
+          <a href="/fuenteInsert"><i class="fa fa-plus"></i> Agregar Fuente</a>
+        </div>  
+        {{/if}}
+        
+         {{#if checkGUIAccess template="home" guiElement="homeUnidadesMedicionMeter"}}
+         <div class="col-lg-4 dashboardEntity text-center">
+          <h3>Unidades de Medición</h3>
+          <div class="map">
+            <svg id="unidadesMedicionGraph" class="kpiSvg" width="200" height="200">
+<!--               <circle class="callout" cx=-100 cy=-100></circle>
+              <g class="arc"></g>
+              <g class="path"></g> -->
+            </svg>
+          </div>
+          <br>
+          <a href="/unidadesMedicionList"><i class="fa fa-list"></i> Ver detalles</a><br>
+          <a href="/unidadMedicionInsert"><i class="fa fa-plus"></i> Agregar Unidad de Medición</a>
+        </div>  
+        {{/if}}
+        
+        {{#if checkGUIAccess template="home" guiElement="homeAtributosNormativosMeter"}}
+         <div class="col-lg-4 dashboardEntity text-center">
+          <h3>Atributos Normativos</h3>
+          <div class="map">
+            <svg id="atributosNormativosGraph" class="kpiSvg" width="200" height="200">
+<!--               <circle class="callout" cx=-100 cy=-100></circle>
+              <g class="arc"></g>
+              <g class="path"></g> -->
+            </svg>
+          </div>
+          <br>
+          <a href="/atributosNormativosList"><i class="fa fa-list"></i> Ver detalles</a><br>
+          <a href="/atributoNormativoInsert"><i class="fa fa-plus"></i> Agregar Atributo Normativo</a>
+        </div>  
+        {{/if}}
+        
+         {{#if checkGUIAccess template="home" guiElement="homeNormasMeter"}}
+         <div class="col-lg-4 dashboardEntity text-center">
+          <h3>Normas</h3>
+          <div class="map">
+            <svg id="normasGraph" class="kpiSvg" width="200" height="200">
+<!--               <circle class="callout" cx=-100 cy=-100></circle>
+              <g class="arc"></g>
+              <g class="path"></g> -->
+            </svg>
+          </div>
+          <br>
+          <a href="/normasList"><i class="fa fa-list"></i> Ver detalles</a><br>
+          <a href="/normaInsert"><i class="fa fa-plus"></i> Agregar Norma</a>
+        </div>  
+        {{/if}}
+        
+        {{#if checkGUIAccess template="home" guiElement="homeEntidadesReguladorasMeter"}}
+         <div class="col-lg-4 dashboardEntity text-center">
+          <h3>Entidades Reguladoras</h3>
+          <div class="map">
+            <svg id="entidadesReguladorasGraph" class="kpiSvg" width="200" height="200">
+<!--               <circle class="callout" cx=-100 cy=-100></circle>
+              <g class="arc"></g>
+              <g class="path"></g> -->
+            </svg>
+          </div>
+          <br>
+          <a href="/entidadesReguladorasList"><i class="fa fa-list"></i> Ver detalles</a><br>
+          <a href="/entidadReguladoraInsert"><i class="fa fa-plus"></i> Agregar Entidad Reguladora</a>
+        </div>  
+        {{/if}}
+        
+        {{#if checkGUIAccess template="home" guiElement="homeUsersMeter"}}
+         <div class="col-lg-4 dashboardEntity text-center">
+          <h3>Usuarios</h3>
+          <div class="map">
+            <svg id="usersGraph" class="kpiSvg" width="200" height="200">
+<!--               <circle class="callout" cx=-100 cy=-100></circle>
+              <g class="arc"></g>
+              <g class="path"></g> -->
+            </svg>
+          </div>
+          <br>
+          <a href="/usersList"><i class="fa fa-list"></i> Ver detalles</a><br>
+          <a href="/userInsert"><i class="fa fa-plus"></i> Agregar Usuario</a>
+        </div>  
+        {{/if}}
+        
+        {{#if checkGUIAccess template="home" guiElement="homePeriodosMedicionMeter"}}
+         <div class="col-lg-4 dashboardEntity text-center">
+      <h3>Periodos de Medición</h3>
+      <div class="map">
+        {{> donutGraph collCursor=getPeriodosMedicionCollection svgName="periodosMedicionSVG" 
+            groupBy="nombre"}}
+      </div>
+      <br>
+     <a id="periodosMedicion" href="/periodosMedicionList"><i class="fa fa-list"></i> Ver detalles</a><br>
+     <a id="agregarPeriodoMEdicion" href="/periodoMedicionInsert"><i class="fa fa-plus"></i> Agregar Periodo de Medición</a>
+   </div> 
+        {{/if}}
+        
+         {{#if checkGUIAccess template="home" guiElement="homeMedicionesMeter"}}
+         <div class="col-lg-4 dashboardEntity text-center">
+      <h3>Mediciones</h3>
+      <div class="map">
+        {{> donutGraph collCursor=getMedicionesCollection svgName="MedicionesSVG" 
+            groupBy="segmentoMedicion"}}
+      </div>
+      <br>
+<!--      <a id="mediciones" href="/periodosMedicionList"><i class="fa fa-list"></i> Ver detalles</a><br>
+     <a id="agregarPeriodoMEdicion" href="/periodoMedicionInsert"><i class="fa fa-plus"></i> Agregar Periodo de Medición</a> -->
+   </div> 
+        {{/if}}
+</template>

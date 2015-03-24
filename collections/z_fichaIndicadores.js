@@ -33,7 +33,7 @@ Schemas.FichaIndicador = new SimpleSchema({
   
   procesoId: {
     type: String,
-    label: "Proceso",
+    label: "ProcesoId",
     optional:false
   },
   
@@ -137,6 +137,20 @@ Schemas.FichaIndicador = new SimpleSchema({
     label: "Fecha de Inicio de reporte",
     optional: false
   },
+  
+  formula:{
+    type:String,
+    label: "Fórmula",
+    optional: true
+  },
+  
+  fichasFormula:{
+    type:[String],
+    label: "Fichas para fórmula",
+    optional: true
+  }
+  
+  
   
 });
                                 

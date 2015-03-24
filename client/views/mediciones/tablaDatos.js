@@ -8,15 +8,87 @@ Template.tablaDatos.helpers({
     var valores = [];
     var periodosTotales = PeriodosMedicion.find().fetch();
     
+    // obtener los periodos del año seleccionado para luego buscar sus mediciones
     _.each(periodosTotales, function(p){
       if(p.fechaReferencia.getUTCFullYear() == anio){
         periodos.push(p._id);
       }  
     });
     
+    // obtener las mediciones de la ficha en curso con los periodos en curso
     _.each(periodos, function(p){
-      //valores.push("S.D.") ;
+      var ficha = FichaIndicadores.findOne({'_id': fichaId});
+      var isFormula = !_.isEmpty(ficha.formula);
       var med = Mediciones.findOne({fichaIndicadorId: fichaId, periodoMedicionId: p, segmentoMedicion: segmento});
+      
+      if(isFormula){
+        if(_.isUndefined(med)){
+          var f = [];
+          _.each(ficha.fichasFormula, function(f_i){
+            var med_i = Mediciones.findOne({fichaIndicadorId: f_i, periodoMedicionId: p, segmentoMedicion: segmento});
+            if(med_i !== undefined){
+              f.push(med_i.valorActual);      
+            }
+          });
+          var forEval = eval(ficha.formula)
+          console.log('Have to insert Medicion with formula: ' + forEval);
+          console.log('Tyoe of evak: ' + isNaN(forEval));
+          if(!isNaN(forEval)){
+             med = Mediciones.insert({
+              fichaIndicadorId: fichaId,
+              periodoMedicionId: p,
+              userId: Meteor.user()._id,
+              segmentoMedicion:segmento,
+              valorActual: forEval,
+              metaActual: Infinity,
+              valorAnterior: Infinity,
+              metaAnterior: Infinity,
+              comentario: null
+            });            
+          }
+        }
+        
+//          med = Mediciones.insert({
+//           fichaIndicadorId: fichaId,
+//           periodoMedicionId: p,
+//           userId: Meteor.user()._id,
+//           segmentoMedicion:segmento,
+//           valorActual: eval(ficha.formula),
+//           metaActual: Infinity,
+//           valorAnterior: Infinity,
+//           metaAnterior: Infinity,
+//           comentario: null
+//         });
+      }
+      
+      
+      
+      
+//       if(_.isEmpty(ficha.formula)){
+//         med = Mediciones.findOne({fichaIndicadorId: fichaId, periodoMedicionId: p, segmentoMedicion: segmento}); 
+//       }else{
+//         if(med !== undefined){
+          
+//         }
+        
+//         _.each(ficha.fichasFormula, function(f_i){
+//           var med_i = Mediciones.findOne({fichaIndicadorId: f_i, periodoMedicionId: p, segmentoMedicion: segmento});
+//           if(med_i !== undefined){
+//             f.push(med_i.valorActual);      
+//           }else{
+            
+//           }
+          
+//         });
+        
+//         if(!_.isEmpty(f)){
+//           var valorFinal = eval(ficha.formula);
+//           var med = ({'_id': 'Sin ID', fichaId:fichaId, valorActual: valorFinal, segmento:segmento});
+//         }
+        
+       
+//       }
+      
       // OJO: si existe la medicion el medcionId va a ser de la tabla Mediciones
       // de lo contrario medcionId será el del periodo
       if(_.isUndefined(med)){
@@ -58,15 +130,22 @@ Template.tablaDatos.events({
     
    // Session.set('rendGraph',false);
     
-    dpId = $(event.target).attr("id");
-    if(dpId !== undefined){
+    //dpId = $(event.target).attr("id");
+     var dpIdString= $(event.target).attr('id');
+     var fichaId = dpIdString.split('-')[0];
+    var ficha = FichaIndicadores.findOne({'_id':fichaId});
+    
+    var name = $(event.target).attr("name");
+    var val = $(event.target).attr("value");
+    
+    
+    if(((fichaId !== undefined) && (_.isUndefined(ficha.formula))) || (name.indexOf("meta")> -1)){
       
-    name = $(event.target).attr("name");
-    val = $(event.target).attr("value");
-    console.log("clicked cell: " + dpId + ", name: " + name + ", text: " + val);
+    
+    //console.log("clicked cell: " + dpId + ", name: " + name + ", text: " + val);
     if( (name.indexOf("valor") > -1) || (name.indexOf("meta")> -1)){
      // $(event.target).text(""); 
-      $(event.target).append("<div><br><input  id=\""+dpId+"\" name =\""+name+"\" value=\""+val+"\" class=\"tbCellInput\"></input><br><i class=\"fa fa-check-circle-o fa-3x tbCellInputCheck\"></i> " +
+      $(event.target).append("<div><br><input  id=\""+dpIdString+"\" name =\""+name+"\" value=\""+val+"\" class=\"tbCellInput\"></input><br><i class=\"fa fa-check-circle-o fa-3x tbCellInputCheck\"></i> " +
                              "<i class=\"fa fa-times-circle-o fa-3x tbCellInputCancel\"></i>");                            
     }
     }
@@ -77,6 +156,7 @@ Template.tablaDatos.events({
     
     var yVal= $(e.target).parent().find('input').val();
      var dpIdString= $(e.target).parent().find('input').attr('id');
+    console.log('ID STRING: '+ dpIdString);
      var fichaId = dpIdString.split('-')[0];
     var dpId = dpIdString.split('-')[1]; 
      var segmento = dpIdString.split('-')[2];
@@ -104,7 +184,7 @@ Template.tablaDatos.events({
           valorAnterior: Infinity,
           metaAnterior: Infinity,
           comentario: null
-        }); 
+        }, function(err,id){medicionesFormulados(fichaId, dpId, segmento);}); 
       }else{
         Mediciones.insert({
           fichaIndicadorId: fichaId,
@@ -116,7 +196,7 @@ Template.tablaDatos.events({
           valorAnterior: Infinity,
           metaAnterior: Infinity,
           comentario: null
-        });
+        }, function(err,id){medicionesFormulados(fichaId, dpId, segmento);});
         
       }
       
@@ -125,7 +205,8 @@ Template.tablaDatos.events({
         oldVal = Infinity
       }
       if(variables.split(' ')[0] == "valor"){
-        Mediciones.update({'_id':dpId},{$set:{valorActual: yVal, valorAnterior: oldVal}});
+        var periodo = Mediciones.findOne({'_id': dpId}).periodoMedicionId;
+        Mediciones.update({'_id':dpId},{$set:{valorActual: yVal, valorAnterior: oldVal}}, function(err,numRow){medicionesFormulados(fichaId, periodo, segmento);});
       }
     
        if(variables.split(' ')[0] == "meta"){

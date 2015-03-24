@@ -1,70 +1,5 @@
 AutoForm.hooks({
   
-   
-  updateFichaIndicadorForm:{
-      onSubmit: function(insertDoc, updateDoc, currentDoc) {
-        console.log('InsertDoc: ' + Object.keys(insertDoc) + "-" +insertDoc.nombre);
-        console.log('InsertDoc: ' + Object.keys(updateDoc) + "-" +updateDoc.nombre);
-        console.log('InsertDoc: ' + Object.keys(currentDoc) + "-" +currentDoc.nombre); //tiene _id
-        if(currentDoc.procesoId !== insertDoc.procesoId){
-          console.log('Cambio de proceso');
-          a = Procesos.findOne({'_id':insertDoc.procesoId});
-          console.log("Proceso find: " + a + " and its keys: " + Object.keys(a));
-          insertDoc.procesoId = a._id;
-          insertDoc.proceso = a;
-          //FichaIndicadores.update({'_id':currentDoc._id}, {$set: insertDoc});
-          //this.done();
-          //Router.go('/fichaIndicadoresList');
-          //return false;     
-        }if(currentDoc.fuenteId !== insertDoc.fuenteId){
-          console.log('Cambio de fuente');
-          a = Fuentes.findOne({'_id':insertDoc.fuenteId});
-          console.log("Fuente find: " + a + " and its keys: " + Object.keys(a));
-          insertDoc.fuenteId = a._id;
-          insertDoc.fuente = a;
-        }
-        
-         // Procesos.update({'_id':currentDoc._id}, {$set: insertDoc});
-          //this.done();
-          //Router.go('/fichaIndicadoresList');
-          //return false;
-        //}else{
-//         FichaIndicadores.update({'_id':currentDoc._id}, {$set: {ultimaVersion:false}});
-        insertDoc.fechaHoraEfectiva = new Date();
-        insertDoc.ultimaVersion = true;
-        insertDoc.estado = currentDoc.estado;
-        insertDoc.aprobAdminPublicacion = currentDoc.aprobAdminPublicacion;
-        insertDoc.aprobGestorPublicacion = currentDoc.aprobGestorPublicacion;
-        insertDoc.eliminacion = currentDoc.eliminacion;
-        
-        //insertDoc.eliminado = false;
-        
-        FichaIndicadores.update({'_id':currentDoc._id}, {$set: insertDoc});
-       // FichaIndicadores.update({'_id':currentDoc._id}, {$set: {fechaHoraEfectiva: newDate}});
-        
-//         var a = Procesos.findOne({'_id':insertDoc.procesoId});
-//         insertDoc.proceso = a;
-//         a = Fuentes.findOne({'_id':insertDoc.fuenteId});
-//         insertDoc.fuente = a;
-//         insertDoc.ultimaVersion = false;
-//         insertDoc.fechaHoraEfectiva = lastDate;
-//         var fi = _.omit(insertDoc,'_id');
-          //currentDoc.fechaHoraEfectiva = lastDate;
-          currentDoc.ultimaVersion = false;
-        currentDoc.idOriginal = currentDoc._id;
-          var fi = _.omit(currentDoc,'_id');
-         fi = FichaIndicadores.insert(fi);
-        //AsignacionesAtributoNormativoIndicador.update({fichaIndicadorId: currentDoc._id}, {$set:{fichaIndicadorId: fi._id}});
-          this.done();
-          Router.go('/fichaIndicadoresList');
-          return false;
-        //}
-        //return false;
-      },
-  },
- 
-     
-  
   insertRolePermissionForm: {
     onSuccess: function(operation, result, template) {
       s = Session.get('originRoute');
@@ -134,6 +69,7 @@ AutoForm.hooks({
         doc.aprobAdminPublicacion = null;
         doc.aprobGestorPublicacion = null;
         doc.eliminacion = null;
+        doc.fichasFormula =_.pluck( Session.get('newFichasFormula'),'fichaIndicadorId');
         
         return doc;
     
@@ -157,9 +93,72 @@ AutoForm.hooks({
       Session.set('newAtributosNormativos', undefined);
       Session.set('newUsuariosRoles', undefined);
       Session.set('newGrupos', undefined);
+       Session.set('newFichasFormula', undefined);
       Router.go('/fichaIndicadoresList');
       
     },
+  },
+  
+    updateFichaIndicadorForm:{
+      onSubmit: function(insertDoc, updateDoc, currentDoc) {
+        console.log('InsertDoc: ' + Object.keys(insertDoc) + "-" +insertDoc.nombre);
+        console.log('InsertDoc: ' + Object.keys(updateDoc) + "-" +updateDoc.nombre);
+        console.log('InsertDoc: ' + Object.keys(currentDoc) + "-" +currentDoc.nombre); //tiene _id
+        if(currentDoc.procesoId !== insertDoc.procesoId){
+          console.log('Cambio de proceso');
+          a = Procesos.findOne({'_id':insertDoc.procesoId});
+          console.log("Proceso find: " + a + " and its keys: " + Object.keys(a));
+          insertDoc.procesoId = a._id;
+          insertDoc.proceso = a;
+          //FichaIndicadores.update({'_id':currentDoc._id}, {$set: insertDoc});
+          //this.done();
+          //Router.go('/fichaIndicadoresList');
+          //return false;     
+        }if(currentDoc.fuenteId !== insertDoc.fuenteId){
+          console.log('Cambio de fuente');
+          a = Fuentes.findOne({'_id':insertDoc.fuenteId});
+          console.log("Fuente find: " + a + " and its keys: " + Object.keys(a));
+          insertDoc.fuenteId = a._id;
+          insertDoc.fuente = a;
+        }
+        
+         // Procesos.update({'_id':currentDoc._id}, {$set: insertDoc});
+          //this.done();
+          //Router.go('/fichaIndicadoresList');
+          //return false;
+        //}else{
+//         FichaIndicadores.update({'_id':currentDoc._id}, {$set: {ultimaVersion:false}});
+        insertDoc.fechaHoraEfectiva = new Date();
+        insertDoc.ultimaVersion = true;
+        insertDoc.estado = currentDoc.estado;
+        insertDoc.aprobAdminPublicacion = currentDoc.aprobAdminPublicacion;
+        insertDoc.aprobGestorPublicacion = currentDoc.aprobGestorPublicacion;
+        insertDoc.eliminacion = currentDoc.eliminacion;
+        
+        //insertDoc.eliminado = false;
+        
+        FichaIndicadores.update({'_id':currentDoc._id}, {$set: insertDoc});
+       // FichaIndicadores.update({'_id':currentDoc._id}, {$set: {fechaHoraEfectiva: newDate}});
+        
+//         var a = Procesos.findOne({'_id':insertDoc.procesoId});
+//         insertDoc.proceso = a;
+//         a = Fuentes.findOne({'_id':insertDoc.fuenteId});
+//         insertDoc.fuente = a;
+//         insertDoc.ultimaVersion = false;
+//         insertDoc.fechaHoraEfectiva = lastDate;
+//         var fi = _.omit(insertDoc,'_id');
+          //currentDoc.fechaHoraEfectiva = lastDate;
+          currentDoc.ultimaVersion = false;
+        currentDoc.idOriginal = currentDoc._id;
+          var fi = _.omit(currentDoc,'_id');
+         fi = FichaIndicadores.insert(fi);
+        //AsignacionesAtributoNormativoIndicador.update({fichaIndicadorId: currentDoc._id}, {$set:{fichaIndicadorId: fi._id}});
+          this.done();
+          Router.go('/fichaIndicadoresList');
+          return false;
+        //}
+        //return false;
+      },
   },
 
 //////////// FUENTES /////////////////////////////////////////////////////

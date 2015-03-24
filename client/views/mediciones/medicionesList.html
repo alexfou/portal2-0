@@ -6,6 +6,7 @@
       </div>
       {{#each this.segmentosMediciones}}
         {{> tablaDatos idFicha = ../_id segmento=this}}
+        {{> graficaBarras idFicha = ../_id segmento=this anio=2014}}
       {{/each}}
     </div>
   {{/each}}

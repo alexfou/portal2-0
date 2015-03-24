@@ -316,3 +316,64 @@ Template.asignacionesAtributoNormativoIndicadorInsert.events({
 });
 
 
+Template.fichasFormula.helpers({
+  
+  getFichasFormula: function(){
+    var asig = Session.get('newFichasFormula');
+    var cont = 0;
+    return _.map(asig, function(as){ 
+      cont++; 
+      return _.extend(as, {nombreFicha: FichaIndicadores.findOne({'_id':as.fichaIndicadorId}).nombre},
+                      {numIt: cont-1}); });
+    
+  },
+  
+  settings: function(){
+    return {
+   position: "top",
+   limit: 5,
+   rules: [
+     {
+       //token: '@',
+       collection: FichaIndicadores,
+       field: "nombre",
+       template: Template.autoCompleteFichasFormula,
+       callback: function(doc) { 
+         console.log(doc._id + "-" + Router.current().params._id);
+//          AsignacionesAtributoNormativoIndicador.insert({
+//           fichaIndicadorId: Router.current().params._id,
+//           atributoNormativoId: doc._id
+//           });
+         if(Session.get('newFichasFormula') === undefined || Session.get('newFichasFormula') === null){
+           Session.set('newFichasFormula', [{fichaIndicadorId: doc._id}]);  
+         }else{
+           var arr = Session.get('newFichasFormula');
+           arr.push({fichaIndicadorId: doc._id});
+           Session.set('newFichasFormula',arr);
+         }
+         
+         $('#addFichaFormula').val("");
+         },
+       matchAll:true
+     }
+     
+   ]
+  }
+  }
+  
+  
+});
+
+Template.fichasFormula.events({
+  "click .removeFichaFormula" : function(event){
+    var anId = event.currentTarget.id;
+    var arr = Session.get('newFichasFormula'); 
+    arr.splice(anId, 1);
+    Session.set('newFichasFormula', arr); 
+    //var fiId = $(event.currentTarget).attr('for');
+    //var toRemove = _.where(AsignacionesAtributoNormativoIndicador.find({}).fetch(), {fichaIndicadorId: fiId,atributoNormativoId: anId});
+    //AsignacionesAtributoNormativoIndicador.remove(anId);
+    $('#addFichaFormula').val("");
+    //console.log('clicked remove' + );
+  },
+});

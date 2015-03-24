@@ -1,21 +1,23 @@
-<template name="home">
-  
+<template name="resumenTablerosList">
   <div class="row">
     <div class="panel panel-default">
       <div class="panel-heading">
       <div class="row">
         <div class="col-lg-12">
-          <h2>Inicio</h2>
+          <h2>Tableros Institucionales</h2>
         </div>
       </div>
     </div>
       <div class="panel-body">
+        
+         <div class="row">
+    {{#each getTableros}}
+      <div class="col-lg-4">
+        {{> miniTableroPanel this}}
+      </div>
+    {{/each}}
+  </div>
        
-        {{#if isAdminRole}}
-        {{> homeAdmin}}
-        {{else}}
-        {{> homeNoAdmin}}
-        {{/if}}
         
         
         
@@ -24,4 +26,5 @@
       </div>
     </div>
   </div>
+  
 </template>

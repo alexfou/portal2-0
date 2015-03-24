@@ -1,0 +1,23 @@
+<template name="resumenTableroPage">
+  <div class="row">
+    <div class="col-lg-12">          
+      <h1>{{this.nombre}}</h1>
+    </div>
+  </div>
+<!--   {{> dashboardFilters}}
+  {{> dashboardPanels}} -->
+ 
+  {{#each getGrupos this._id}}
+  <div class="row">
+  <div class="col-lg-12">  
+    <h3>{{this.nombre}}</h3>
+  </div>
+  </div>
+    {{#each getFichas this._id}}
+  <div class="col-lg-4">
+    {{> panelFicha this}}
+  </div>
+    {{/each}}
+
+  {{/each}}
+</template>

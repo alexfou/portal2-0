@@ -1,5 +1,5 @@
 
-Template.home.rendered = function(){
+Template.homeAdmin.rendered = function(){
   
   var self = this;
   self.node = self.find("svg");
@@ -542,13 +542,13 @@ var path = svgb.selectAll("path")
     });
     
   
-   // $(".panel").velocity({translateY: [0, 25]}, 500);
+    $(".panel").velocity({translateY: [0, 25]}, 500);
     
    
   }
 }
 
-Template.home.helpers({
+Template.homeAdmin.helpers({
   
   tablerosCursor: function(){
     return Tableros.find();
@@ -581,9 +581,9 @@ Template.home.helpers({
     temp = RolePermissions.find().fetch();
    // console.log('Lenght of Permissions: ' +temp.length);
     
-    var roles = _.findWhere(temp, {routeUrl:Router.current().path, template:r.hash.template, guiElement:r.hash.guiElement});
-    console.log('CURRENT PATH: ' + Router.current().path);
+    //var roles = _.findWhere(temp, {routeUrl:Router.current().path, template:r.hash.template, guiElement:r.hash.guiElement});
     
+    var roles = _.findWhere(temp, {routeUrl:Router.current().location.get().path, template:r.hash.template, guiElement:r.hash.guiElement});
    // console.log('Permitted roles' + roles.permittedRoles);
     
     //var grants = _.values(_.pick(temp,r.hash.guiElement));
@@ -598,7 +598,7 @@ Template.home.helpers({
   }
 });
 
-Template.home.events({
+Template.homeAdmin.events({
    
   'click #fichasBorrador': function(){
     Session.set('busquedaFichaEstado', '(borradores)');

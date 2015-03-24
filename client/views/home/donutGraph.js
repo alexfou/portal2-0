@@ -16,7 +16,7 @@ Template.donutGraph.rendered = function () {
   var drawDonut = function(update){
     var col = dbCursor.fetch();
     
-    console.log(svgName + "VALUES LENGTH COL: " + col.length)
+   // console.log(svgName + "VALUES LENGTH COL: " + col.length)
     var dataset = [{"Sin registros":0}];
       var datasetValues = ["100"];
       var datasetKeys = ["Sin registros"];
@@ -41,7 +41,7 @@ Template.donutGraph.rendered = function () {
         .innerRadius(radius - 35)
         .outerRadius(radius - 10);
     
-    console.log('DATASET VALUES: ' + datasetValues);
+   // console.log('DATASET VALUES: ' + datasetValues);
     var donuts = svgb.selectAll('path').data(pie(datasetValues), function(d){return Math.random();});
    // var numText = svgb.selectAll('text').data([datasetTotal], function(d){return d;});
      var numText = svgb.selectAll('text').data([datasetTotal], function(d){return d;});
@@ -55,7 +55,7 @@ Template.donutGraph.rendered = function () {
 
 //     var path = svgb.selectAll("path")
 //        .data(pie(datasetValues))
-    console.log('VALUE UPDATE IN drawDoughnut: ' + update);
+   // console.log('VALUE UPDATE IN drawDoughnut: ' + update);
     if(!update){
       console.log('IN ADDED!!!!!!!!!!!!!11')
       donuts.enter().append("path")
@@ -145,7 +145,7 @@ Template.donutGraph.rendered = function () {
   }
   }
   
-  console.log(svgName +  ': LENGTH IN dbCursor,col: ' + dbCursor.fetch().length);
+  //console.log(svgName +  ': LENGTH IN dbCursor,col: ' + dbCursor.fetch().length);
   if(dbCursor.fetch().length === 0){
     drawDonut(false);
   }
@@ -155,16 +155,16 @@ Template.donutGraph.rendered = function () {
   
   dbCursor.observe({
       added: function () {  //added is for initialization
-        console.log("-----------------DBCURSOR ADDED");
+        //console.log("-----------------DBCURSOR ADDED");
         drawDonut(false);
       },
       //changed: _.partial(drawCircles, true)
     changed: function() {
-       console.log("-----------------DBCURSOR CHANGED");
+      // console.log("-----------------DBCURSOR CHANGED");
        drawDonut(true);
     },
     removed: function () {
-       console.log("-----------------DBCURSOR REMOVED");
+      // console.log("-----------------DBCURSOR REMOVED");
        drawDonut(true);
     }
     });

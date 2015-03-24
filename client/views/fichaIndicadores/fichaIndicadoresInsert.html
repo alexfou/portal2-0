@@ -36,6 +36,9 @@
          {{> afQuickField name='frecuenciaMedicion' options="allowed" firstOption="Seleccionar una frecuencia de medicion"}}
         {{> afQuickField name='segmentosMediciones' }}
          {{> afQuickField name='observaciones' }}
+        {{> fichasFormula}}
+        {{> afQuickField name='formula' }}
+        {{> afQuickField name='fechaInicioMedicion' }}
                 <br>
         {{> asignacionesAtributoNormativoIndicadorInsert}}<br>
         {{> asignacionesUsuarioIndicadorInsert}}<br><br>
@@ -85,4 +88,14 @@
   {{nombre}}&nbsp;({{nombreTablero}})<br>
   {{/each}}
   <i style="color: #18bc9c" class="fa fa-plus-circle fa-1.5x"></i> {{> inputAutocomplete settings=settings id="addGrupo" class="input-xlarge" placeholder="agregar grupo en tablero..."}}   <i style="color: #18bc9c" class="fa fa-plus-circle fa-1.5x"></i> 
+</template>
+
+<template name="fichasFormula">
+  <label class="control-label" for="unidadMedicionId">Fichas para la formula</label>
+  <br>
+  {{#each getFichasFormula}}
+   <i style="color: #e74c3c" id={{numIt}} class="fa fa-times-circle-o fa-1.5x removeFichaFormula"></i> 
+  {{nombreFicha}} (usar símbolo f[{{numIt}}] en la fórmula)<br>
+  {{/each}}
+  <i style="color: #18bc9c" class="fa fa-plus-circle fa-1.5x"></i> {{> inputAutocomplete settings=settings id="addFichaFormula" class="input-xlarge" placeholder="Agregar ficha para fórmula..."}}<br>
 </template>
